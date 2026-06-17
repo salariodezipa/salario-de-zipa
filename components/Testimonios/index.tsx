@@ -38,7 +38,7 @@ export default function Testimonios() {
                   <span key={i}>★</span>
                 ))}
               </div>
-              <p className="testimonio-texto">"{testimonio.texto}"</p>
+              <p className="testimonio-texto">&ldquo;{testimonio.texto}&rdquo;</p>
               <div className="testimonio-autor">
                 <div className="testimonio-avatar">
                   {testimonio.nombre.charAt(0)}

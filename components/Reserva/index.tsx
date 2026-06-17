@@ -75,8 +75,8 @@ export default function Reserva() {
                 <span className="review-source">Google Reviews</span>
               </div>
               <p className="review-text">
-                "Una experiencia inolvidable. La atmósfera es única y la comida excepcional.
-                Definitivamente el mejor restaurante de Zipaquirá."
+                &ldquo;Una experiencia inolvidable. La atmósfera es única y la comida excepcional.
+                Definitivamente el mejor restaurante de Zipaquirá.&rdquo;
               </p>
             </div>
           </div>
