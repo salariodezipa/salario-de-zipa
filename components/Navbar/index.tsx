@@ -45,7 +45,7 @@ export default function Navbar() {
             <li><Link href="/#contacto">CONTACTO</Link></li>
           </ul>
 
-          <Link href="#reserva" className="navbar-cta">RESERVAR EXPERIENCIA</Link>
+          <Link href="#reserva" className="navbar-cta">NUEVA EXPERIENCIA</Link>
 
           <button
             className="mobile-menu-btn"

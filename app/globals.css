@@ -62,7 +62,13 @@ button {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 24px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 40px;
+  }
 }
 
 .eyebrow {
@@ -307,6 +313,10 @@ button {
   color: var(--dark);
   font-weight: 600;
   transition: all 0.3s var(--ease-elegant);
+  cursor: pointer;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .navbar-cta:hover {
@@ -318,6 +328,11 @@ button {
   flex-direction: column;
   gap: 6px;
   padding: 8px;
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
+  align-items: center;
 }
 
 .mobile-menu-btn span {
@@ -351,6 +366,12 @@ button {
   right: 24px;
   font-size: 1.5rem;
   color: var(--white);
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mobile-drawer-links {
@@ -392,6 +413,20 @@ button {
   }
   .mobile-menu-btn {
     display: flex;
+  }
+  .navbar {
+    padding: 16px 0;
+  }
+  .navbar-logo-img-wrap {
+    width: 110px;
+    height: 42px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-logo-img-wrap {
+    width: 100px;
+    height: 38px;
   }
 }
 
@@ -490,6 +525,7 @@ button {
   gap: 10px;
   border: none;
   cursor: pointer;
+  min-height: 44px;
 }
 
 .btn-primary:hover {
@@ -511,6 +547,7 @@ button {
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  min-height: 44px;
 }
 
 .btn-secondary:hover {
@@ -531,6 +568,7 @@ button {
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  min-height: 44px;
 }
 
 .btn-dark:hover {
@@ -552,6 +590,7 @@ button {
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  min-height: 44px;
 }
 
 .btn-outline-gold:hover {
@@ -566,6 +605,33 @@ button {
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 0 24px;
+    max-width: 100%;
+  }
+
+  .hero-title {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    justify-content: center;
+    max-width: 300px;
+  }
+
+  .scroll-indicator {
+    display: none;
   }
 }
 
@@ -622,6 +688,7 @@ button {
   text-align: center;
   padding: 20px;
   border-right: 1px solid var(--cream-dark);
+  cursor: pointer;
 }
 
 .stat-item:last-child {
@@ -665,10 +732,19 @@ button {
 @media (max-width: 768px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 0;
   }
-  .stat-item:nth-child(2),
-  .stat-item:nth-child(4) {
+  .stat-item {
+    border-right: 1px solid var(--cream-dark);
+    border-bottom: 1px solid var(--cream-dark);
+    padding: 24px 16px;
+  }
+  .stat-item:nth-child(2n) {
     border-right: none;
+  }
+  .stat-item:nth-child(5) {
+    grid-column: 1 / -1;
+    border-bottom: none;
   }
 }
 
@@ -727,6 +803,7 @@ button {
   align-items: center;
   gap: 12px;
   transition: gap 0.3s var(--ease-elegant);
+  cursor: pointer;
 }
 
 .gastronomia-link:hover {
@@ -742,6 +819,15 @@ button {
   }
   .gastronomia-content {
     padding: 60px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gastronomia-content {
+    padding: 48px 24px;
+  }
+  .gastronomia-title {
+    font-size: 1.8rem;
   }
 }
 
@@ -840,6 +926,7 @@ button {
   border: 1px solid var(--gold);
   padding: 12px 24px;
   transition: all 0.3s var(--ease-elegant);
+  cursor: pointer;
 }
 
 .card-link:hover {
@@ -851,7 +938,13 @@ button {
     grid-template-columns: 1fr;
   }
   .historia-card, .espacios-card {
-    min-height: 400px;
+    min-height: 380px;
+  }
+  .card-content {
+    padding: 32px 24px;
+  }
+  .card-title {
+    font-size: 1.6rem;
   }
 }
 
@@ -905,6 +998,7 @@ button {
   position: relative;
   overflow: hidden;
   border-radius: 0;
+  cursor: pointer;
 }
 
 .evento-card-image {
@@ -955,6 +1049,7 @@ button {
   border-radius: 50%;
   border: 1px solid var(--text-dark);
   background: transparent;
+  cursor: pointer;
 }
 
 .carousel-dot.active {
@@ -969,6 +1064,12 @@ button {
   .eventos-content {
     padding-right: 0;
     text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .eventos {
+    padding: 60px 0;
   }
 }
 
@@ -1011,6 +1112,7 @@ button {
 
 .lugar-item {
   text-align: center;
+  cursor: pointer;
 }
 
 .lugar-image {
@@ -1053,6 +1155,19 @@ button {
   }
 }
 
+@media (max-width: 768px) {
+  .visita {
+    padding: 60px 0;
+  }
+  .visita-content {
+    padding-right: 0;
+  }
+  .visita-lugares {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
 /* ==================== TESTIMONIOS ==================== */
 .testimonios {
   background: var(--dark);
@@ -1088,6 +1203,7 @@ button {
   padding: 32px;
   border: 1px solid rgba(200, 169, 110, 0.08);
   transition: border-color 0.3s var(--ease-elegant), transform 0.3s var(--ease-elegant);
+  cursor: pointer;
 }
 
 .testimonio-card:hover {
@@ -1146,6 +1262,15 @@ button {
   .testimonios-grid {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonios {
+    padding: 60px 0;
+  }
+  .testimonios-grid {
+    gap: 16px;
   }
 }
 
@@ -1301,6 +1426,12 @@ button {
   .reserva-grid {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .reserva {
+    padding: 60px 0;
   }
 }
 
@@ -1531,8 +1662,12 @@ button {
 }
 
 @media (max-width: 768px) {
+  .footer {
+    padding: 60px 0 40px;
+  }
   .footer-grid {
     grid-template-columns: 1fr;
+    gap: 40px;
   }
   .footer-bottom {
     flex-direction: column;
@@ -1544,7 +1679,7 @@ button {
 /* ==================== SCROLL REVEAL ==================== */
 .reveal, .reveal-left, .reveal-right, .reveal-scale {
   opacity: 0;
-  transition: all 0.6s var(--ease-elegant);
+  transition: opacity 0.6s var(--ease-elegant), transform 0.6s var(--ease-elegant);
 }
 
 .reveal {
