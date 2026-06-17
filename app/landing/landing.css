@@ -1554,21 +1554,20 @@
     grid-template-columns: 1fr;
   }
 
-  .landing-plate-1 {
-    width: 100px;
-    height: 100px;
-    margin-right: -14px;
+  .landing-hero-plates {
+    justify-content: center;
+    gap: 14px;
+    padding-left: 0;
+    margin-bottom: 20px;
   }
 
-  .landing-plate-2 {
-    width: 116px;
-    height: 116px;
-  }
-
+  .landing-plate-1,
+  .landing-plate-2,
   .landing-plate-3 {
-    width: 100px;
-    height: 100px;
-    margin-left: -14px;
+    width: 88px;
+    height: 88px;
+    margin-right: 0;
+    margin-left: 0;
   }
 
   .landing-whatsapp-fab {
