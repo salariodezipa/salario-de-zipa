@@ -145,6 +145,31 @@
   color: var(--ls-accent);
 }
 
+/* Navbar CTA — bright contrasting button */
+.landing-btn-nav-cta {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  padding: 12px 24px;
+  background: var(--ls-accent);
+  border: 1px solid var(--ls-accent);
+  color: rgb(20, 20, 20);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
+  white-space: nowrap;
+}
+
+.landing-btn-nav-cta:hover {
+  background: #fff;
+  border-color: #fff;
+  color: rgb(20, 20, 20);
+}
+
 /* ============================================================
    HERO
    ============================================================ */
@@ -286,7 +311,7 @@
 }
 
 /* ============================================================
-   FLOATING PLATES — circular + continuous spin
+   FLOATING PLATES — circular + continuous spin (in left panel)
    ============================================================ */
 @keyframes spinPlate {
   from { transform: rotate(0deg); }
@@ -298,34 +323,43 @@
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Each plate outer: position + fade in */
+/* Container for plates inside hero-left */
+.landing-hero-plates {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+/* Each plate outer: positioned within .landing-hero-plates */
 .landing-plate-wrap {
   position: absolute;
   z-index: 10;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
 }
 
 .landing-plate-1 {
-  width: 200px;
-  height: 200px;
-  top: 10%;
-  right: -20px;
+  width: 180px;
+  height: 180px;
+  bottom: 0;
+  left: 0;
   animation: plateIn 0.8s var(--ease-elegant) 0.5s both;
 }
 
 .landing-plate-2 {
-  width: 230px;
-  height: 230px;
-  top: 38%;
-  right: 80px;
+  width: 210px;
+  height: 210px;
+  top: 0;
+  left: calc(50% - 105px);
   animation: plateIn 0.8s var(--ease-elegant) 0.7s both;
 }
 
 .landing-plate-3 {
-  width: 190px;
-  height: 190px;
-  bottom: 10%;
-  right: 30px;
+  width: 170px;
+  height: 170px;
+  bottom: 20px;
+  right: 0;
   animation: plateIn 0.8s var(--ease-elegant) 0.9s both;
 }
 
@@ -548,6 +582,13 @@
   transform: translateX(0);
 }
 
+/* Menu CTA button wrap */
+.landing-menu-cta-wrap {
+  padding: 40px 0 60px;
+  border-top: 1px solid var(--ls-border);
+  margin-top: 8px;
+}
+
 /* Right: sticky photo panel — 45% */
 .landing-menu-photo-panel {
   width: 45%;
@@ -570,26 +611,22 @@
 }
 
 /* ============================================================
-   AMBIENCE SECTION — Scroll-linked horizontal carousel
+   AMBIENCE SECTION — Auto-scroll image ticker
    ============================================================ */
 .landing-ambience-section {
-  position: relative;
   background-color: var(--ls-dark);
-}
-
-.landing-ambience-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  padding: 100px 0 80px;
+  border-top: 1px solid var(--ls-border);
   overflow: hidden;
 }
 
-.landing-ambience-title-wrap {
-  position: absolute;
-  bottom: 60px;
-  left: 80px;
-  z-index: 10;
-  pointer-events: none;
+.landing-ambience-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 80px;
+  margin-bottom: 60px;
+  gap: 40px;
 }
 
 .landing-ambience-eyebrow {
@@ -603,27 +640,46 @@
 .landing-ambience-title {
   font-family: 'Fraunces', serif;
   font-style: italic;
-  font-size: clamp(32px, 3vw, 52px);
+  font-size: clamp(28px, 3vw, 48px);
   font-weight: 400;
   line-height: 1.1;
   color: #fff;
   max-width: 480px;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
 }
 
-/* Horizontal strip of images */
-.landing-ambience-strip {
-  display: flex;
-  height: 100vh;
-  will-change: transform;
-}
-
-.landing-ambience-strip-img {
-  width: 42vw;
+.landing-ambience-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--ls-dim);
+  max-width: 380px;
   flex-shrink: 0;
-  height: 100vh;
+}
+
+.landing-ambience-ticker-wrap {
+  overflow: hidden;
+}
+
+.landing-ambience-ticker {
+  display: flex;
+  width: max-content;
+  gap: 12px;
+  animation: slideImages 35s linear infinite;
+}
+
+.landing-ambience-ticker-img {
+  width: 280px;
+  height: 220px;
+  flex-shrink: 0;
   position: relative;
   overflow: hidden;
+  border-radius: 4px;
+}
+
+@keyframes slideImages {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 /* ============================================================
@@ -915,26 +971,33 @@
   color: #fff;
 }
 
-.landing-staff-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+.landing-staff-carousel-wrap {
+  overflow: hidden;
 }
 
-.landing-staff-card {
+.landing-staff-carousel {
+  display: flex;
+  width: max-content;
+  gap: 16px;
+  animation: slideImages 40s linear infinite reverse;
+}
+
+.landing-staff-carousel-card {
+  width: 220px;
+  height: 290px;
+  flex-shrink: 0;
   position: relative;
-  height: 300px;
   overflow: hidden;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.landing-staff-card img {
+.landing-staff-carousel-card img {
   transition: transform 0.5s var(--ease-elegant);
   will-change: transform;
 }
 
-.landing-staff-card:hover img {
+.landing-staff-carousel-card:hover img {
   transform: scale(1.06);
 }
 
@@ -946,7 +1009,7 @@
   transition: background 0.4s;
 }
 
-.landing-staff-card:hover .landing-staff-card-overlay {
+.landing-staff-carousel-card:hover .landing-staff-card-overlay {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.1) 60%);
 }
 
@@ -1090,6 +1153,33 @@
 }
 
 /* ============================================================
+   FLOATING WHATSAPP FAB
+   ============================================================ */
+.landing-whatsapp-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 200;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s var(--ease-elegant), box-shadow 0.25s;
+}
+
+.landing-whatsapp-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 .landing-footer {
@@ -1206,12 +1296,6 @@
 /* ============================================================
    RESPONSIVE
    ============================================================ */
-@media (max-width: 1200px) {
-  .landing-staff-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 @media (max-width: 1024px) {
   .landing-hero-left {
     padding: 100px 40px 80px 40px;
@@ -1252,8 +1336,10 @@
     grid-template-columns: 1fr;
   }
 
-  .landing-staff-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .landing-ambience-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 40px;
   }
 }
 
@@ -1281,16 +1367,17 @@
   }
 
   .landing-ambience-section {
-    /* Keep horizontal scroll but adapt */
+    padding: 60px 0;
   }
 
-  .landing-ambience-strip-img {
-    width: 80vw;
+  .landing-ambience-header {
+    padding: 0 24px;
+    margin-bottom: 40px;
   }
 
-  .landing-ambience-title-wrap {
-    left: 24px;
-    bottom: 40px;
+  .landing-ambience-ticker-img {
+    width: 200px;
+    height: 160px;
   }
 
   .landing-momentos-grid {
@@ -1320,11 +1407,7 @@
   }
 
   .landing-staff-section {
-    padding: 80px 24px;
-  }
-
-  .landing-staff-grid {
-    grid-template-columns: repeat(2, 1fr);
+    padding: 80px 0;
   }
 
   .landing-momentos-section {
@@ -1345,14 +1428,30 @@
     grid-template-columns: 1fr;
   }
 
-  .landing-staff-grid {
-    grid-template-columns: 1fr;
+  .landing-hero-plates {
+    height: 200px;
   }
 
-  .landing-plate-1,
-  .landing-plate-2,
+  .landing-plate-1 {
+    width: 130px;
+    height: 130px;
+  }
+
+  .landing-plate-2 {
+    width: 150px;
+    height: 150px;
+  }
+
   .landing-plate-3 {
-    display: none;
+    width: 120px;
+    height: 120px;
+  }
+
+  .landing-whatsapp-fab {
+    bottom: 20px;
+    right: 20px;
+    width: 52px;
+    height: 52px;
   }
 }
 
@@ -1392,10 +1491,18 @@
     animation: none;
   }
 
+  .landing-ambience-ticker {
+    animation: none;
+  }
+
+  .landing-staff-carousel {
+    animation: none;
+  }
+
   .landing-card-img,
-  .landing-ambience-strip-img img,
+  .landing-ambience-ticker-img img,
   .landing-momento-card img,
-  .landing-staff-card img {
+  .landing-staff-carousel-card img {
     transition: none;
   }
 }

@@ -114,8 +114,6 @@ function StatCounter({ target, suffix = '', label }: StatCounterProps) {
 export default function LandingPage() {
   const navRef = useRef<HTMLElement>(null)
   const historiaImgRef = useRef<HTMLDivElement>(null)
-  const ambienceSectionRef = useRef<HTMLElement>(null)
-  const ambienceStripRef = useRef<HTMLDivElement>(null)
 
   // Scroll reveal refs
   const revealRefs = useRef<(HTMLElement | null)[]>([])
@@ -148,36 +146,11 @@ export default function LandingPage() {
         }
       }
 
-      // Ambience horizontal carousel
-      if (ambienceSectionRef.current && ambienceStripRef.current) {
-        const section = ambienceSectionRef.current
-        const strip = ambienceStripRef.current
-        const sectionTop = section.offsetTop
-        const stripWidth = strip.scrollWidth
-        const viewportWidth = window.innerWidth
-        const extra = stripWidth - viewportWidth
-        if (extra > 0) {
-          const progress = Math.max(0, Math.min(1, (scrollY - sectionTop) / extra))
-          strip.style.transform = `translateX(${-progress * extra}px)`
-        }
-      }
     }
 
-    // Set ambience section height dynamically
-    const setAmbienceHeight = () => {
-      if (ambienceSectionRef.current && ambienceStripRef.current) {
-        const stripWidth = ambienceStripRef.current.scrollWidth
-        const viewportWidth = window.innerWidth
-        ambienceSectionRef.current.style.height = `${window.innerHeight + (stripWidth - viewportWidth)}px`
-      }
-    }
-
-    setAmbienceHeight()
-    window.addEventListener('resize', setAmbienceHeight)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', setAmbienceHeight)
     }
   }, [])
 
@@ -251,6 +224,10 @@ export default function LandingPage() {
     { src: '/Instalaciones/DSC_0668-Mejorado-NR-21.jpg', alt: 'Instalaciones Salario' },
     { src: '/Instalaciones/SALARIO-134.jpg', alt: 'Espacios Salario' },
     { src: '/Instalaciones/SALARIO-136.jpg', alt: 'Detalles Salario' },
+    { src: '/Instalaciones/DSC_0663-Mejorado-NR-20.jpg', alt: 'Exterior Salario de Zipa' },
+    { src: '/Instalaciones/_MG_2098.jpg', alt: 'Instalaciones Salario de Zipa' },
+    { src: '/Instalaciones/SALARIO-51.jpg', alt: 'Fachada Salario de Zipa' },
+    { src: '/Instalaciones/DSC_0700-Mejorado-NR-34.jpg', alt: 'Interior Salario de Zipa' },
   ]
 
   const staffImages = [
@@ -330,7 +307,7 @@ export default function LandingPage() {
           <li><a href="#contacto">CONTACTO</a></li>
         </ul>
 
-        <a href="#reservar" className="landing-btn-glass">RESERVAR MESA</a>
+        <a href="#reservar" className="landing-btn-nav-cta">RESERVAR MESA</a>
       </nav>
 
       {/* ============================================================
@@ -339,6 +316,25 @@ export default function LandingPage() {
       <section className="landing-hero" id="inicio">
         {/* Left */}
         <div className="landing-hero-left">
+          {/* Circular spinning plates — in left panel */}
+          <div className="landing-hero-plates">
+            <div className="landing-plate-wrap landing-plate-1">
+              <div className="landing-plate-inner">
+                <Image src="/Menu/_MG_1355.jpg" alt="Plato Salario" fill sizes="180px" style={{ objectFit: 'cover' }} />
+              </div>
+            </div>
+            <div className="landing-plate-wrap landing-plate-2">
+              <div className="landing-plate-inner">
+                <Image src="/Menu/DSC_0786-Mejorado-NR-2-min.jpg" alt="Plato Salario" fill sizes="210px" style={{ objectFit: 'cover' }} />
+              </div>
+            </div>
+            <div className="landing-plate-wrap landing-plate-3">
+              <div className="landing-plate-inner">
+                <Image src="/Menu/DSC_0811-Mejorado-NR-4-min.jpg" alt="Plato Salario" fill sizes="170px" style={{ objectFit: 'cover' }} />
+              </div>
+            </div>
+          </div>
+
           <span className="landing-hero-eyebrow">ZIPAQUIRÁ · COLOMBIA · DESDE 1939</span>
 
           <WordBlur
@@ -377,42 +373,6 @@ export default function LandingPage() {
             />
           </div>
 
-          {/* Floating plates — circular + continuous spin, no JS rotation */}
-          <div className="landing-plate-wrap landing-plate-1">
-            <div className="landing-plate-inner">
-              <Image
-                src="/Menu/_MG_1355.jpg"
-                alt="Plato Salario"
-                fill
-                sizes="200px"
-                style={{ objectFit: 'cover' }}
-              />
-            </div>
-          </div>
-
-          <div className="landing-plate-wrap landing-plate-2">
-            <div className="landing-plate-inner">
-              <Image
-                src="/Menu/DSC_0786-Mejorado-NR-2-min.jpg"
-                alt="Plato Salario"
-                fill
-                sizes="230px"
-                style={{ objectFit: 'cover' }}
-              />
-            </div>
-          </div>
-
-          <div className="landing-plate-wrap landing-plate-3">
-            <div className="landing-plate-inner">
-              <Image
-                src="/Menu/DSC_0811-Mejorado-NR-4-min.jpg"
-                alt="Plato Salario"
-                fill
-                sizes="190px"
-                style={{ objectFit: 'cover' }}
-              />
-            </div>
-          </div>
         </div>
       </section>
 
@@ -441,21 +401,22 @@ export default function LandingPage() {
           />
         </div>
 
-        {/* Two-column layout */}
+        {/* Two-column layout — featured items only */}
         <div className="landing-menu-body-layout">
           {/* Left: item list */}
           <div className="landing-menu-list">
-            {menuItems.map((item, i) => {
+            {[0, 3, 5, 6, 9, 14, 17, 19].map((idx, listPos) => {
+              const item = menuItems[idx]
               const showCategory = !renderedCategories.has(item.category)
               if (showCategory) renderedCategories.add(item.category)
               return (
-                <div key={i}>
+                <div key={idx}>
                   {showCategory && (
                     <div className="landing-menu-category-label">{item.category}</div>
                   )}
                   <div
-                    className={`landing-menu-row${hoveredMenu === i ? ' active' : ''}`}
-                    onMouseEnter={() => setHoveredMenu(i)}
+                    className={`landing-menu-row${hoveredMenu === listPos ? ' active' : ''}`}
+                    onMouseEnter={() => setHoveredMenu(listPos)}
                   >
                     <span className="landing-menu-row-num">{item.num}</span>
                     <div className="landing-menu-row-info">
@@ -468,18 +429,21 @@ export default function LandingPage() {
                 </div>
               )
             })}
+            <div className="landing-menu-cta-wrap">
+              <a href="/menu" className="landing-btn-glass">VER MENÚ COMPLETO →</a>
+            </div>
           </div>
 
           {/* Right: sticky photo panel */}
           <div className="landing-menu-photo-panel">
-            {menuItems.map((item, i) => (
+            {[0, 3, 5, 6, 9, 14, 17, 19].map((idx, listPos) => (
               <div
-                key={i}
-                className={`landing-menu-photo${hoveredMenu === i ? ' visible' : ''}`}
+                key={idx}
+                className={`landing-menu-photo${hoveredMenu === listPos ? ' visible' : ''}`}
               >
                 <Image
-                  src={item.image}
-                  alt={item.name}
+                  src={menuItems[idx].image}
+                  alt={menuItems[idx].name}
                   fill
                   sizes="(max-width: 768px) 100vw, 45vw"
                   style={{ objectFit: 'cover' }}
@@ -491,15 +455,11 @@ export default function LandingPage() {
       </section>
 
       {/* ============================================================
-          AMBIENCE — Scroll-linked horizontal carousel
+          AMBIENCE — Auto-scroll image ticker
           ============================================================ */}
-      <section
-        className="landing-ambience-section"
-        ref={ambienceSectionRef as React.RefObject<HTMLElement>}
-      >
-        <div className="landing-ambience-sticky">
-          {/* Title overlay bottom-left */}
-          <div className="landing-ambience-title-wrap">
+      <section className="landing-ambience-section">
+        <div className="landing-ambience-header">
+          <div>
             <p className="landing-ambience-eyebrow">INSTALACIONES</p>
             <WordBlur
               text="Un espacio diseñado para celebrar"
@@ -507,16 +467,21 @@ export default function LandingPage() {
               className="landing-ambience-title"
             />
           </div>
+          <p className="landing-ambience-desc">
+            Cada rincón de Salario de Zipa fue pensado para crear momentos únicos.
+            Salones privados, terrazas y espacios abiertos llenos de historia y luz natural.
+          </p>
+        </div>
 
-          {/* Horizontal image strip */}
-          <div className="landing-ambience-strip" ref={ambienceStripRef}>
-            {ambienceImages.map((img, i) => (
-              <div key={i} className="landing-ambience-strip-img">
+        <div className="landing-ambience-ticker-wrap">
+          <div className="landing-ambience-ticker">
+            {[...ambienceImages, ...ambienceImages].map((img, i) => (
+              <div key={i} className="landing-ambience-ticker-img">
                 <Image
                   src={img.src}
                   alt={img.alt}
                   fill
-                  sizes="42vw"
+                  sizes="300px"
                   style={{ objectFit: 'cover' }}
                 />
               </div>
@@ -632,19 +597,21 @@ export default function LandingPage() {
           />
         </div>
 
-        <div className="landing-staff-grid">
-          {staffImages.map((src, i) => (
-            <div key={i} className="landing-staff-card ls-reveal" ref={addRevealRef}>
-              <Image
-                src={src}
-                alt={`Miembro del equipo Salario ${i + 1}`}
-                fill
-                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 25vw"
-                style={{ objectFit: 'cover' }}
-              />
-              <div className="landing-staff-card-overlay" />
-            </div>
-          ))}
+        <div className="landing-staff-carousel-wrap">
+          <div className="landing-staff-carousel">
+            {[...staffImages, ...staffImages].map((src, i) => (
+              <div key={i} className="landing-staff-carousel-card">
+                <Image
+                  src={src}
+                  alt={`Miembro del equipo Salario ${(i % staffImages.length) + 1}`}
+                  fill
+                  sizes="240px"
+                  style={{ objectFit: 'cover' }}
+                />
+                <div className="landing-staff-card-overlay" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -763,6 +730,21 @@ export default function LandingPage() {
           </ul>
         </div>
       </footer>
+
+      {/* ============================================================
+          FLOATING WHATSAPP FAB
+          ============================================================ */}
+      <a
+        href="https://wa.me/573158927463?text=Hola%2C%20me%20gustar%C3%ADa%20reservar%20una%20mesa%20en%20Salario%20de%20Zipa"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="landing-whatsapp-fab"
+        aria-label="Chatea con nosotros en WhatsApp"
+      >
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+      </a>
 
     </div>
   )
