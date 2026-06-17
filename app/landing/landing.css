@@ -659,6 +659,29 @@
 
 .landing-ambience-ticker-wrap {
   overflow: hidden;
+  position: relative;
+}
+
+/* Side shadow vignettes */
+.landing-ambience-ticker-wrap::before,
+.landing-ambience-ticker-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 140px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.landing-ambience-ticker-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, rgb(20, 20, 20) 0%, transparent 100%);
+}
+
+.landing-ambience-ticker-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, rgb(20, 20, 20) 0%, transparent 100%);
 }
 
 .landing-ambience-ticker {
@@ -847,24 +870,56 @@
 }
 
 /* ============================================================
-   TESTIMONIOS SECTION
+   TESTIMONIOS SECTION — Savoria card style
    ============================================================ */
 .landing-testimonios-section {
-  background-color: #F2EAD8;
+  background-color: var(--ls-dark);
   padding: 100px 80px;
+  border-top: 1px solid var(--ls-border);
 }
 
 .landing-testimonios-header {
-  text-align: center;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 60px;
   margin-bottom: 60px;
 }
 
-.landing-testimonios-title {
+.landing-testimonios-header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.landing-testimonios-line {
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--ls-accent);
+  margin-top: 14px;
+  flex-shrink: 0;
+}
+
+.landing-testimonios-heading {
   font-family: 'Fraunces', serif;
   font-style: italic;
-  font-size: clamp(28px, 3vw, 48px);
+  font-size: clamp(22px, 2.5vw, 36px);
   font-weight: 400;
-  color: var(--ls-dark);
+  color: #fff;
+  line-height: 1.2;
+  max-width: 340px;
+}
+
+.landing-testimonios-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--ls-dim);
+  max-width: 380px;
+  padding-top: 4px;
 }
 
 .landing-testimonios-grid {
@@ -873,41 +928,33 @@
   gap: 20px;
 }
 
+/* Card */
 .landing-testimonio-card {
-  background: rgba(44, 44, 44, 0.7);
+  background: rgb(26, 24, 22);
   border: 1px solid var(--ls-border);
   border-radius: 6px;
-  padding: 36px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 0;
+  transition: border-color 0.3s;
 }
 
-.landing-testimonio-stars {
-  color: var(--ls-accent);
-  font-size: 1rem;
-  letter-spacing: 2px;
+.landing-testimonio-card:hover {
+  border-color: rgba(230, 194, 161, 0.35);
 }
 
-.landing-testimonio-quote {
-  font-family: 'Fraunces', serif;
-  font-style: italic;
-  font-size: 1.05rem;
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--ls-muted);
-  flex: 1;
-}
-
-.landing-testimonio-author {
+/* Author row at top */
+.landing-testimonio-author-top {
   display: flex;
   align-items: center;
   gap: 14px;
+  padding: 20px 24px;
 }
 
 .landing-testimonio-avatar {
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   background: var(--ls-accent);
   display: flex;
@@ -929,16 +976,65 @@
 
 .landing-testimonio-name {
   font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 500;
   color: #fff;
 }
 
-.landing-testimonio-location {
+.landing-testimonio-role {
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   font-weight: 300;
   color: var(--ls-dim);
+}
+
+/* Food photo */
+.landing-testimonio-img {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.landing-testimonio-img img {
+  transition: transform 0.5s var(--ease-elegant);
+  will-change: transform;
+}
+
+.landing-testimonio-card:hover .landing-testimonio-img img {
+  transform: scale(1.05);
+}
+
+/* Stars */
+.landing-testimonio-stars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--ls-accent);
+  padding: 20px 24px 10px;
+}
+
+/* Bold title */
+.landing-testimonio-title {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: clamp(18px, 1.5vw, 24px);
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.25;
+  padding: 0 24px 14px;
+}
+
+/* Quote */
+.landing-testimonio-quote {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--ls-dim);
+  padding: 0 24px 24px;
+  flex: 1;
 }
 
 /* ============================================================
@@ -973,6 +1069,29 @@
 
 .landing-staff-carousel-wrap {
   overflow: hidden;
+  position: relative;
+}
+
+/* Side shadow vignettes */
+.landing-staff-carousel-wrap::before,
+.landing-staff-carousel-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 140px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.landing-staff-carousel-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, rgb(20, 16, 12) 0%, transparent 100%);
+}
+
+.landing-staff-carousel-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, rgb(20, 16, 12) 0%, transparent 100%);
 }
 
 .landing-staff-carousel {
@@ -1333,7 +1452,12 @@
   }
 
   .landing-testimonios-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .landing-testimonios-header {
+    flex-direction: column;
+    gap: 20px;
   }
 
   .landing-ambience-header {
@@ -1416,6 +1540,22 @@
 
   .landing-testimonios-section {
     padding: 80px 24px;
+  }
+
+  .landing-testimonios-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .landing-testimonios-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-ambience-ticker-wrap::before,
+  .landing-ambience-ticker-wrap::after,
+  .landing-staff-carousel-wrap::before,
+  .landing-staff-carousel-wrap::after {
+    width: 60px;
   }
 }
 

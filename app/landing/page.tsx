@@ -259,23 +259,26 @@ export default function LandingPage() {
     {
       initial: 'M',
       name: 'Mariana G.',
-      location: 'Bogotá, Colombia',
-      quote:
-        '"El lugar más mágico para celebrar. La atmósfera es única, la comida increíble y el personal hace que cada detalle sea perfecto."',
+      role: 'Bogotá, Colombia',
+      title: 'Una experiencia que despierta los sentidos',
+      quote: 'El lugar más mágico para celebrar. La atmósfera es única, la comida increíble y el personal hace que cada detalle sea perfecto.',
+      image: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg',
     },
     {
       initial: 'C',
       name: 'Carlos R.',
-      location: 'Medellín, Colombia',
-      quote:
-        '"Celebramos nuestro aniversario aquí y fue una experiencia que nunca olvidaremos. El horno de sal es simplemente espectacular."',
+      role: 'Medellín, Colombia',
+      title: 'Gastronomía auténtica y sin igual',
+      quote: 'Celebramos nuestro aniversario aquí y fue una experiencia que nunca olvidaremos. El horno de sal es simplemente espectacular.',
+      image: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg',
     },
     {
       initial: 'A',
       name: 'Ana María P.',
-      location: 'Cali, Colombia',
-      quote:
-        '"Organizamos la boda de nuestra hija en Salario y todo fue perfecto. Espacios hermosos, gastronomía excepcional y atención impecable."',
+      role: 'Cali, Colombia',
+      title: 'El escenario perfecto para celebrar',
+      quote: 'Organizamos la boda de nuestra hija en Salario y todo fue perfecto. Espacios hermosos, gastronomía excepcional y atención impecable.',
+      image: '/Menu/_MG_1420.jpg',
     },
   ]
 
@@ -560,25 +563,49 @@ export default function LandingPage() {
           ============================================================ */}
       <section className="landing-testimonios-section">
         <div className="landing-testimonios-header ls-reveal" ref={addRevealRef}>
-          <WordBlur
-            text="Lo que dicen nuestros invitados"
-            tag="h2"
-            className="landing-testimonios-title"
-          />
+          <div className="landing-testimonios-header-left">
+            <span className="landing-testimonios-line" />
+            <h2 className="landing-testimonios-heading">Lo que dicen nuestros invitados</h2>
+          </div>
+          <p className="landing-testimonios-subtitle">
+            Cada visita a Salario de Zipa se convierte en un recuerdo imborrable.
+            Experiencias que hablan por sí solas.
+          </p>
         </div>
 
         <div className="landing-testimonios-grid">
           {testimonios.map((t, i) => (
             <div key={i} className="landing-testimonio-card ls-reveal" ref={addRevealRef}>
-              <div className="landing-testimonio-stars">★★★★★</div>
-              <p className="landing-testimonio-quote">{t.quote}</p>
-              <div className="landing-testimonio-author">
+              {/* Author top */}
+              <div className="landing-testimonio-author-top">
                 <div className="landing-testimonio-avatar">{t.initial}</div>
                 <div className="landing-testimonio-info">
                   <span className="landing-testimonio-name">{t.name}</span>
-                  <span className="landing-testimonio-location">{t.location}</span>
+                  <span className="landing-testimonio-role">{t.role}</span>
                 </div>
               </div>
+              {/* Food photo */}
+              <div className="landing-testimonio-img">
+                <Image
+                  src={t.image}
+                  alt={t.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+              {/* Stars */}
+              <div className="landing-testimonio-stars">
+                {[...Array(5)].map((_, s) => (
+                  <svg key={s} width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                ))}
+              </div>
+              {/* Bold title */}
+              <h3 className="landing-testimonio-title">{t.title}</h3>
+              {/* Quote */}
+              <p className="landing-testimonio-quote">{t.quote}</p>
             </div>
           ))}
         </div>
