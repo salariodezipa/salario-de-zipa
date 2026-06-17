@@ -238,11 +238,34 @@
   overflow: hidden;
 }
 
+/* Left-fade blend on hero right */
+.landing-hero-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 100%;
+  background: linear-gradient(to right, rgb(20, 20, 20) 0%, transparent 100%);
+  z-index: 5;
+  pointer-events: none;
+}
+
 .landing-hero-main-img {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+/* Bottom gradient on hero main image */
+.landing-hero-main-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(20, 20, 20) 0%, transparent 50%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .landing-hero-main-img img {
@@ -262,71 +285,70 @@
   }
 }
 
-/* FLOATING PLATES */
+/* ============================================================
+   FLOATING PLATES — circular + continuous spin
+   ============================================================ */
+@keyframes spinPlate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes plateIn {
+  from { opacity: 0; transform: scale(0.75); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Each plate outer: position + fade in */
 .landing-plate-wrap {
   position: absolute;
   z-index: 10;
-  border-radius: 8px;
-  overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-  will-change: transform;
 }
 
 .landing-plate-1 {
   width: 200px;
   height: 200px;
   top: 10%;
-  right: -30px;
-  animation: plate1In 0.6s var(--ease-snappy) 0.2s both;
+  right: -20px;
+  animation: plateIn 0.8s var(--ease-elegant) 0.5s both;
 }
 
 .landing-plate-2 {
-  width: 220px;
-  height: 220px;
+  width: 230px;
+  height: 230px;
   top: 38%;
-  right: 60px;
-  animation: plate2In 0.6s var(--ease-elegant) 0.3s both;
+  right: 80px;
+  animation: plateIn 0.8s var(--ease-elegant) 0.7s both;
 }
 
 .landing-plate-3 {
   width: 190px;
   height: 190px;
-  bottom: 8%;
-  right: 20px;
-  animation: plate3In 0.6s var(--ease-elegant) 0.4s both;
+  bottom: 10%;
+  right: 30px;
+  animation: plateIn 0.8s var(--ease-elegant) 0.9s both;
 }
 
-@keyframes plate1In {
-  from {
-    transform: rotate(19deg);
-    opacity: 0;
-  }
-  to {
-    transform: rotate(-2deg);
-    opacity: 1;
-  }
+/* Inner circular spinning element */
+.landing-plate-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative; /* needed for Image fill */
 }
 
-@keyframes plate2In {
-  from {
-    transform: rotate(-21deg);
-    opacity: 0;
-  }
-  to {
-    transform: rotate(-6deg);
-    opacity: 1;
-  }
+/* Different spin speeds per plate */
+.landing-plate-1 .landing-plate-inner {
+  animation: spinPlate 14s linear infinite;
 }
 
-@keyframes plate3In {
-  from {
-    transform: rotate(40deg);
-    opacity: 0;
-  }
-  to {
-    transform: rotate(15deg);
-    opacity: 1;
-  }
+.landing-plate-2 .landing-plate-inner {
+  animation: spinPlate 20s linear infinite reverse; /* counter-clockwise */
+}
+
+.landing-plate-3 .landing-plate-inner {
+  animation: spinPlate 10s linear infinite;
 }
 
 /* ============================================================
@@ -389,21 +411,17 @@
 }
 
 /* ============================================================
-   MENU / GASTRONOMIA SECTION
+   MENU / GASTRONOMIA SECTION — Savoria-style list
    ============================================================ */
 .landing-menu-section {
   background-color: var(--ls-dark);
-  padding: 120px 0;
-  display: flex;
-  align-items: center;
-  gap: 0;
+  padding: 120px 0 0;
   overflow: hidden;
 }
 
-.landing-menu-left {
-  width: 30%;
-  padding: 0 48px 0 80px;
-  flex-shrink: 0;
+.landing-menu-header {
+  padding: 0 80px;
+  margin-bottom: 80px;
 }
 
 .landing-menu-eyebrow {
@@ -417,120 +435,168 @@
 .landing-menu-title {
   font-family: 'Fraunces', serif;
   font-style: italic;
-  font-size: clamp(28px, 2.5vw, 40px);
+  font-size: clamp(36px, 4vw, 64px);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.1;
   color: #fff;
-  margin-bottom: 20px;
+  max-width: 700px;
 }
 
-.landing-menu-body {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 300;
-  line-height: 1.8;
-  color: var(--ls-dim);
-  margin-bottom: 32px;
+/* Two-column layout */
+.landing-menu-body-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
 }
 
-.landing-menu-link {
+/* Left: item list — 55% */
+.landing-menu-list {
+  width: 55%;
+  padding: 0 80px 120px;
+  flex-shrink: 0;
+}
+
+.landing-menu-category-label {
   font-family: 'Cinzel', serif;
-  font-size: 0.65rem;
+  font-size: 0.55rem;
+  letter-spacing: 4px;
+  color: var(--ls-accent);
+  padding: 32px 0 16px;
+  border-top: 1px solid var(--ls-border);
+  margin-top: 8px;
+}
+
+.landing-menu-list > div:first-child .landing-menu-category-label {
+  border-top: none;
+  padding-top: 0;
+}
+
+.landing-menu-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--ls-border);
+  cursor: pointer;
+  transition: background 0.3s;
+  position: relative;
+}
+
+.landing-menu-row:hover {
+  padding-left: 12px;
+  transition: padding-left 0.3s var(--ease-elegant), background 0.3s;
+}
+
+.landing-menu-row-num {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
   letter-spacing: 2px;
   color: var(--ls-accent);
-  text-decoration: none;
-  border-bottom: 1px solid var(--ls-accent);
-  padding-bottom: 4px;
-  transition: opacity 0.3s;
-}
-
-.landing-menu-link:hover {
-  opacity: 0.7;
-}
-
-.landing-menu-right {
-  width: 70%;
-  overflow: visible;
-}
-
-.landing-cards-strip {
-  display: flex;
-  gap: 20px;
-  padding: 20px 0 20px 40px;
-  will-change: transform;
-  transition: transform 0.3s var(--ease-snappy);
-}
-
-.landing-card {
   flex-shrink: 0;
-  width: 260px;
-  height: 380px;
-  position: relative;
-  border-radius: 6px;
-  overflow: hidden;
-  cursor: pointer;
+  width: 28px;
 }
 
-.landing-card-img {
-  position: absolute;
-  inset: 0;
-  transition: transform 0.5s var(--ease-elegant);
-  will-change: transform;
+.landing-menu-row-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.landing-card:hover .landing-card-img {
-  transform: scale(1.06);
-}
-
-.landing-card-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
-  z-index: 2;
-}
-
-.landing-card-title {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  z-index: 3;
+.landing-menu-row-name {
   font-family: 'Fraunces', serif;
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 400;
   color: #fff;
+  line-height: 1.2;
+  transition: color 0.3s;
 }
 
-.landing-card-num {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 3;
-  font-family: 'Cinzel', serif;
-  font-size: 0.6rem;
-  letter-spacing: 2px;
+.landing-menu-row:hover .landing-menu-row-name {
   color: var(--ls-accent);
+}
+
+.landing-menu-row-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--ls-dim);
+  line-height: 1.5;
+}
+
+.landing-menu-row-price {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--ls-muted);
+  flex-shrink: 0;
+}
+
+.landing-menu-row-arrow {
+  font-size: 1rem;
+  color: var(--ls-accent);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.3s var(--ease-elegant), transform 0.3s var(--ease-elegant);
+  flex-shrink: 0;
+}
+
+.landing-menu-row:hover .landing-menu-row-arrow,
+.landing-menu-row.active .landing-menu-row-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Right: sticky photo panel — 45% */
+.landing-menu-photo-panel {
+  width: 45%;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.landing-menu-photo {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-elegant);
+}
+
+.landing-menu-photo.visible {
+  opacity: 1;
 }
 
 /* ============================================================
-   AMBIENCE SECTION
+   AMBIENCE SECTION — Scroll-linked horizontal carousel
    ============================================================ */
 .landing-ambience-section {
-  background-color: #F2EAD8;
-  padding: 100px 80px;
+  position: relative;
+  background-color: var(--ls-dark);
 }
 
-.landing-ambience-header {
-  text-align: center;
-  margin-bottom: 60px;
+.landing-ambience-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.landing-ambience-title-wrap {
+  position: absolute;
+  bottom: 60px;
+  left: 80px;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .landing-ambience-eyebrow {
   font-family: 'Cinzel', serif;
   font-size: 0.6rem;
   letter-spacing: 3px;
-  color: rgb(140, 100, 60);
+  color: var(--ls-accent);
   margin-bottom: 16px;
 }
 
@@ -540,50 +606,24 @@
   font-size: clamp(32px, 3vw, 52px);
   font-weight: 400;
   line-height: 1.1;
-  color: var(--ls-dark);
+  color: #fff;
+  max-width: 480px;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
 }
 
-.landing-ambience-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 340px 340px;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-.landing-ambience-img-wrap {
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-}
-
-.landing-ambience-img-wrap img {
-  transition: transform 0.5s var(--ease-elegant);
+/* Horizontal strip of images */
+.landing-ambience-strip {
+  display: flex;
+  height: 100vh;
   will-change: transform;
 }
 
-.landing-ambience-img-wrap:hover img {
-  transform: scale(1.06);
-}
-
-.landing-ambience-large {
-  grid-row: 1 / 3;
-}
-
-.landing-ambience-full {
+.landing-ambience-strip-img {
+  width: 42vw;
+  flex-shrink: 0;
+  height: 100vh;
   position: relative;
-  height: 480px;
   overflow: hidden;
-  border-radius: 4px;
-}
-
-.landing-ambience-full img {
-  transition: transform 0.5s var(--ease-elegant);
-  will-change: transform;
-}
-
-.landing-ambience-full:hover img {
-  transform: scale(1.03);
 }
 
 /* ============================================================
@@ -729,13 +769,13 @@
 .landing-momento-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%);
   z-index: 2;
   transition: background 0.4s;
 }
 
 .landing-momento-card:hover .landing-momento-overlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 60%);
 }
 
 .landing-momento-label {
@@ -846,11 +886,76 @@
 }
 
 /* ============================================================
+   STAFF GALLERY SECTION
+   ============================================================ */
+.landing-staff-section {
+  background-color: #141210;
+  padding: 100px 80px;
+  border-top: 1px solid var(--ls-border);
+}
+
+.landing-staff-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.landing-staff-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: var(--ls-accent);
+  margin-bottom: 16px;
+}
+
+.landing-staff-title {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: clamp(28px, 3vw, 48px);
+  font-weight: 400;
+  color: #fff;
+}
+
+.landing-staff-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.landing-staff-card {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.landing-staff-card img {
+  transition: transform 0.5s var(--ease-elegant);
+  will-change: transform;
+}
+
+.landing-staff-card:hover img {
+  transform: scale(1.06);
+}
+
+.landing-staff-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 60%);
+  z-index: 2;
+  transition: background 0.4s;
+}
+
+.landing-staff-card:hover .landing-staff-card-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.1) 60%);
+}
+
+/* ============================================================
    CTA RESERVA SECTION
    ============================================================ */
 .landing-cta-section {
   position: relative;
-  padding: 140px 80px;
+  padding: 160px 80px;
   text-align: center;
   overflow: hidden;
 }
@@ -864,13 +969,22 @@
 .landing-cta-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(10, 8, 6, 0.78);
+  background: linear-gradient(to bottom, rgba(10, 8, 6, 0.5) 0%, rgba(10, 8, 6, 0.9) 100%);
   z-index: 1;
+}
+
+/* Decorative gold border frame */
+.landing-cta-frame {
+  position: absolute;
+  inset: 40px;
+  border: 1px solid rgba(230, 194, 161, 0.2);
+  z-index: 2;
+  pointer-events: none;
 }
 
 .landing-cta-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -882,15 +996,41 @@
   font-size: 0.65rem;
   letter-spacing: 4px;
   color: var(--ls-accent);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cta-line {
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: var(--ls-accent);
+  opacity: 0.6;
+  flex-shrink: 0;
 }
 
 .landing-cta-title {
   font-family: 'Fraunces', serif;
   font-style: italic;
-  font-size: clamp(44px, 6vw, 90px);
+  font-size: clamp(56px, 8vw, 120px);
   font-weight: 400;
   line-height: 1.0;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.cta-title-line1 {
+  display: block;
+}
+
+.cta-title-line2 {
+  display: block;
+  font-size: 0.65em;
+  opacity: 0.85;
 }
 
 .landing-cta-body {
@@ -902,6 +1042,14 @@
   max-width: 480px;
 }
 
+/* Decorative golden divider bar */
+.landing-cta-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--ls-accent);
+  margin: 4px 0;
+}
+
 .landing-cta-actions {
   display: flex;
   align-items: center;
@@ -909,6 +1057,11 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 8px;
+}
+
+/* Larger CTA buttons */
+.landing-btn-glass-cta {
+  padding: 16px 40px;
 }
 
 .landing-btn-whatsapp {
@@ -930,6 +1083,10 @@
 .landing-btn-whatsapp:hover {
   border-color: rgb(37, 211, 102);
   background: rgba(37, 211, 102, 0.15);
+}
+
+.landing-btn-whatsapp-cta {
+  padding: 16px 40px;
 }
 
 /* ============================================================
@@ -1049,22 +1206,32 @@
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+@media (max-width: 1200px) {
+  .landing-staff-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 1024px) {
   .landing-hero-left {
     padding: 100px 40px 80px 40px;
   }
 
-  .landing-menu-section {
-    flex-direction: column;
-  }
-
-  .landing-menu-left {
-    width: 100%;
+  .landing-menu-header {
     padding: 0 40px;
   }
 
-  .landing-menu-right {
+  .landing-menu-body-layout {
+    flex-direction: column;
+  }
+
+  .landing-menu-list {
     width: 100%;
+    padding: 0 40px 60px;
+  }
+
+  .landing-menu-photo-panel {
+    display: none;
   }
 
   .landing-historia-section {
@@ -1083,6 +1250,10 @@
 
   .landing-testimonios-grid {
     grid-template-columns: 1fr;
+  }
+
+  .landing-staff-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -1110,17 +1281,16 @@
   }
 
   .landing-ambience-section {
-    padding: 80px 24px;
+    /* Keep horizontal scroll but adapt */
   }
 
-  .landing-ambience-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
+  .landing-ambience-strip-img {
+    width: 80vw;
   }
 
-  .landing-ambience-large {
-    grid-row: auto;
-    height: 300px;
+  .landing-ambience-title-wrap {
+    left: 24px;
+    bottom: 40px;
   }
 
   .landing-momentos-grid {
@@ -1129,6 +1299,10 @@
 
   .landing-cta-section {
     padding: 100px 24px;
+  }
+
+  .landing-cta-frame {
+    inset: 20px;
   }
 
   .landing-footer {
@@ -1144,6 +1318,22 @@
     flex-wrap: wrap;
     gap: 24px;
   }
+
+  .landing-staff-section {
+    padding: 80px 24px;
+  }
+
+  .landing-staff-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .landing-momentos-section {
+    padding: 80px 24px;
+  }
+
+  .landing-testimonios-section {
+    padding: 80px 24px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1153,6 +1343,16 @@
 
   .landing-testimonios-grid {
     grid-template-columns: 1fr;
+  }
+
+  .landing-staff-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-plate-1,
+  .landing-plate-2,
+  .landing-plate-3 {
+    display: none;
   }
 }
 
@@ -1173,6 +1373,10 @@
     transform: none;
   }
 
+  .landing-plate-inner {
+    animation: none;
+  }
+
   .landing-word {
     opacity: 1;
     filter: none;
@@ -1189,8 +1393,9 @@
   }
 
   .landing-card-img,
-  .landing-ambience-img-wrap img,
-  .landing-momento-card img {
+  .landing-ambience-strip-img img,
+  .landing-momento-card img,
+  .landing-staff-card img {
     transition: none;
   }
 }

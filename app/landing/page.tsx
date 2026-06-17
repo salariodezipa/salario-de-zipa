@@ -113,14 +113,9 @@ function StatCounter({ target, suffix = '', label }: StatCounterProps) {
    ============================================================ */
 export default function LandingPage() {
   const navRef = useRef<HTMLElement>(null)
-  const heroRightRef = useRef<HTMLDivElement>(null)
-  const menuSectionRef = useRef<HTMLElement>(null)
-  const cardsStripRef = useRef<HTMLDivElement>(null)
   const historiaImgRef = useRef<HTMLDivElement>(null)
-
-  const plate1Ref = useRef<HTMLDivElement>(null)
-  const plate2Ref = useRef<HTMLDivElement>(null)
-  const plate3Ref = useRef<HTMLDivElement>(null)
+  const ambienceSectionRef = useRef<HTMLElement>(null)
+  const ambienceStripRef = useRef<HTMLDivElement>(null)
 
   // Scroll reveal refs
   const revealRefs = useRef<(HTMLElement | null)[]>([])
@@ -131,33 +126,16 @@ export default function LandingPage() {
     }
   }, [])
 
+  // Hovered menu item for menu section photo
+  const [hoveredMenu, setHoveredMenu] = useState(0)
+
   useEffect(() => {
-    // Navbar scroll effect
     const handleScroll = () => {
       const scrollY = window.scrollY
 
       // Navbar glass
       if (navRef.current) {
         navRef.current.classList.toggle('scrolled', scrollY > 80)
-      }
-
-      // Floating plates scroll rotation
-      if (plate1Ref.current) {
-        plate1Ref.current.style.transform = `rotate(${-2 + scrollY * 0.05}deg)`
-      }
-      if (plate2Ref.current) {
-        plate2Ref.current.style.transform = `rotate(${-6 + scrollY * 0.05}deg)`
-      }
-      if (plate3Ref.current) {
-        plate3Ref.current.style.transform = `rotate(${15 + scrollY * 0.05}deg)`
-      }
-
-      // Menu cards scroll carousel
-      if (menuSectionRef.current && cardsStripRef.current) {
-        const sectionTop = menuSectionRef.current.offsetTop
-        const progress = Math.max(0, Math.min(1, (scrollY - sectionTop) / 716))
-        const x = 100 + progress * -1000
-        cardsStripRef.current.style.transform = `perspective(846px) translateX(${x}px)`
       }
 
       // Historia parallax
@@ -169,10 +147,38 @@ export default function LandingPage() {
           imgEl.style.transform = `translateY(${parallax}px)`
         }
       }
+
+      // Ambience horizontal carousel
+      if (ambienceSectionRef.current && ambienceStripRef.current) {
+        const section = ambienceSectionRef.current
+        const strip = ambienceStripRef.current
+        const sectionTop = section.offsetTop
+        const stripWidth = strip.scrollWidth
+        const viewportWidth = window.innerWidth
+        const extra = stripWidth - viewportWidth
+        if (extra > 0) {
+          const progress = Math.max(0, Math.min(1, (scrollY - sectionTop) / extra))
+          strip.style.transform = `translateX(${-progress * extra}px)`
+        }
+      }
     }
 
+    // Set ambience section height dynamically
+    const setAmbienceHeight = () => {
+      if (ambienceSectionRef.current && ambienceStripRef.current) {
+        const stripWidth = ambienceStripRef.current.scrollWidth
+        const viewportWidth = window.innerWidth
+        ambienceSectionRef.current.style.height = `${window.innerHeight + (stripWidth - viewportWidth)}px`
+      }
+    }
+
+    setAmbienceHeight()
+    window.addEventListener('resize', setAmbienceHeight)
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', setAmbienceHeight)
+    }
   }, [])
 
   // Intersection observer for .ls-reveal elements
@@ -213,13 +219,54 @@ export default function LandingPage() {
     'Estofado de Res',
   ]
 
-  const menuCards = [
-    { src: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg', title: 'Lomo al Trapo', num: '01' },
-    { src: '/Menu/_MG_1420.jpg', title: 'Costillitas de Cerdo', num: '02' },
-    { src: '/Menu/_MG_1421.jpg', title: 'Chicharrón Carnudo', num: '03' },
-    { src: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg', title: 'Bandeja Paisa', num: '04' },
-    { src: '/Menu/_MG_5192.jpg', title: 'Ajiaco Bogotano', num: '05' },
-    { src: '/Menu/SALARIO-16.jpg', title: 'Piquete Especial', num: '06' },
+  const menuItems = [
+    { num: '01', category: 'ENTRADAS', name: 'Cacerola Nativa', desc: 'Selección de ingredientes tradicionales servida en cazuela de barro.', price: '$17.850', image: '/Menu/DSC_0095-Mejorado-NR-4-min.jpg' },
+    { num: '02', category: 'ENTRADAS', name: 'Arepa de Choclo', desc: 'Arepa dulce de choclo tierno con queso y mantequilla.', price: '$23.100', image: '/Menu/_MG_1355.jpg' },
+    { num: '03', category: 'ENTRADAS', name: 'Patacones x4', desc: 'Plátano verde frito con hogao y ají.', price: '$24.100', image: '/Menu/DSC_0065-Mejorado-NR-2-min.jpg' },
+    { num: '04', category: 'ENTRADAS', name: 'Chicharrones Salario', desc: 'Crujientes chicharrones con nuestro toque especial de sal vigua.', price: '$34.500', image: '/Menu/DSC_0786-Mejorado-NR-2-min.jpg' },
+    { num: '05', category: 'ENTRADAS', name: 'Plátano Maduro', desc: 'Plátano maduro frito con queso y salsa de tomate.', price: '$23.100', image: '/Menu/DSC_0015-Mejorado-NR-23-min.jpg' },
+    { num: '06', category: 'PLATOS PRINCIPALES', name: 'Lomo al Trapo 300g', desc: 'Jugoso lomo de res envuelto en tela y cocido a la brasa.', price: '$89.250', image: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg' },
+    { num: '07', category: 'PLATOS PRINCIPALES', name: 'Costillitas de Cerdo 500g', desc: 'Costillas de cerdo a la BBQ con guarnición.', price: '$59.850', image: '/Menu/_MG_1420.jpg' },
+    { num: '08', category: 'PLATOS PRINCIPALES', name: 'Chicharrón Carnudo 400g', desc: 'Chicharrón premium con carne, acompañamientos tradicionales.', price: '$51.450', image: '/Menu/_MG_1421.jpg' },
+    { num: '09', category: 'PLATOS PRINCIPALES', name: 'Estofado de Res', desc: 'Tiras de res en salsa de vino tinto con vegetales.', price: '$66.200', image: '/Menu/DSC_0936-Mejorado-NR-16-min.jpg' },
+    { num: '10', category: 'PLATOS PRINCIPALES', name: 'Bandeja Paisa', desc: 'La auténtica bandeja paisa con todos sus acompañamientos.', price: '$57.750', image: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg' },
+    { num: '11', category: 'PLATOS PRINCIPALES', name: 'Piquete de Pollo', desc: 'Pollo a la brasa con papa criolla y chicharrón.', price: '$54.600', image: '/Menu/SALARIO-16.jpg' },
+    { num: '12', category: 'PLATOS PRINCIPALES', name: 'Mojarra Frita 500g', desc: 'Pescado fresco frito con patacones y ensalada.', price: '$55.650', image: '/Menu/_MG_5192.jpg' },
+    { num: '13', category: 'PLATOS PRINCIPALES', name: 'Guiso de Arveja con Pata de Res', desc: 'Arveja verde con trozo de res, plato tradicional.', price: '$54.600', image: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg' },
+    { num: '14', category: 'PLATOS PRINCIPALES', name: 'Sartenada', desc: 'Mezcla de carnes a la plancha con vegetales.', price: '$33.100', image: '/Menu/_MG_1458.jpg' },
+    { num: '15', category: 'SOPAS', name: 'Ajiaco Típico', desc: 'Ajiaco bogotano con tres tipos de papa, pollo y alcaparra.', price: '$43.100', image: '/Menu/_MG_5110.jpg' },
+    { num: '16', category: 'SOPAS', name: 'Sancocho Trifásico', desc: 'Sancocho con tres carnes, mazorca y plátano.', price: '$55.650', image: '/Menu/DSC_0811-Mejorado-NR-4-min.jpg' },
+    { num: '17', category: 'POSTRES', name: 'Torta de Almojábana', desc: 'Tradicional torta de queso y maíz.', price: '$22.050', image: '/Menu/SALARIO-68.jpg' },
+    { num: '18', category: 'POSTRES', name: 'Cuajada con Melao', desc: 'Cuajada fresca con melao de panela.', price: '$18.900', image: '/Menu/SALARIO-83.jpg' },
+    { num: '19', category: 'BEBIDAS', name: 'Soda Frutal Frutos Rojos', desc: 'Refrescante soda con frutos del bosque.', price: '$22.000', image: '/Menu/_MG_5254.jpg' },
+    { num: '20', category: 'BEBIDAS', name: 'Cóctel Sal Vigua', desc: 'Tequila, carbón activado, limón, sal vigua y sirope de frutos rojos.', price: '$45.000', image: '/Menu/SALARIO-38.jpg' },
+  ]
+
+  const ambienceImages = [
+    { src: '/Instalaciones/DSC_0635-Mejorado-NR-8.jpg', alt: 'Salón Salario de Zipa' },
+    { src: '/Instalaciones/_MG_2033.jpg', alt: 'Detalle del espacio' },
+    { src: '/Instalaciones/_MG_2036.jpg', alt: 'Interior del restaurante' },
+    { src: '/Instalaciones/_MG_2087.jpg', alt: 'Ambiente del restaurante' },
+    { src: '/Instalaciones/_MG_2096h.jpg', alt: 'Vista del salón' },
+    { src: '/Instalaciones/DSC_0668-Mejorado-NR-21.jpg', alt: 'Instalaciones Salario' },
+    { src: '/Instalaciones/SALARIO-134.jpg', alt: 'Espacios Salario' },
+    { src: '/Instalaciones/SALARIO-136.jpg', alt: 'Detalles Salario' },
+  ]
+
+  const staffImages = [
+    '/Trabajadores Salario/_MG_0342.jpg',
+    '/Trabajadores Salario/_MG_0749.jpg',
+    '/Trabajadores Salario/_MG_0761.jpg',
+    '/Trabajadores Salario/_MG_0793.jpg',
+    '/Trabajadores Salario/_MG_0798.jpg',
+    '/Trabajadores Salario/_MG_0941.jpg',
+    '/Trabajadores Salario/DSC_0023-Mejorado-NR-17.jpg',
+    '/Trabajadores Salario/DSC_0139-Mejorado-NR-3.jpg',
+    '/Trabajadores Salario/DSC_0366-Mejorado-NR-9.jpg',
+    '/Trabajadores Salario/DSC_0747-Mejorado-NR-4.jpg',
+    '/Trabajadores Salario/DSC_0755-Mejorado-NR-5.jpg',
+    '/Trabajadores Salario/DSC_0778-Mejorado-NR-7.jpg',
+    '/Trabajadores Salario/DSC_0866-Mejorado-NR-10.jpg',
   ]
 
   const momentos = [
@@ -255,6 +302,9 @@ export default function LandingPage() {
     },
   ]
 
+  // Track which categories have already been rendered as labels
+  const renderedCategories = new Set<string>()
+
   return (
     <div className="landing-root">
 
@@ -267,6 +317,7 @@ export default function LandingPage() {
             src="/LOGOS SALARIO/LOGO SALARIO BLANCO_Mesa de trabajo 1 copia 7.png"
             alt="Salario de Zipa"
             fill
+            sizes="120px"
             style={{ objectFit: 'contain', objectPosition: 'left center' }}
           />
         </div>
@@ -314,46 +365,53 @@ export default function LandingPage() {
         </div>
 
         {/* Right */}
-        <div className="landing-hero-right" ref={heroRightRef}>
+        <div className="landing-hero-right">
           <div className="landing-hero-main-img">
             <Image
-              src="/Instalaciones/DSC_0668-Mejorado-NR-21.jpg"
+              src="/Instalaciones/DSC_0700-Mejorado-NR-34.jpg"
               alt="Interior Salario de Zipa"
               fill
+              sizes="50vw"
               style={{ objectFit: 'cover' }}
               priority
             />
           </div>
 
-          {/* Floating plates */}
-          <div className="landing-plate-wrap landing-plate-1" ref={plate1Ref}>
-            <Image
-              src="/Menu/_MG_1355.jpg"
-              alt="Plato Salario"
-              width={200}
-              height={200}
-              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-            />
+          {/* Floating plates — circular + continuous spin, no JS rotation */}
+          <div className="landing-plate-wrap landing-plate-1">
+            <div className="landing-plate-inner">
+              <Image
+                src="/Menu/_MG_1355.jpg"
+                alt="Plato Salario"
+                fill
+                sizes="200px"
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
           </div>
 
-          <div className="landing-plate-wrap landing-plate-2" ref={plate2Ref}>
-            <Image
-              src="/Menu/DSC_0786-Mejorado-NR-2-min.jpg"
-              alt="Plato Salario"
-              width={220}
-              height={220}
-              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-            />
+          <div className="landing-plate-wrap landing-plate-2">
+            <div className="landing-plate-inner">
+              <Image
+                src="/Menu/DSC_0786-Mejorado-NR-2-min.jpg"
+                alt="Plato Salario"
+                fill
+                sizes="230px"
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
           </div>
 
-          <div className="landing-plate-wrap landing-plate-3" ref={plate3Ref}>
-            <Image
-              src="/Menu/DSC_0811-Mejorado-NR-4-min.jpg"
-              alt="Plato Salario"
-              width={190}
-              height={190}
-              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-            />
+          <div className="landing-plate-wrap landing-plate-3">
+            <div className="landing-plate-inner">
+              <Image
+                src="/Menu/DSC_0811-Mejorado-NR-4-min.jpg"
+                alt="Plato Salario"
+                fill
+                sizes="190px"
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -370,41 +428,62 @@ export default function LandingPage() {
       </section>
 
       {/* ============================================================
-          GASTRONOMÍA / MENU
+          GASTRONOMÍA / MENU — Savoria-style list with hover photo
           ============================================================ */}
-      <section className="landing-menu-section" id="gastronomia" ref={menuSectionRef as React.RefObject<HTMLElement>}>
-        <div className="landing-menu-left ls-reveal" ref={addRevealRef}>
+      <section className="landing-menu-section" id="gastronomia">
+        {/* Full-width header */}
+        <div className="landing-menu-header ls-reveal" ref={addRevealRef}>
           <p className="landing-menu-eyebrow">GASTRONOMÍA</p>
           <WordBlur
             text="Sabores que cuentan nuestra historia"
             tag="h2"
             className="landing-menu-title"
           />
-          <p className="landing-menu-body">
-            Cada plato nace de recetas heredadas y técnicas ancestrales. Ingredientes frescos del campo, el calor del horno de sal y la pasión de nuestros cocineros se fusionan para crear una gastronomía que va más allá de la alimentación: es una experiencia cultural.
-          </p>
-          <a href="#" className="landing-menu-link">CONOCER MENÚ →</a>
         </div>
 
-        <div className="landing-menu-right">
-          <div
-            className="landing-cards-strip"
-            ref={cardsStripRef}
-            style={{ transform: 'perspective(846px) translateX(100px)' }}
-          >
-            {menuCards.map((card, i) => (
-              <div key={i} className="landing-card">
-                <div className="landing-card-img">
-                  <Image
-                    src={card.src}
-                    alt={card.title}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                  />
+        {/* Two-column layout */}
+        <div className="landing-menu-body-layout">
+          {/* Left: item list */}
+          <div className="landing-menu-list">
+            {menuItems.map((item, i) => {
+              const showCategory = !renderedCategories.has(item.category)
+              if (showCategory) renderedCategories.add(item.category)
+              return (
+                <div key={i}>
+                  {showCategory && (
+                    <div className="landing-menu-category-label">{item.category}</div>
+                  )}
+                  <div
+                    className={`landing-menu-row${hoveredMenu === i ? ' active' : ''}`}
+                    onMouseEnter={() => setHoveredMenu(i)}
+                  >
+                    <span className="landing-menu-row-num">{item.num}</span>
+                    <div className="landing-menu-row-info">
+                      <span className="landing-menu-row-name">{item.name}</span>
+                      <span className="landing-menu-row-desc">{item.desc}</span>
+                    </div>
+                    <span className="landing-menu-row-price">{item.price}</span>
+                    <span className="landing-menu-row-arrow">→</span>
+                  </div>
                 </div>
-                <div className="landing-card-overlay" />
-                <span className="landing-card-num">{card.num}</span>
-                <h3 className="landing-card-title">{card.title}</h3>
+              )
+            })}
+          </div>
+
+          {/* Right: sticky photo panel */}
+          <div className="landing-menu-photo-panel">
+            {menuItems.map((item, i) => (
+              <div
+                key={i}
+                className={`landing-menu-photo${hoveredMenu === i ? ' visible' : ''}`}
+              >
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 45vw"
+                  style={{ objectFit: 'cover' }}
+                />
               </div>
             ))}
           </div>
@@ -412,52 +491,37 @@ export default function LandingPage() {
       </section>
 
       {/* ============================================================
-          AMBIENCE
+          AMBIENCE — Scroll-linked horizontal carousel
           ============================================================ */}
-      <section className="landing-ambience-section">
-        <div className="landing-ambience-header ls-reveal" ref={addRevealRef}>
-          <p className="landing-ambience-eyebrow">AMBIENCE</p>
-          <WordBlur
-            text="Un espacio diseñado para celebrar"
-            tag="h2"
-            className="landing-ambience-title"
-          />
-        </div>
+      <section
+        className="landing-ambience-section"
+        ref={ambienceSectionRef as React.RefObject<HTMLElement>}
+      >
+        <div className="landing-ambience-sticky">
+          {/* Title overlay bottom-left */}
+          <div className="landing-ambience-title-wrap">
+            <p className="landing-ambience-eyebrow">INSTALACIONES</p>
+            <WordBlur
+              text="Un espacio diseñado para celebrar"
+              tag="h2"
+              className="landing-ambience-title"
+            />
+          </div>
 
-        <div className="landing-ambience-grid">
-          <div className="landing-ambience-img-wrap landing-ambience-large ls-reveal" ref={addRevealRef}>
-            <Image
-              src="/Instalaciones/DSC_0635-Mejorado-NR-8.jpg"
-              alt="Salón Salario de Zipa"
-              fill
-              style={{ objectFit: 'cover' }}
-            />
+          {/* Horizontal image strip */}
+          <div className="landing-ambience-strip" ref={ambienceStripRef}>
+            {ambienceImages.map((img, i) => (
+              <div key={i} className="landing-ambience-strip-img">
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  sizes="42vw"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+            ))}
           </div>
-          <div className="landing-ambience-img-wrap ls-reveal" ref={addRevealRef} style={{ position: 'relative' }}>
-            <Image
-              src="/Instalaciones/_MG_2033.jpg"
-              alt="Detalle del espacio"
-              fill
-              style={{ objectFit: 'cover' }}
-            />
-          </div>
-          <div className="landing-ambience-img-wrap ls-reveal" ref={addRevealRef} style={{ position: 'relative' }}>
-            <Image
-              src="/Instalaciones/_MG_2096h.jpg"
-              alt="Ambiente del restaurante"
-              fill
-              style={{ objectFit: 'cover' }}
-            />
-          </div>
-        </div>
-
-        <div className="landing-ambience-full ls-reveal" ref={addRevealRef}>
-          <Image
-            src="/Instalaciones/SALARIO-49.jpg"
-            alt="Vista panorámica Salario de Zipa"
-            fill
-            style={{ objectFit: 'cover' }}
-          />
         </div>
       </section>
 
@@ -471,6 +535,7 @@ export default function LandingPage() {
               src="/Instalaciones/SALARIO-34.jpg"
               alt="Historia Salario de Zipa"
               fill
+              sizes="50vw"
               style={{ objectFit: 'cover', transition: 'transform 0.1s linear' }}
             />
           </div>
@@ -515,6 +580,7 @@ export default function LandingPage() {
                 src={m.src}
                 alt={m.label}
                 fill
+                sizes="(max-width: 768px) 50vw, 33vw"
                 style={{ objectFit: 'cover' }}
               />
               <div className="landing-momento-overlay" />
@@ -554,6 +620,35 @@ export default function LandingPage() {
       </section>
 
       {/* ============================================================
+          STAFF GALLERY
+          ============================================================ */}
+      <section className="landing-staff-section">
+        <div className="landing-staff-header ls-reveal" ref={addRevealRef}>
+          <p className="landing-staff-eyebrow">NUESTRO EQUIPO</p>
+          <WordBlur
+            text="Las personas detrás de cada experiencia"
+            tag="h2"
+            className="landing-staff-title"
+          />
+        </div>
+
+        <div className="landing-staff-grid">
+          {staffImages.map((src, i) => (
+            <div key={i} className="landing-staff-card ls-reveal" ref={addRevealRef}>
+              <Image
+                src={src}
+                alt={`Miembro del equipo Salario ${i + 1}`}
+                fill
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 25vw"
+                style={{ objectFit: 'cover' }}
+              />
+              <div className="landing-staff-card-overlay" />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ============================================================
           CTA RESERVA
           ============================================================ */}
       <section className="landing-cta-section" id="reservar">
@@ -562,25 +657,36 @@ export default function LandingPage() {
             src="/Instalaciones/_MG_2087.jpg"
             alt="Reserva en Salario de Zipa"
             fill
+            sizes="100vw"
             style={{ objectFit: 'cover' }}
           />
         </div>
         <div className="landing-cta-overlay" />
+        {/* Decorative gold border frame */}
+        <div className="landing-cta-frame" />
         <div className="landing-cta-content ls-reveal" ref={addRevealRef}>
-          <span className="landing-cta-eyebrow">RESERVA TU EXPERIENCIA</span>
-          <h2 className="landing-cta-title">Una mesa te espera</h2>
+          <span className="landing-cta-eyebrow">
+            <span className="cta-line" />
+            RESERVA TU EXPERIENCIA
+            <span className="cta-line" />
+          </span>
+          <h2 className="landing-cta-title">
+            <span className="cta-title-line1">Una mesa</span>
+            <span className="cta-title-line2">te espera</span>
+          </h2>
           <p className="landing-cta-body">
             Cra. 7 #2-83, Zipaquirá, Cundinamarca<br />
             Martes a domingo: 12:00 pm – 10:00 pm<br />
             +57 315 892 7463
           </p>
+          <div className="landing-cta-divider" />
           <div className="landing-cta-actions">
-            <a href="tel:+573158927463" className="landing-btn-glass">RESERVAR MESA</a>
+            <a href="tel:+573158927463" className="landing-btn-glass landing-btn-glass-cta">RESERVAR MESA</a>
             <a
               href="https://wa.me/573158927463?text=Hola%2C%20me%20gustar%C3%ADa%20reservar%20una%20mesa%20en%20Salario%20de%20Zipa"
               target="_blank"
               rel="noopener noreferrer"
-              className="landing-btn-whatsapp"
+              className="landing-btn-whatsapp landing-btn-whatsapp-cta"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
@@ -601,6 +707,7 @@ export default function LandingPage() {
               src="/LOGOS SALARIO/LOGO SALARIO BLANCO_Mesa de trabajo 1 copia 7.png"
               alt="Salario de Zipa"
               fill
+              sizes="100px"
               style={{ objectFit: 'contain', objectPosition: 'left center' }}
             />
           </div>
