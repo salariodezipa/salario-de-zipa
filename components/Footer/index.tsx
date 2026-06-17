@@ -31,12 +31,15 @@ export default function Footer() {
           {/* Brand */}
           <div className="footer-brand">
             <div className="footer-logo">
-              <svg className="footer-logo-icon" width="20" height="20" viewBox="0 0 40 40" fill="none">
-                <path d="M20 4C20 4 8 14 8 24a12 12 0 0 0 24 0C32 14 20 4 20 4z" stroke="#181818" strokeWidth="1.5" fill="none"/>
-                <path d="M20 14c0 0-6 6-6 10a6 6 0 0 0 12 0c0-4-6-10-6-10z" fill="#181818" opacity="0.25"/>
-              </svg>
-              <span className="footer-logo-text">SALARIO</span>
-              <span className="footer-logo-sub">DE ZIPA</span>
+              <div className="footer-logo-img-wrap">
+                <Image
+                  src="/LOGOS SALARIO/LOGO SALARIO APLICACIONES_Mesa de trabajo 1 copia 4.png"
+                  alt="Salario de Zipa"
+                  fill
+                  style={{ objectFit: 'contain', objectPosition: 'left center' }}
+                  sizes="160px"
+                />
+              </div>
             </div>
             <p className="footer-description">
               Más de ocho décadas llevando la mejor gastronomía colombiana a Zipaquirá.
@@ -108,8 +111,8 @@ export default function Footer() {
             </div>
             <div className="footer-map">
               <Image
-                src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400&h=120&fit=crop"
-                alt="Mapa de ubicación Salario de Zipa"
+                src="/Instalaciones/SALARIO-51.jpg"
+                alt="Exterior Salario de Zipa"
                 fill
                 style={{ objectFit: 'cover' }}
                 sizes="300px"

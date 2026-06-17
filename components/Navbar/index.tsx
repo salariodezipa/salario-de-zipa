@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -22,13 +23,16 @@ export default function Navbar() {
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="container navbar-inner">
           <Link href="/" className="navbar-logo">
-            <svg className="navbar-logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-              <path d="M2 17l10 5 10-5"/>
-              <path d="M2 12l10 5 10-5"/>
-            </svg>
-            <span className="navbar-logo-text">SALARIO</span>
-            <span className="navbar-logo-sub">DE ZIPA</span>
+            <div className="navbar-logo-img-wrap">
+              <Image
+                src="/LOGOS SALARIO/LOGO SALARIO BLANCO_Mesa de trabajo 1 copia 7.png"
+                alt="Salario de Zipa"
+                fill
+                style={{ objectFit: 'contain', objectPosition: 'left center' }}
+                priority
+                sizes="160px"
+              />
+            </div>
           </Link>
 
           <ul className="navbar-links">

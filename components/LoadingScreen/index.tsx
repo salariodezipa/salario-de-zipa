@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export default function LoadingScreen() {
   const [fadeOut, setFadeOut] = useState(false);
@@ -20,12 +21,16 @@ export default function LoadingScreen() {
   return (
     <div className={`loading-screen${fadeOut ? ' fade-out' : ''}`}>
       <div className="loading-logo-wrap">
-        <svg width="36" height="36" viewBox="0 0 40 40" fill="none" className="loading-icon">
-          <path d="M20 4C20 4 8 14 8 24a12 12 0 0 0 24 0C32 14 20 4 20 4z" stroke="#C8A97E" strokeWidth="1.5" fill="none"/>
-          <path d="M20 14c0 0 -6 6 -6 10a6 6 0 0 0 12 0c0-4-6-10-6-10z" fill="#C8A97E" opacity="0.4"/>
-        </svg>
-        <div className="loading-logo">SALARIO</div>
-        <div className="loading-logo-sub">DE ZIPA</div>
+        <div className="loading-logo-img">
+          <Image
+            src="/LOGOS SALARIO/LOGO SALARIO BLANCO_Mesa de trabajo 1 copia 7.png"
+            alt="Salario de Zipa"
+            fill
+            style={{ objectFit: 'contain' }}
+            priority
+            sizes="200px"
+          />
+        </div>
       </div>
       <div className="loading-bar-container">
         <div className="loading-bar"></div>

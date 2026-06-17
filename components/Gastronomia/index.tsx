@@ -8,8 +8,8 @@ export default function Gastronomia() {
     <section id="gastronomia" className="gastronomia">
       <div className="gastronomia-image">
         <Image
-          src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&h=600&fit=crop"
-          alt="Corte de carne con papas y vegetales"
+          src="/Menu/DSC_0823-Mejorado-NR-5-min.jpg"
+          alt="Lomo al Trapo - Gastronomía Salario de Zipa"
           fill
           style={{ objectFit: 'cover' }}
           sizes="50vw"

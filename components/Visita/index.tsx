@@ -3,10 +3,10 @@
 import Image from 'next/image';
 
 const lugares = [
-  { name: 'CATEDRAL DE SAL', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop' },
-  { name: 'CENTRO HISTÓRICO', image: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&h=400&fit=crop' },
-  { name: 'EVENERO DE LOS ZIPAS', image: 'https://images.unsplash.com/photo-1564399579883-451a5d44ec08?w=400&h=400&fit=crop' },
-  { name: 'ARQUITECTURA COLONIAL', image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=400&fit=crop' },
+  { name: 'NUESTROS SALONES', image: '/Instalaciones/DSC_0635-Mejorado-NR-8.jpg' },
+  { name: 'ZONAS EXTERIORES', image: '/Instalaciones/SALARIO-63.jpg' },
+  { name: 'ESPACIOS PRIVADOS', image: '/Instalaciones/_MG_2104.jpg' },
+  { name: 'DETALLES ÚNICOS', image: '/Instalaciones/_MG_2139.jpg' },
 ];
 
 export default function Visita() {
