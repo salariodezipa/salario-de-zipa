@@ -73,8 +73,8 @@
 
 .landing-nav-logo {
   position: relative;
-  width: 120px;
-  height: 48px;
+  width: 160px;
+  height: 60px;
   flex-shrink: 0;
 }
 
@@ -231,29 +231,6 @@
   animation: fadeInUp 0.8s var(--ease-elegant) 0.9s forwards;
 }
 
-.landing-hero-scroll {
-  position: absolute;
-  bottom: 40px;
-  left: 80px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  opacity: 0;
-  animation: fadeInUp 0.8s var(--ease-elegant) 1.2s forwards;
-}
-
-.landing-hero-scroll-line {
-  width: 40px;
-  height: 1px;
-  background: var(--ls-accent);
-}
-
-.landing-hero-scroll-text {
-  font-family: 'Cinzel', serif;
-  font-size: 0.55rem;
-  letter-spacing: 3px;
-  color: var(--ls-accent);
-}
 
 /* HERO RIGHT */
 .landing-hero-right {
@@ -323,44 +300,43 @@
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Container for plates inside hero-left */
+/* Container for plates inside hero-left — horizontal row */
 .landing-hero-plates {
-  position: relative;
-  width: 100%;
-  height: 280px;
-  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 32px;
   flex-shrink: 0;
+  padding-left: 4px;
 }
 
-/* Each plate outer: positioned within .landing-hero-plates */
+/* Each plate outer: flex items with slight overlap */
 .landing-plate-wrap {
-  position: absolute;
+  position: relative;
   z-index: 10;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  flex-shrink: 0;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7);
 }
 
 .landing-plate-1 {
-  width: 180px;
-  height: 180px;
-  bottom: 0;
-  left: 0;
+  width: 120px;
+  height: 120px;
   animation: plateIn 0.8s var(--ease-elegant) 0.5s both;
+  margin-right: -18px;
 }
 
 .landing-plate-2 {
-  width: 210px;
-  height: 210px;
-  top: 0;
-  left: calc(50% - 105px);
+  width: 140px;
+  height: 140px;
+  z-index: 11;
   animation: plateIn 0.8s var(--ease-elegant) 0.7s both;
 }
 
 .landing-plate-3 {
-  width: 170px;
-  height: 170px;
-  bottom: 20px;
-  right: 0;
+  width: 120px;
+  height: 120px;
   animation: plateIn 0.8s var(--ease-elegant) 0.9s both;
+  margin-left: -18px;
 }
 
 /* Inner circular spinning element */
@@ -1568,23 +1544,21 @@
     grid-template-columns: 1fr;
   }
 
-  .landing-hero-plates {
-    height: 200px;
-  }
-
   .landing-plate-1 {
-    width: 130px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
+    margin-right: -14px;
   }
 
   .landing-plate-2 {
-    width: 150px;
-    height: 150px;
+    width: 116px;
+    height: 116px;
   }
 
   .landing-plate-3 {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
+    margin-left: -14px;
   }
 
   .landing-whatsapp-fab {
@@ -1605,8 +1579,7 @@
   .landing-plate-3,
   .landing-hero-eyebrow,
   .landing-hero-body,
-  .landing-hero-actions,
-  .landing-hero-scroll {
+  .landing-hero-actions {
     animation: none;
     opacity: 1;
     transform: none;

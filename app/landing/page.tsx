@@ -357,10 +357,6 @@ export default function LandingPage() {
             <a href="#gastronomia" className="landing-btn-outline">CONOCER MENÚ</a>
           </div>
 
-          <div className="landing-hero-scroll">
-            <div className="landing-hero-scroll-line" />
-            <span className="landing-hero-scroll-text">SCROLL</span>
-          </div>
         </div>
 
         {/* Right */}
@@ -408,7 +404,7 @@ export default function LandingPage() {
         <div className="landing-menu-body-layout">
           {/* Left: item list */}
           <div className="landing-menu-list">
-            {[0, 3, 5, 6, 9, 14, 17, 19].map((idx, listPos) => {
+            {[0, 3, 5, 6, 14, 19].map((idx, listPos) => {
               const item = menuItems[idx]
               const showCategory = !renderedCategories.has(item.category)
               if (showCategory) renderedCategories.add(item.category)
@@ -439,7 +435,7 @@ export default function LandingPage() {
 
           {/* Right: sticky photo panel */}
           <div className="landing-menu-photo-panel">
-            {[0, 3, 5, 6, 9, 14, 17, 19].map((idx, listPos) => (
+            {[0, 3, 5, 6, 14, 19].map((idx, listPos) => (
               <div
                 key={idx}
                 className={`landing-menu-photo${hoveredMenu === listPos ? ' visible' : ''}`}
