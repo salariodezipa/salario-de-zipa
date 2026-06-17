@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRef, useState } from 'react';
 
 const eventos = [
@@ -52,7 +53,7 @@ export default function Eventos() {
             {eventos.map((evento, index) => (
               <div key={index} className="evento-card">
                 <div className="evento-card-image">
-                  <img src={evento.image} alt={evento.alt} />
+                  <Image src={evento.image} alt={evento.alt} fill style={{ objectFit: 'cover' }} sizes="280px" />
                   <div className="evento-card-overlay">
                     <span className="evento-card-title">{evento.title}</span>
                   </div>

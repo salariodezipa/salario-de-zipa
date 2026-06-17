@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 
 interface MenuItem {
@@ -82,7 +83,7 @@ export default function MenuGrid({ onItemClick }: MenuGridProps) {
               onClick={() => onItemClick(item)}
             >
               <div className="menu-item-image">
-                <img src={item.image} alt={item.name} />
+                <Image src={item.image} alt={item.name} fill style={{ objectFit: 'cover' }} sizes="(max-width: 768px) 100vw, 300px" />
               </div>
               <div className="menu-item-content">
                 <span className="menu-item-badge">{item.badge}</span>

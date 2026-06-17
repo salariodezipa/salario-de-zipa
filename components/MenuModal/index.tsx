@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect } from 'react';
 
 interface MenuItem {
@@ -38,7 +39,7 @@ export default function MenuModal({ item, onClose }: MenuModalProps) {
     >
       <div className="modal-content">
         <button className="modal-close" onClick={onClose}>×</button>
-        <img src={item.image} alt={item.name} />
+        <Image src={item.image} alt={item.name} width={600} height={400} style={{ objectFit: 'cover', width: '100%', height: 'auto' }} />
       </div>
     </div>
   );

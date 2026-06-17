@@ -1,14 +1,18 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Gastronomia() {
   return (
     <section id="gastronomia" className="gastronomia">
       <div className="gastronomia-image">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&h=600&fit=crop"
           alt="Corte de carne con papas y vegetales"
+          fill
+          style={{ objectFit: 'cover' }}
+          sizes="50vw"
         />
       </div>
       <div className="gastronomia-content">

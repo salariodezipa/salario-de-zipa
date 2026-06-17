@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 const FacebookIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
@@ -105,9 +107,12 @@ export default function Footer() {
               <span>Lun - Dom: 11:00 a.m. – 10:00 p.m.</span>
             </div>
             <div className="footer-map">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400&h=120&fit=crop"
                 alt="Mapa de ubicación Salario de Zipa"
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="300px"
               />
               <div className="footer-map-pin">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="#C8A97E">

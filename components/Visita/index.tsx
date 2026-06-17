@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 const lugares = [
   { name: 'CATEDRAL DE SAL', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop' },
   { name: 'CENTRO HISTÓRICO', image: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&h=400&fit=crop' },
@@ -28,7 +30,7 @@ export default function Visita() {
             {lugares.map((lugar, index) => (
               <div key={index} className="lugar-item reveal" style={{ transitionDelay: `${index * 0.1}s` }}>
                 <div className="lugar-image">
-                  <img src={lugar.image} alt={lugar.name} />
+                  <Image src={lugar.image} alt={lugar.name} fill style={{ objectFit: 'cover' }} sizes="(max-width: 768px) 50vw, 17vw" />
                 </div>
                 <p className="lugar-name">{lugar.name}</p>
               </div>
