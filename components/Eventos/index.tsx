@@ -5,28 +5,23 @@ import { useRef, useState } from 'react';
 
 const eventos = [
   {
-    title: 'MATRIMONIOS',
-    image: '/Momentos/DSC_0841-Mejorado-NR-1.jpg',
-    alt: 'Matrimonio en Salario de Zipa',
-  },
-  {
     title: 'EVENTOS CORPORATIVOS',
-    image: '/Momentos/_MG_0860.jpg',
+    image: '/Momentos/DSCF4570.jpg',
     alt: 'Evento corporativo en Salario de Zipa',
   },
   {
     title: 'CELEBRACIONES FAMILIARES',
-    image: '/Momentos/DSC_0872-Mejorado-NR-5.jpg',
+    image: '/_MG_0506copia.jpg',
     alt: 'Celebración familiar en Salario de Zipa',
   },
   {
     title: 'GRADUACIONES',
-    image: '/Momentos/_MG_0867.jpg',
+    image: '/Momentos/_MG_0980.jpg',
     alt: 'Graduación en Salario de Zipa',
   },
   {
     title: 'ANIVERSARIOS',
-    image: '/Momentos/DSCF4570.jpg',
+    image: '/Momentos/_MG_0774.jpg',
     alt: 'Aniversario en Salario de Zipa',
   },
 ];
