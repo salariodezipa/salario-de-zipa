@@ -109,11 +109,108 @@ function StatCounter({ target, suffix = '', label }: StatCounterProps) {
 }
 
 /* ============================================================
+   DATA — defined outside component to avoid re-creation
+   ============================================================ */
+const YOUTUBE_VIDEO_ID = 'TU_VIDEO_ID_AQUI'
+
+const tickerText = [
+  'Lomo al Trapo',
+  '✦',
+  'Chicharrón Carnudo',
+  '✦',
+  'Costillitas de Cerdo',
+  '✦',
+  'Bandeja Paisa',
+  '✦',
+  'Ajiaco Bogotano',
+  '✦',
+  'Sancocho Trifásico',
+  '✦',
+  'Mojarra Frita',
+  '✦',
+  'Estofado de Res',
+]
+
+const menuItems = [
+  { num: '01', category: 'ENTRADAS', name: 'Cacerola Nativa', desc: 'Selección de ingredientes tradicionales servida en cazuela de barro.', price: '$17.850', image: '/Menu/DSC_0095-Mejorado-NR-4-min.jpg' },
+  { num: '02', category: 'ENTRADAS', name: 'Arepa de Choclo', desc: 'Arepa dulce de choclo tierno con queso y mantequilla.', price: '$23.100', image: '/Menu/_MG_1355.jpg' },
+  { num: '03', category: 'ENTRADAS', name: 'Patacones x4', desc: 'Plátano verde frito con hogao y ají.', price: '$24.100', image: '/Menu/DSC_0065-Mejorado-NR-2-min.jpg' },
+  { num: '04', category: 'ENTRADAS', name: 'Chicharrones Salario', desc: 'Crujientes chicharrones con nuestro toque especial de sal vigua.', price: '$34.500', image: '/Menu/DSC_0786-Mejorado-NR-2-min.jpg' },
+  { num: '05', category: 'ENTRADAS', name: 'Plátano Maduro', desc: 'Plátano maduro frito con queso y salsa de tomate.', price: '$23.100', image: '/Menu/DSC_0015-Mejorado-NR-23-min.jpg' },
+  { num: '06', category: 'PLATOS PRINCIPALES', name: 'Lomo al Trapo 300g', desc: 'Jugoso lomo de res envuelto en tela y cocido a la brasa.', price: '$89.250', image: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg' },
+  { num: '07', category: 'PLATOS PRINCIPALES', name: 'Costillitas de Cerdo 500g', desc: 'Costillas de cerdo a la BBQ con guarnición.', price: '$59.850', image: '/Menu/_MG_1420.jpg' },
+  { num: '08', category: 'PLATOS PRINCIPALES', name: 'Chicharrón Carnudo 400g', desc: 'Chicharrón premium con carne, acompañamientos tradicionales.', price: '$51.450', image: '/Menu/_MG_1421.jpg' },
+  { num: '09', category: 'PLATOS PRINCIPALES', name: 'Estofado de Res', desc: 'Tiras de res en salsa de vino tinto con vegetales.', price: '$66.200', image: '/Menu/DSC_0936-Mejorado-NR-16-min.jpg' },
+  { num: '10', category: 'PLATOS PRINCIPALES', name: 'Bandeja Paisa', desc: 'La auténtica bandeja paisa con todos sus acompañamientos.', price: '$57.750', image: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg' },
+  { num: '11', category: 'PLATOS PRINCIPALES', name: 'Piquete de Pollo', desc: 'Pollo a la brasa con papa criolla y chicharrón.', price: '$54.600', image: '/Menu/SALARIO-16.jpg' },
+  { num: '12', category: 'PLATOS PRINCIPALES', name: 'Mojarra Frita 500g', desc: 'Pescado fresco frito con patacones y ensalada.', price: '$55.650', image: '/Menu/_MG_5192.jpg' },
+  { num: '13', category: 'PLATOS PRINCIPALES', name: 'Guiso de Arveja con Pata de Res', desc: 'Arveja verde con trozo de res, plato tradicional.', price: '$54.600', image: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg' },
+  { num: '14', category: 'PLATOS PRINCIPALES', name: 'Sartenada', desc: 'Mezcla de carnes a la plancha con vegetales.', price: '$33.100', image: '/Menu/_MG_1458.jpg' },
+  { num: '15', category: 'SOPAS', name: 'Ajiaco Típico', desc: 'Ajiaco bogotano con tres tipos de papa, pollo y alcaparra.', price: '$43.100', image: '/Menu/_MG_5110.jpg' },
+  { num: '16', category: 'SOPAS', name: 'Sancocho Trifásico', desc: 'Sancocho con tres carnes, mazorca y plátano.', price: '$55.650', image: '/Menu/DSC_0811-Mejorado-NR-4-min.jpg' },
+  { num: '17', category: 'POSTRES', name: 'Torta de Almojábana', desc: 'Tradicional torta de queso y maíz.', price: '$22.050', image: '/Menu/SALARIO-68.jpg' },
+  { num: '18', category: 'POSTRES', name: 'Cuajada con Melao', desc: 'Cuajada fresca con melao de panela.', price: '$18.900', image: '/Menu/SALARIO-83.jpg' },
+  { num: '19', category: 'BEBIDAS', name: 'Soda Frutal Frutos Rojos', desc: 'Refrescante soda con frutos del bosque.', price: '$22.000', image: '/Menu/_MG_5254.jpg' },
+  { num: '20', category: 'BEBIDAS', name: 'Cóctel Sal Vigua', desc: 'Tequila, carbón activado, limón, sal vigua y sirope de frutos rojos.', price: '$45.000', image: '/Menu/SALARIO-38.jpg' },
+]
+
+const staffImages = [
+  '/Trabajadores Salario/_MG_0342.jpg',
+  '/Trabajadores Salario/_MG_0749.jpg',
+  '/Trabajadores Salario/_MG_0761.jpg',
+  '/Trabajadores Salario/_MG_0793.jpg',
+  '/Trabajadores Salario/_MG_0798.jpg',
+  '/Trabajadores Salario/_MG_0941.jpg',
+  '/Trabajadores Salario/DSC_0023-Mejorado-NR-17.jpg',
+  '/Trabajadores Salario/DSC_0139-Mejorado-NR-3.jpg',
+  '/Trabajadores Salario/DSC_0366-Mejorado-NR-9.jpg',
+  '/Trabajadores Salario/DSC_0747-Mejorado-NR-4.jpg',
+  '/Trabajadores Salario/DSC_0755-Mejorado-NR-5.jpg',
+  '/Trabajadores Salario/DSC_0778-Mejorado-NR-7.jpg',
+  '/Trabajadores Salario/DSC_0866-Mejorado-NR-10.jpg',
+]
+
+const momentos = [
+  { src: '/Momentos/DSC_0841-Mejorado-NR-1.jpg', label: 'MATRIMONIOS', desc: 'Celebra el día más especial de tu vida en un entorno histórico único.' },
+  { src: '/Momentos/DSC_0872-Mejorado-NR-5.jpg', label: 'EVENTOS CORPORATIVOS', desc: 'Espacios exclusivos para reuniones, lanzamientos y celebraciones empresariales.' },
+  { src: '/Momentos/DSCF4570.jpg', label: 'CELEBRACIONES', desc: 'Cualquier ocasión especial merece un escenario excepcional.' },
+  { src: '/Momentos/_MG_0860.jpg', label: 'GRADUACIONES', desc: 'Honra el esfuerzo y el logro con una celebración a la altura del momento.' },
+  { src: '/Momentos/_MG_0867.jpg', label: 'ANIVERSARIOS', desc: 'Cada año de amor merece ser celebrado con la grandeza que merece.' },
+  { src: '/Momentos/editar(27).jpg', label: 'BAUTIZOS', desc: 'Los primeros momentos de vida merecen el ambiente más acogedor.' },
+]
+
+const testimonios = [
+  {
+    initial: 'M',
+    name: 'Mariana G.',
+    role: 'Bogotá, Colombia',
+    title: 'Una experiencia que despierta los sentidos',
+    quote: 'El lugar más mágico para celebrar. La atmósfera es única, la comida increíble y el personal hace que cada detalle sea perfecto.',
+    image: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg',
+  },
+  {
+    initial: 'C',
+    name: 'Carlos R.',
+    role: 'Medellín, Colombia',
+    title: 'Gastronomía auténtica y sin igual',
+    quote: 'Celebramos nuestro aniversario aquí y fue una experiencia que nunca olvidaremos. El horno de sal es simplemente espectacular.',
+    image: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg',
+  },
+  {
+    initial: 'A',
+    name: 'Ana María P.',
+    role: 'Cali, Colombia',
+    title: 'El escenario perfecto para celebrar',
+    quote: 'Organizamos la boda de nuestra hija en Salario y todo fue perfecto. Espacios hermosos, gastronomía excepcional y atención impecable.',
+    image: '/Menu/_MG_1420.jpg',
+  },
+]
+
+/* ============================================================
    MAIN LANDING PAGE
    ============================================================ */
 export default function LandingPage() {
   const navRef = useRef<HTMLElement>(null)
-  const historiaImgRef = useRef<HTMLDivElement>(null)
 
   // Scroll reveal refs
   const revealRefs = useRef<(HTMLElement | null)[]>([])
@@ -127,6 +224,22 @@ export default function LandingPage() {
   // Hovered menu item for menu section photo
   const [hoveredMenu, setHoveredMenu] = useState(0)
 
+  // Hero images
+  const heroImages = [
+    { src: '/Momentos/_MG_0978.jpg', alt: 'Interior Salario de Zipa' },
+    { src: '/Instalaciones/DSC_0635-Mejorado-NR-8.jpg', alt: 'Salón Salario de Zipa' },
+    { src: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg', alt: 'Ambiente del restaurante' },
+  ]
+  const historiaImages = [
+    { src: '/_MG_0793.jpg', alt: 'Historia Salario de Zipa' },
+    { src: '/Instalaciones/_MG_0733.jpg', alt: 'Fachada Salario de Zipa' },
+  ]
+
+  // State
+  const [heroSlide, setHeroSlide] = useState(0)
+  const [historiaSlide, setHistoriaSlide] = useState(0)
+  const [eventosSlide, setEventosSlide] = useState(0)
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY
@@ -135,17 +248,6 @@ export default function LandingPage() {
       if (navRef.current) {
         navRef.current.classList.toggle('scrolled', scrollY > 80)
       }
-
-      // Historia parallax
-      if (historiaImgRef.current) {
-        const sectionTop = historiaImgRef.current.closest<HTMLElement>('.landing-historia-section')?.offsetTop ?? 0
-        const parallax = (scrollY - sectionTop) * 0.15
-        const imgEl = historiaImgRef.current.querySelector<HTMLElement>('img')
-        if (imgEl) {
-          imgEl.style.transform = `translateY(${parallax}px)`
-        }
-      }
-
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -174,113 +276,33 @@ export default function LandingPage() {
     return () => observer.disconnect()
   }, [])
 
-  const tickerText = [
-    'Lomo al Trapo',
-    '✦',
-    'Chicharrón Carnudo',
-    '✦',
-    'Costillitas de Cerdo',
-    '✦',
-    'Bandeja Paisa',
-    '✦',
-    'Ajiaco Bogotano',
-    '✦',
-    'Sancocho Trifásico',
-    '✦',
-    'Mojarra Frita',
-    '✦',
-    'Estofado de Res',
-  ]
+  // Auto-advance effects
+  useEffect(() => {
+    const t = setInterval(() => setHeroSlide(p => (p + 1) % heroImages.length), 5000)
+    return () => clearInterval(t)
+  }, [heroImages.length])
 
-  const menuItems = [
-    { num: '01', category: 'ENTRADAS', name: 'Cacerola Nativa', desc: 'Selección de ingredientes tradicionales servida en cazuela de barro.', price: '$17.850', image: '/Menu/DSC_0095-Mejorado-NR-4-min.jpg' },
-    { num: '02', category: 'ENTRADAS', name: 'Arepa de Choclo', desc: 'Arepa dulce de choclo tierno con queso y mantequilla.', price: '$23.100', image: '/Menu/_MG_1355.jpg' },
-    { num: '03', category: 'ENTRADAS', name: 'Patacones x4', desc: 'Plátano verde frito con hogao y ají.', price: '$24.100', image: '/Menu/DSC_0065-Mejorado-NR-2-min.jpg' },
-    { num: '04', category: 'ENTRADAS', name: 'Chicharrones Salario', desc: 'Crujientes chicharrones con nuestro toque especial de sal vigua.', price: '$34.500', image: '/Menu/DSC_0786-Mejorado-NR-2-min.jpg' },
-    { num: '05', category: 'ENTRADAS', name: 'Plátano Maduro', desc: 'Plátano maduro frito con queso y salsa de tomate.', price: '$23.100', image: '/Menu/DSC_0015-Mejorado-NR-23-min.jpg' },
-    { num: '06', category: 'PLATOS PRINCIPALES', name: 'Lomo al Trapo 300g', desc: 'Jugoso lomo de res envuelto en tela y cocido a la brasa.', price: '$89.250', image: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg' },
-    { num: '07', category: 'PLATOS PRINCIPALES', name: 'Costillitas de Cerdo 500g', desc: 'Costillas de cerdo a la BBQ con guarnición.', price: '$59.850', image: '/Menu/_MG_1420.jpg' },
-    { num: '08', category: 'PLATOS PRINCIPALES', name: 'Chicharrón Carnudo 400g', desc: 'Chicharrón premium con carne, acompañamientos tradicionales.', price: '$51.450', image: '/Menu/_MG_1421.jpg' },
-    { num: '09', category: 'PLATOS PRINCIPALES', name: 'Estofado de Res', desc: 'Tiras de res en salsa de vino tinto con vegetales.', price: '$66.200', image: '/Menu/DSC_0936-Mejorado-NR-16-min.jpg' },
-    { num: '10', category: 'PLATOS PRINCIPALES', name: 'Bandeja Paisa', desc: 'La auténtica bandeja paisa con todos sus acompañamientos.', price: '$57.750', image: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg' },
-    { num: '11', category: 'PLATOS PRINCIPALES', name: 'Piquete de Pollo', desc: 'Pollo a la brasa con papa criolla y chicharrón.', price: '$54.600', image: '/Menu/SALARIO-16.jpg' },
-    { num: '12', category: 'PLATOS PRINCIPALES', name: 'Mojarra Frita 500g', desc: 'Pescado fresco frito con patacones y ensalada.', price: '$55.650', image: '/Menu/_MG_5192.jpg' },
-    { num: '13', category: 'PLATOS PRINCIPALES', name: 'Guiso de Arveja con Pata de Res', desc: 'Arveja verde con trozo de res, plato tradicional.', price: '$54.600', image: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg' },
-    { num: '14', category: 'PLATOS PRINCIPALES', name: 'Sartenada', desc: 'Mezcla de carnes a la plancha con vegetales.', price: '$33.100', image: '/Menu/_MG_1458.jpg' },
-    { num: '15', category: 'SOPAS', name: 'Ajiaco Típico', desc: 'Ajiaco bogotano con tres tipos de papa, pollo y alcaparra.', price: '$43.100', image: '/Menu/_MG_5110.jpg' },
-    { num: '16', category: 'SOPAS', name: 'Sancocho Trifásico', desc: 'Sancocho con tres carnes, mazorca y plátano.', price: '$55.650', image: '/Menu/DSC_0811-Mejorado-NR-4-min.jpg' },
-    { num: '17', category: 'POSTRES', name: 'Torta de Almojábana', desc: 'Tradicional torta de queso y maíz.', price: '$22.050', image: '/Menu/SALARIO-68.jpg' },
-    { num: '18', category: 'POSTRES', name: 'Cuajada con Melao', desc: 'Cuajada fresca con melao de panela.', price: '$18.900', image: '/Menu/SALARIO-83.jpg' },
-    { num: '19', category: 'BEBIDAS', name: 'Soda Frutal Frutos Rojos', desc: 'Refrescante soda con frutos del bosque.', price: '$22.000', image: '/Menu/_MG_5254.jpg' },
-    { num: '20', category: 'BEBIDAS', name: 'Cóctel Sal Vigua', desc: 'Tequila, carbón activado, limón, sal vigua y sirope de frutos rojos.', price: '$45.000', image: '/Menu/SALARIO-38.jpg' },
-  ]
+  useEffect(() => {
+    const t = setInterval(() => setHistoriaSlide(p => (p + 1) % historiaImages.length), 4000)
+    return () => clearInterval(t)
+  }, [historiaImages.length])
 
-  const ambienceImages = [
-    { src: '/Instalaciones/DSC_0635-Mejorado-NR-8.jpg', alt: 'Salón Salario de Zipa' },
-    { src: '/Instalaciones/_MG_2033.jpg', alt: 'Detalle del espacio' },
-    { src: '/Instalaciones/_MG_2036.jpg', alt: 'Interior del restaurante' },
-    { src: '/Instalaciones/_MG_2087.jpg', alt: 'Ambiente del restaurante' },
-    { src: '/Instalaciones/_MG_2096h.jpg', alt: 'Vista del salón' },
-    { src: '/Instalaciones/DSC_0668-Mejorado-NR-21.jpg', alt: 'Instalaciones Salario' },
-    { src: '/Instalaciones/SALARIO-134.jpg', alt: 'Espacios Salario' },
-    { src: '/Instalaciones/SALARIO-136.jpg', alt: 'Detalles Salario' },
-    { src: '/Instalaciones/DSC_0663-Mejorado-NR-20.jpg', alt: 'Exterior Salario de Zipa' },
-    { src: '/Instalaciones/_MG_2098.jpg', alt: 'Instalaciones Salario de Zipa' },
-    { src: '/Instalaciones/SALARIO-51.jpg', alt: 'Fachada Salario de Zipa' },
-    { src: '/Instalaciones/DSC_0700-Mejorado-NR-34.jpg', alt: 'Interior Salario de Zipa' },
-  ]
+  useEffect(() => {
+    const t = setInterval(() => setEventosSlide(p => (p + 1) % momentos.length), 3500)
+    return () => clearInterval(t)
+  }, [])
 
-  const staffImages = [
-    '/Trabajadores Salario/_MG_0342.jpg',
-    '/Trabajadores Salario/_MG_0749.jpg',
-    '/Trabajadores Salario/_MG_0761.jpg',
-    '/Trabajadores Salario/_MG_0793.jpg',
-    '/Trabajadores Salario/_MG_0798.jpg',
-    '/Trabajadores Salario/_MG_0941.jpg',
-    '/Trabajadores Salario/DSC_0023-Mejorado-NR-17.jpg',
-    '/Trabajadores Salario/DSC_0139-Mejorado-NR-3.jpg',
-    '/Trabajadores Salario/DSC_0366-Mejorado-NR-9.jpg',
-    '/Trabajadores Salario/DSC_0747-Mejorado-NR-4.jpg',
-    '/Trabajadores Salario/DSC_0755-Mejorado-NR-5.jpg',
-    '/Trabajadores Salario/DSC_0778-Mejorado-NR-7.jpg',
-    '/Trabajadores Salario/DSC_0866-Mejorado-NR-10.jpg',
-  ]
-
-  const momentos = [
-    { src: '/Momentos/DSC_0841-Mejorado-NR-1.jpg', label: 'MATRIMONIOS' },
-    { src: '/Momentos/DSC_0872-Mejorado-NR-5.jpg', label: 'EVENTOS CORPORATIVOS' },
-    { src: '/Momentos/DSCF4570.jpg', label: 'CELEBRACIONES' },
-    { src: '/Momentos/_MG_0860.jpg', label: 'GRADUACIONES' },
-    { src: '/Momentos/_MG_0867.jpg', label: 'ANIVERSARIOS' },
-    { src: '/Momentos/editar(27).jpg', label: 'BAUTIZOS' },
-  ]
-
-  const testimonios = [
-    {
-      initial: 'M',
-      name: 'Mariana G.',
-      role: 'Bogotá, Colombia',
-      title: 'Una experiencia que despierta los sentidos',
-      quote: 'El lugar más mágico para celebrar. La atmósfera es única, la comida increíble y el personal hace que cada detalle sea perfecto.',
-      image: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg',
-    },
-    {
-      initial: 'C',
-      name: 'Carlos R.',
-      role: 'Medellín, Colombia',
-      title: 'Gastronomía auténtica y sin igual',
-      quote: 'Celebramos nuestro aniversario aquí y fue una experiencia que nunca olvidaremos. El horno de sal es simplemente espectacular.',
-      image: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg',
-    },
-    {
-      initial: 'A',
-      name: 'Ana María P.',
-      role: 'Cali, Colombia',
-      title: 'El escenario perfecto para celebrar',
-      quote: 'Organizamos la boda de nuestra hija en Salario y todo fue perfecto. Espacios hermosos, gastronomía excepcional y atención impecable.',
-      image: '/Menu/_MG_1420.jpg',
-    },
-  ]
+  // 3D carousel helper
+  const getEventoClass = (i: number): string => {
+    const total = momentos.length
+    let diff = i - eventosSlide
+    if (diff > total / 2) diff -= total
+    if (diff < -total / 2) diff += total
+    if (diff === 0) return 'is-active'
+    if (diff === 1) return 'is-next'
+    if (diff === -1) return 'is-prev'
+    return 'is-hidden'
+  }
 
   // Track which categories have already been rendered as labels
   const renderedCategories = new Set<string>()
@@ -297,7 +319,7 @@ export default function LandingPage() {
             src="/LOGOS SALARIO/LOGO SALARIO BLANCO_Mesa de trabajo 1 copia 7.png"
             alt="Salario de Zipa"
             fill
-            sizes="120px"
+            sizes="200px"
             style={{ objectFit: 'contain', objectPosition: 'left center' }}
           />
         </div>
@@ -317,29 +339,19 @@ export default function LandingPage() {
           HERO
           ============================================================ */}
       <section className="landing-hero" id="inicio">
-        {/* Left */}
-        <div className="landing-hero-left">
-          {/* Circular spinning plates — in left panel */}
-          <div className="landing-hero-plates">
-            <div className="landing-plate-wrap landing-plate-1">
-              <div className="landing-plate-inner">
-                <Image src="/Menu/_MG_1355.jpg" alt="Plato Salario" fill sizes="180px" style={{ objectFit: 'cover' }} />
-              </div>
+        {/* Background carousel */}
+        <div className="landing-hero-slides">
+          {heroImages.map((img, i) => (
+            <div key={i} className={`landing-hero-slide${heroSlide === i ? ' active' : ''}`}>
+              <Image src={img.src} alt={img.alt} fill sizes="100vw" style={{ objectFit: 'cover' }} priority={i === 0} />
             </div>
-            <div className="landing-plate-wrap landing-plate-2">
-              <div className="landing-plate-inner">
-                <Image src="/Menu/DSC_0786-Mejorado-NR-2-min.jpg" alt="Plato Salario" fill sizes="210px" style={{ objectFit: 'cover' }} />
-              </div>
-            </div>
-            <div className="landing-plate-wrap landing-plate-3">
-              <div className="landing-plate-inner">
-                <Image src="/Menu/DSC_0811-Mejorado-NR-4-min.jpg" alt="Plato Salario" fill sizes="170px" style={{ objectFit: 'cover' }} />
-              </div>
-            </div>
-          </div>
-
+          ))}
+        </div>
+        {/* Gradient: dark left → transparent right */}
+        <div className="landing-hero-gradient" />
+        {/* Static text on left */}
+        <div className="landing-hero-content">
           <span className="landing-hero-eyebrow">ZIPAQUIRÁ · COLOMBIA · DESDE 1939</span>
-
           <WordBlur
             text="Donde el fuego y la tradición crean experiencias"
             tag="h1"
@@ -347,31 +359,19 @@ export default function LandingPage() {
             goldWords={['fuego', 'tradición']}
             startDelay={0.4}
           />
-
           <p className="landing-hero-body">
             Gastronomía de autor, horno de sal vigente desde 1939, y espacios únicos para los momentos que más importan.
           </p>
-
           <div className="landing-hero-actions">
             <a href="#reservar" className="landing-btn-glass">RESERVAR MESA</a>
             <a href="#gastronomia" className="landing-btn-outline">CONOCER MENÚ</a>
           </div>
-
-        </div>
-
-        {/* Right */}
-        <div className="landing-hero-right">
-          <div className="landing-hero-main-img">
-            <Image
-              src="/Instalaciones/DSC_0700-Mejorado-NR-34.jpg"
-              alt="Interior Salario de Zipa"
-              fill
-              sizes="50vw"
-              style={{ objectFit: 'cover' }}
-              priority
-            />
+          {/* Slide dots */}
+          <div className="landing-hero-dots">
+            {heroImages.map((_, i) => (
+              <button key={i} className={`landing-hero-dot${heroSlide === i ? ' active' : ''}`} onClick={() => setHeroSlide(i)} aria-label={`Slide ${i + 1}`} />
+            ))}
           </div>
-
         </div>
       </section>
 
@@ -387,6 +387,48 @@ export default function LandingPage() {
       </section>
 
       {/* ============================================================
+          POEMA — Salario de Zipa
+          ============================================================ */}
+      <section className="landing-poem-section">
+        {/* Left ornament */}
+        <div className="landing-poem-ornament-side" aria-hidden="true">
+          <div className="landing-poem-vline" />
+          <span className="landing-poem-diamond">✦</span>
+          <div className="landing-poem-vline" />
+        </div>
+
+        <div className="landing-poem-container ls-reveal" ref={addRevealRef}>
+          <span className="landing-poem-eyebrow">SALARIO DE ZIPA</span>
+          {/* Top divider */}
+          <div className="landing-poem-ornament-top" aria-hidden="true">
+            <div className="landing-poem-hline" />
+            <span className="landing-poem-star">✦</span>
+            <div className="landing-poem-hline" />
+          </div>
+          <div className="landing-poem-text">
+            <p>Mucho antes de convertirse en un restaurante, este lugar fue parte del corazón que impulsó el desarrollo de Zipaquirá. Desde 1939, sus históricos hornos de sal han sido testigos del esfuerzo, la tradición y el trabajo de generaciones que transformaban el agua cargada de sal en el mineral que dio identidad y prosperidad a la Capital Salinera de Colombia. Hoy, sus paredes aún conservan esa esencia, como si el tiempo hubiera decidido quedarse para recordar de dónde venimos y por qué esta historia merece seguir siendo contada.
+
+
+              Salario nació con el propósito de honrar ese legado y compartirlo de una forma diferente: a través de la gastronomía. Cada plato, cada bebida y cada detalle del espacio buscan conectar el pasado con el presente, invitando a nuestros visitantes a descubrir la riqueza cultural de Zipaquirá mientras disfrutan sabores que celebran la región.<br />Te invitamos a descubrir un lugar donde la historia sigue respirando entre muros de sal y donde cada visita se convierte en un encuentro con la tradición, el sabor y la esencia de Zipaquirá.<br />
+            </p>
+          </div>
+          {/* Bottom divider */}
+          <div className="landing-poem-ornament-top" aria-hidden="true">
+            <div className="landing-poem-hline" />
+            <span className="landing-poem-star">✦</span>
+            <div className="landing-poem-hline" />
+          </div>
+        </div>
+
+        {/* Right ornament */}
+        <div className="landing-poem-ornament-side" aria-hidden="true">
+          <div className="landing-poem-vline" />
+          <span className="landing-poem-diamond">✦</span>
+          <div className="landing-poem-vline" />
+        </div>
+      </section>
+
+      {/* ============================================================
           GASTRONOMÍA / MENU — Savoria-style list with hover photo
           ============================================================ */}
       <section className="landing-menu-section" id="gastronomia">
@@ -398,6 +440,15 @@ export default function LandingPage() {
             tag="h2"
             className="landing-menu-title"
           />
+        </div>
+
+        {/* Mobile photo panel */}
+        <div className="landing-menu-mobile-photo-wrap">
+          {[0, 3, 5, 6, 14, 19].map((idx, listPos) => (
+            <div key={idx} className={`landing-menu-photo${hoveredMenu === listPos ? ' visible' : ''}`}>
+              <Image src={menuItems[idx].image} alt={menuItems[idx].name} fill sizes="100vw" style={{ objectFit: 'cover' }} />
+            </div>
+          ))}
         </div>
 
         {/* Two-column layout — featured items only */}
@@ -454,38 +505,27 @@ export default function LandingPage() {
       </section>
 
       {/* ============================================================
-          AMBIENCE — Auto-scroll image ticker
+          VIDEO SECTION
           ============================================================ */}
-      <section className="landing-ambience-section">
-        <div className="landing-ambience-header">
-          <div>
-            <p className="landing-ambience-eyebrow">INSTALACIONES</p>
-            <WordBlur
-              text="Un espacio diseñado para celebrar"
-              tag="h2"
-              className="landing-ambience-title"
-            />
-          </div>
-          <p className="landing-ambience-desc">
-            Cada rincón de Salario de Zipa fue pensado para crear momentos únicos.
-            Salones privados, terrazas y espacios abiertos llenos de historia y luz natural.
-          </p>
+      <section className="landing-video-section">
+        <div className="landing-video-header ls-reveal" ref={addRevealRef}>
+          <p className="landing-video-eyebrow">NUESTRA HISTORIA</p>
+          <WordBlur
+            text="Conócenos en video"
+            tag="h2"
+            className="landing-video-title"
+          />
         </div>
-
-        <div className="landing-ambience-ticker-wrap">
-          <div className="landing-ambience-ticker">
-            {[...ambienceImages, ...ambienceImages].map((img, i) => (
-              <div key={i} className="landing-ambience-ticker-img">
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  sizes="300px"
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
-            ))}
-          </div>
+        <div className="landing-video-wrap">
+          <div className="landing-video-shadow-left" />
+          <div className="landing-video-shadow-right" />
+          <iframe
+            className="landing-video-iframe"
+            src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1`}
+            title="Salario de Zipa"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
         </div>
       </section>
 
@@ -493,22 +533,25 @@ export default function LandingPage() {
           HISTORIA
           ============================================================ */}
       <section className="landing-historia-section" id="historia">
-        <div className="landing-historia-left" ref={historiaImgRef}>
-          <div className="landing-historia-img">
-            <Image
-              src="/Instalaciones/SALARIO-34.jpg"
-              alt="Historia Salario de Zipa"
-              fill
-              sizes="50vw"
-              style={{ objectFit: 'cover', transition: 'transform 0.1s linear' }}
-            />
+        <div className="landing-historia-left">
+          <div className="landing-historia-slideshow">
+            {historiaImages.map((img, i) => (
+              <div key={i} className={`landing-historia-slide${historiaSlide === i ? ' active' : ''}`}>
+                <Image src={img.src} alt={img.alt} fill sizes="50vw" style={{ objectFit: 'cover' }} />
+              </div>
+            ))}
+            <div className="landing-historia-slide-dots">
+              {historiaImages.map((_, i) => (
+                <button key={i} className={`landing-historia-dot${historiaSlide === i ? ' active' : ''}`} onClick={() => setHistoriaSlide(i)} aria-label={`Foto ${i + 1}`} />
+              ))}
+            </div>
           </div>
         </div>
 
         <div className="landing-historia-right ls-reveal" ref={addRevealRef}>
           <span className="landing-historia-eyebrow">DESDE 1939</span>
           <WordBlur
-            text="Tradición viva en cada brasa"
+            text="Tradición que sigue viva desde 1939"
             tag="h2"
             className="landing-historia-title"
           />
@@ -525,32 +568,65 @@ export default function LandingPage() {
       </section>
 
       {/* ============================================================
-          MOMENTOS
+          EVENTOS / MOMENTOS — 3D carousel
           ============================================================ */}
-      <section className="landing-momentos-section" id="eventos">
-        <div className="landing-momentos-header ls-reveal" ref={addRevealRef}>
-          <p className="landing-momentos-eyebrow">CELEBRA CON NOSOTROS</p>
+      <section className="landing-eventos-section" id="eventos">
+        {/* Centered header */}
+        <div className="landing-eventos-header ls-reveal" ref={addRevealRef}>
+          <p className="landing-eventos-eyebrow">CELEBRA CON NOSOTROS</p>
           <WordBlur
             text="Tus momentos más especiales"
             tag="h2"
-            className="landing-momentos-title"
+            className="landing-eventos-title"
           />
+          <p className="landing-eventos-body">
+            Salario de Zipa es el escenario perfecto para cada celebración. Nuestros espacios únicos, gastronomía excepcional y atención dedicada hacen de cada evento una experiencia memorable.
+          </p>
         </div>
 
-        <div className="landing-momentos-grid">
+        {/* 3D stage */}
+        <div className="landing-eventos-3d-stage">
           {momentos.map((m, i) => (
-            <div key={i} className="landing-momento-card ls-reveal" ref={addRevealRef}>
-              <Image
-                src={m.src}
-                alt={m.label}
-                fill
-                sizes="(max-width: 768px) 50vw, 33vw"
-                style={{ objectFit: 'cover' }}
-              />
-              <div className="landing-momento-overlay" />
-              <span className="landing-momento-label">{m.label}</span>
+            <div
+              key={i}
+              className={`landing-evento-card-3d ${getEventoClass(i)}`}
+              onClick={() => setEventosSlide(i)}
+            >
+              <Image src={m.src} alt={m.label} fill sizes="460px" style={{ objectFit: 'cover' }} />
+              <div className="landing-evento-overlay" />
+              <div className="landing-evento-info">
+                <span className="landing-evento-label">{m.label}</span>
+                <p className="landing-evento-desc">{m.desc}</p>
+              </div>
             </div>
           ))}
+        </div>
+
+        {/* Footer: dots + arrows + CTA */}
+        <div className="landing-eventos-footer">
+          <div className="landing-eventos-arrows">
+            <button
+              className="landing-evento-arrow"
+              onClick={() => setEventosSlide(p => (p - 1 + momentos.length) % momentos.length)}
+              aria-label="Anterior"
+            >←</button>
+            <div className="landing-eventos-dots">
+              {momentos.map((m, i) => (
+                <button
+                  key={i}
+                  className={`landing-evento-dot${eventosSlide === i ? ' active' : ''}`}
+                  onClick={() => setEventosSlide(i)}
+                  aria-label={m.label}
+                />
+              ))}
+            </div>
+            <button
+              className="landing-evento-arrow"
+              onClick={() => setEventosSlide(p => (p + 1) % momentos.length)}
+              aria-label="Siguiente"
+            >→</button>
+          </div>
+          <a href="#reservar" className="landing-btn-glass">PLANEAR UN EVENTO →</a>
         </div>
       </section>
 
@@ -594,7 +670,7 @@ export default function LandingPage() {
               <div className="landing-testimonio-stars">
                 {[...Array(5)].map((_, s) => (
                   <svg key={s} width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
                 ))}
               </div>
@@ -684,6 +760,38 @@ export default function LandingPage() {
               WHATSAPP
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          MAPA — Google Maps + Waze
+          ============================================================ */}
+      <section className="landing-map-section">
+        <div className="landing-map-header ls-reveal" ref={addRevealRef}>
+          <span className="landing-map-eyebrow">CÓMO LLEGARNOS</span>
+          <h2 className="landing-map-title">Nos encontramos en Zipaquirá</h2>
+          <p className="landing-map-address">Cra. 7 #2-83, Zipaquirá, Cundinamarca, Colombia</p>
+        </div>
+        <div className="landing-map-wrap">
+          <iframe
+            src="https://maps.google.com/maps?q=Cra+7+%232-83+Zipaquirá+Cundinamarca+Colombia&output=embed&hl=es&z=16"
+            title="Ubicación Salario de Zipa"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+        <div className="landing-map-cta">
+          <a
+            href="https://waze.com/ul?q=Cra+7+%232-83+Zipaquirá+Cundinamarca+Colombia&navigate=yes"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="landing-btn-waze"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.54 6.63C19.38 4.46 17.39 2.86 15 2.25 12.56 1.63 10 2.03 7.92 3.37 5.84 4.71 4.38 6.82 3.92 9.26c-.46 2.44.1 4.97 1.54 7.02L3 22l5.87-1.42c1.37.72 2.91 1.1 4.47 1.1h.01c2.29 0 4.52-.78 6.31-2.21 1.79-1.43 3-3.45 3.41-5.67.41-2.22-.05-4.52-1.53-6.17zm-8.2 12.24h-.01c-1.37 0-2.72-.38-3.9-1.1l-.28-.17-2.89.7.74-2.81-.18-.29c-.81-1.28-1.24-2.76-1.24-4.28 0-4.37 3.57-7.93 7.94-7.93 2.12 0 4.11.82 5.61 2.32 1.5 1.49 2.33 3.48 2.33 5.6-.01 4.37-3.57 7.96-8.12 7.96zm4.35-5.95c-.24-.12-1.41-.69-1.63-.77-.22-.08-.38-.12-.54.12-.16.24-.62.77-.76.93-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.01-.37.1-.49.11-.11.24-.29.36-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.47-.39-.4-.54-.41-.14-.01-.3-.01-.46-.01s-.42.06-.64.3c-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.39 1.37.5.57.18 1.09.16 1.5.1.46-.07 1.41-.58 1.61-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z" />
+            </svg>
+            OBTENER DIRECCIONES EN WAZE
+          </a>
         </div>
       </section>
 
