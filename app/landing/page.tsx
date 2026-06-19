@@ -406,10 +406,9 @@ export default function LandingPage() {
             <div className="landing-poem-hline" />
           </div>
           <div className="landing-poem-text">
-            <p>Mucho antes de convertirse en un restaurante, este lugar fue parte del corazón que impulsó el desarrollo de Zipaquirá. Desde 1939, sus históricos hornos de sal han sido testigos del esfuerzo, la tradición y el trabajo de generaciones que transformaban el agua cargada de sal en el mineral que dio identidad y prosperidad a la Capital Salinera de Colombia. Hoy, sus paredes aún conservan esa esencia, como si el tiempo hubiera decidido quedarse para recordar de dónde venimos y por qué esta historia merece seguir siendo contada.
+            <p>Desde 1939, este lugar ha guardado una parte invaluable de la historia de Zipaquirá. Los antiguos hornos y sus característicos muros de sal permanecen como testigos silenciosos de un legado que aún se respira en cada espacio.
 
-
-              Salario nació con el propósito de honrar ese legado y compartirlo de una forma diferente: a través de la gastronomía. Cada plato, cada bebida y cada detalle del espacio buscan conectar el pasado con el presente, invitando a nuestros visitantes a descubrir la riqueza cultural de Zipaquirá mientras disfrutan sabores que celebran la región.<br />Te invitamos a descubrir un lugar donde la historia sigue respirando entre muros de sal y donde cada visita se convierte en un encuentro con la tradición, el sabor y la esencia de Zipaquirá.<br />
+              En Salario, decidimos preservar esa esencia y compartirla alrededor de la mesa, creando una experiencia donde la gastronomía se convierte en una forma de conectar con la memoria y la tradición de la Capital Salinera de Colombia.
             </p>
           </div>
           {/* Bottom divider */}
