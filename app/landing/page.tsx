@@ -155,19 +155,10 @@ const menuItems = [
 ]
 
 const staffImages = [
-  '/Trabajadores Salario/_MG_0342.jpg',
-  '/Trabajadores Salario/_MG_0749.jpg',
-  '/Trabajadores Salario/_MG_0761.jpg',
-  '/Trabajadores Salario/_MG_0793.jpg',
-  '/Trabajadores Salario/_MG_0798.jpg',
-  '/Trabajadores Salario/_MG_0941.jpg',
-  '/Trabajadores Salario/DSC_0023-Mejorado-NR-17.jpg',
-  '/Trabajadores Salario/DSC_0139-Mejorado-NR-3.jpg',
-  '/Trabajadores Salario/DSC_0366-Mejorado-NR-9.jpg',
-  '/Trabajadores Salario/DSC_0747-Mejorado-NR-4.jpg',
-  '/Trabajadores Salario/DSC_0755-Mejorado-NR-5.jpg',
-  '/Trabajadores Salario/DSC_0778-Mejorado-NR-7.jpg',
-  '/Trabajadores Salario/DSC_0866-Mejorado-NR-10.jpg',
+  '/Personal/_MG_0342.jpg',
+  '/Personal/DSC_0747-Mejorado-NR-4.jpg',
+  '/Personal/DSC_0755-Mejorado-NR-5.jpg',
+  '/Personal/DSC_0866-Mejorado-NR-10.jpg',
 ]
 
 const momentos = [
