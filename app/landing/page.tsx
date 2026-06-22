@@ -214,9 +214,9 @@ export default function LandingPage() {
 
   // Hero images
   const heroImages = [
-    { src: '/Instalaciones/DSC_0663-Mejorado-NR-20.jpg', alt: 'Interior Salario de Zipa' },
-    { src: '/Instalaciones/DSC_0635-Mejorado-NR-8.jpg', alt: 'Salón Salario de Zipa' },
-    { src: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg', alt: 'Ambiente del restaurante' },
+    { src: '/Instalaciones/DSC_0663-Mejorado-NR-20.jpg', alt: 'Interior Salario de Zipa', position: '70% center' },
+    { src: '/Instalaciones/DSC_0635-Mejorado-NR-8.jpg', alt: 'Salón Salario de Zipa', position: 'center center' },
+    { src: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg', alt: 'Ambiente del restaurante', position: 'center center' },
   ]
   const historiaImages = [
     { src: '/_MG_0793.jpg', alt: 'Historia Salario de Zipa' },
@@ -331,7 +331,7 @@ export default function LandingPage() {
         <div className="landing-hero-slides">
           {heroImages.map((img, i) => (
             <div key={i} className={`landing-hero-slide${heroSlide === i ? ' active' : ''}`}>
-              <Image src={img.src} alt={img.alt} fill sizes="100vw" style={{ objectFit: 'cover' }} priority={i === 0} />
+              <Image src={img.src} alt={img.alt} fill sizes="100vw" style={{ objectFit: 'cover', objectPosition: img.position }} priority={i === 0} />
             </div>
           ))}
         </div>
