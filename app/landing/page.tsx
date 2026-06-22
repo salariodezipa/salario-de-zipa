@@ -177,7 +177,7 @@ const testimonios = [
     role: 'Bogotá, Colombia',
     title: 'Una experiencia que despierta los sentidos',
     quote: 'El lugar más mágico para celebrar. La atmósfera es única, la comida increíble y el personal hace que cada detalle sea perfecto.',
-    image: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg',
+    image: '/Momentos/_MG_0860.jpg',
   },
   {
     initial: 'C',
@@ -185,7 +185,7 @@ const testimonios = [
     role: 'Medellín, Colombia',
     title: 'Gastronomía auténtica y sin igual',
     quote: 'Celebramos nuestro aniversario aquí y fue una experiencia que nunca olvidaremos. El horno de sal es simplemente espectacular.',
-    image: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg',
+    image: '/Momentos/_MG_0774.jpg',
   },
   {
     initial: 'A',
@@ -193,7 +193,7 @@ const testimonios = [
     role: 'Cali, Colombia',
     title: 'El escenario perfecto para celebrar',
     quote: 'Organizamos la boda de nuestra hija en Salario y todo fue perfecto. Espacios hermosos, gastronomía excepcional y atención impecable.',
-    image: '/Menu/_MG_1420.jpg',
+    image: '/Momentos/_MG_0771.jpg',
   },
 ]
 
