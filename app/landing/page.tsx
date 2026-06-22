@@ -111,8 +111,6 @@ function StatCounter({ target, suffix = '', label }: StatCounterProps) {
 /* ============================================================
    DATA — defined outside component to avoid re-creation
    ============================================================ */
-const YOUTUBE_VIDEO_ID = 'TU_VIDEO_ID_AQUI'
-
 const tickerText = [
   'Lomo al Trapo',
   '✦',
