@@ -467,7 +467,7 @@ export default function LandingPage() {
               )
             })}
             <div className="landing-menu-cta-wrap">
-              <a href="/menu" className="landing-btn-glass">VER MENÚ COMPLETO →</a>
+              <a href="/2025%20-%202026%20CARTA%20SALARIO.pdf.pdf" target="_blank" rel="noopener noreferrer" className="landing-btn-glass">VER MENÚ COMPLETO →</a>
             </div>
           </div>
 
