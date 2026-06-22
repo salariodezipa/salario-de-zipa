@@ -216,7 +216,7 @@ export default function LandingPage() {
 
   // Hero images
   const heroImages = [
-    { src: '/Momentos/_MG_0978.jpg', alt: 'Interior Salario de Zipa' },
+    { src: '/Instalaciones/DSC_0663-Mejorado-NR-20.jpg', alt: 'Interior Salario de Zipa' },
     { src: '/Instalaciones/DSC_0635-Mejorado-NR-8.jpg', alt: 'Salón Salario de Zipa' },
     { src: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg', alt: 'Ambiente del restaurante' },
   ]
@@ -508,12 +508,13 @@ export default function LandingPage() {
         <div className="landing-video-wrap">
           <div className="landing-video-shadow-left" />
           <div className="landing-video-shadow-right" />
-          <iframe
+          <video
             className="landing-video-iframe"
-            src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&modestbranding=1`}
-            title="Salario de Zipa"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
+            src="/Instalaciones/Video Landing Salario.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
           />
         </div>
       </section>
