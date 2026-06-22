@@ -155,7 +155,6 @@ const menuItems = [
 ]
 
 const staffImages = [
-  '/Personal/_MG_0342.jpg',
   '/Personal/DSC_0747-Mejorado-NR-4.jpg',
   '/Personal/DSC_0755-Mejorado-NR-5.jpg',
   '/Personal/DSC_0866-Mejorado-NR-10.jpg',
