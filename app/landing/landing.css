@@ -669,20 +669,20 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  /* cubre todo el espacio entre el borde de la pantalla y el video */
-  width: calc((100% - (calc(100vh - 260px) * 16 / 9)) / 2 + 80px);
+  width: 18%;
+  min-width: 80px;
   z-index: 10;
   pointer-events: none;
 }
 
 .landing-video-shadow-left {
   left: 0;
-  background: linear-gradient(to right, rgb(20, 20, 20) 70%, transparent 100%);
+  background: linear-gradient(to right, #111111 0%, #111111 30%, rgba(17,17,17,0.7) 65%, transparent 100%);
 }
 
 .landing-video-shadow-right {
   right: 0;
-  background: linear-gradient(to left, rgb(20, 20, 20) 70%, transparent 100%);
+  background: linear-gradient(to left, #111111 0%, #111111 30%, rgba(17,17,17,0.7) 65%, transparent 100%);
 }
 
 .landing-video-iframe {
