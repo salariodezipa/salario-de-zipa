@@ -626,14 +626,14 @@
    ============================================================ */
 .landing-video-section {
   background-color: var(--ls-dark);
-  padding: 80px 0 0;
+  padding: 60px 0 60px;
   border-top: 1px solid var(--ls-border);
   overflow: hidden;
 }
 
 .landing-video-header {
   padding: 0 120px;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
   text-align: center;
 }
 
@@ -697,6 +697,19 @@
   position: relative;
   border: none;
   object-fit: contain;
+}
+
+.landing-video-caption {
+  max-width: 680px;
+  margin: 32px auto 0;
+  padding: 0 24px;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.75;
+  letter-spacing: 0.02em;
 }
 
 /* ============================================================
@@ -1746,19 +1759,29 @@
   }
 
   .landing-poem-section {
-    padding: 80px 24px;
+    padding: 60px 24px;
+  }
+
+  .landing-menu-section {
+    padding-top: 70px;
   }
 
   .landing-menu-header {
     padding: 0 24px;
+    margin-bottom: 40px;
   }
 
   .landing-menu-list {
-    padding: 0 24px 60px;
+    padding: 0 24px 40px;
+  }
+
+  .landing-video-section {
+    padding: 50px 0 40px;
   }
 
   .landing-video-header {
     padding: 0 24px;
+    margin-bottom: 20px;
   }
 
   .landing-video-wrap {
@@ -1770,17 +1793,35 @@
     width: 40px;
   }
 
+  .landing-video-caption {
+    font-size: 0.8rem;
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+
+  .landing-historia-section {
+    padding: 60px 0;
+  }
+
   .landing-historia-left {
-    height: 300px;
+    height: 280px;
   }
 
   .landing-historia-right {
-    padding: 40px 24px;
+    padding: 36px 24px;
+  }
+
+  .landing-eventos-section {
+    padding: 70px 0 60px;
   }
 
   .landing-eventos-header {
     padding: 0 24px;
-    margin-bottom: 48px;
+    margin-bottom: 40px;
+  }
+
+  .landing-staff-section {
+    padding: 70px 24px;
   }
 
   .landing-eventos-3d-stage {
@@ -1845,12 +1886,8 @@
     gap: 24px;
   }
 
-  .landing-staff-section {
-    padding: 80px 0;
-  }
-
   .landing-testimonios-section {
-    padding: 80px 24px;
+    padding: 60px 24px;
   }
 
   .landing-testimonios-header {

@@ -214,7 +214,7 @@ export default function LandingPage() {
 
   // Hero images
   const heroImages = [
-    { src: '/Instalaciones/DSC_0663-Mejorado-NR-20.jpg', alt: 'Interior Salario de Zipa', position: '70% center' },
+    { src: '/Instalaciones/DSC_0663-Mejorado-NR-20.jpg', alt: 'Interior Salario de Zipa', position: '82% center' },
     { src: '/Instalaciones/DSC_0635-Mejorado-NR-8.jpg', alt: 'Salón Salario de Zipa', position: 'center center' },
     { src: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg', alt: 'Ambiente del restaurante', position: 'center center' },
   ]
@@ -515,6 +515,11 @@ export default function LandingPage() {
             playsInline
           />
         </div>
+        <p className="landing-video-caption">
+          Entre hornos y muros cargados de memoria se grabaron escenas de <em>El Milagro de Sal</em> (1958), considerada una de las obras pioneras del cine colombiano y parte del patrimonio fílmico nacional. Un lugar donde la historia de Zipaquirá no solo se cuenta, sino que aún puede recorrerse.
+          <br /><br />
+          Una experiencia que conecta sabores, tradición y patrimonio en uno de los escenarios más auténticos de la Capital Salinera de Colombia.
+        </p>
       </section>
 
       {/* ============================================================
