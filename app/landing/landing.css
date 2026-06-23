@@ -1776,26 +1776,35 @@
   }
 
   .landing-video-section {
-    padding: 50px 0 40px;
+    padding: 44px 0 36px;
   }
 
   .landing-video-header {
     padding: 0 24px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 
   .landing-video-wrap {
     margin: 0;
   }
 
+  /* En mobile el video usa ancho como referencia, no altura */
+  .landing-video-iframe {
+    width: 100%;
+    height: auto;
+    min-height: unset;
+    max-height: unset;
+    aspect-ratio: 16/9;
+  }
+
   .landing-video-shadow-left,
   .landing-video-shadow-right {
-    width: 40px;
+    display: none;
   }
 
   .landing-video-caption {
-    font-size: 0.8rem;
-    margin-top: 20px;
+    font-size: 0.78rem;
+    margin-top: 16px;
     padding: 0 20px;
   }
 
