@@ -214,7 +214,7 @@ export default function LandingPage() {
 
   // Hero images
   const heroImages = [
-    { src: '/Instalaciones/DSC_0663-Mejorado-NR-20.jpg', alt: 'Interior Salario de Zipa', position: '92% center' },
+    { src: '/Instalaciones/DSC_0663-Mejorado-NR-20.jpg', alt: 'Interior Salario de Zipa', position: '20% center' },
     { src: '/Instalaciones/DSC_0635-Mejorado-NR-8.jpg', alt: 'Salón Salario de Zipa', position: 'center center' },
     { src: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg', alt: 'Ambiente del restaurante', position: 'center center' },
   ]
