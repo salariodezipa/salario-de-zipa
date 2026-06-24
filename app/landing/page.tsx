@@ -214,13 +214,14 @@ export default function LandingPage() {
 
   // Hero images
   const heroImages = [
-    { src: '/Instalaciones/DSC_0663-Mejorado-NR-20.jpg', alt: 'Interior Salario de Zipa', position: '30% center' },
-    { src: '/Instalaciones/DSC_0635-Mejorado-NR-8.jpg', alt: 'Salón Salario de Zipa', position: 'center center' },
+    { src: '/Instalaciones/DSC_0635-Mejorado-NR-8.jpg', alt: 'Interior Salario de Zipa', position: '30% center' },
+    { src: '/Menu/SALARIO-68.jpg', alt: 'Salón Salario de Zipa', position: 'center center' },
     { src: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg', alt: 'Ambiente del restaurante', position: 'center center' },
   ]
   const historiaImages = [
-    { src: '/_MG_0793.jpg', alt: 'Historia Salario de Zipa' },
+    { src: '/Instalaciones/SALARIO-51.jpg', alt: 'Historia Salario de Zipa' },
     { src: '/Instalaciones/_MG_0733.jpg', alt: 'Fachada Salario de Zipa' },
+    { src: '/Menu/_MG_1421.jpg', alt: 'Comida Salario de Zipa' },
   ]
 
   // State
@@ -498,7 +499,7 @@ export default function LandingPage() {
         <div className="landing-video-header ls-reveal" ref={addRevealRef}>
           <p className="landing-video-eyebrow">NUESTRA HISTORIA</p>
           <WordBlur
-            text="Conócenos en video"
+            text="Donde la historia sigue viva, alrededor de la mesa"
             tag="h2"
             className="landing-video-title"
           />
