@@ -152,13 +152,12 @@ const menuItems = [
   { num: '20', category: 'BEBIDAS', name: 'Cóctel Sal Vigua', desc: 'Tequila, carbón activado, limón, sal vigua y sirope de frutos rojos.', price: '$45.000', image: '/Menu/SALARIO-38.jpg' },
 ]
 
-const momentos = [
-  { src: '/Momentos/DSC_0841-Mejorado-NR-1.jpg', label: 'MATRIMONIOS', desc: 'Celebra el día más especial de tu vida en un entorno histórico único.' },
-  { src: '/Momentos/DSC_0872-Mejorado-NR-5.jpg', label: 'EVENTOS CORPORATIVOS', desc: 'Espacios exclusivos para reuniones, lanzamientos y celebraciones empresariales.' },
-  { src: '/Momentos/DSCF4570.jpg', label: 'CELEBRACIONES', desc: 'Cualquier ocasión especial merece un escenario excepcional.' },
-  { src: '/Momentos/_MG_0860.jpg', label: 'GRADUACIONES', desc: 'Honra el esfuerzo y el logro con una celebración a la altura del momento.' },
-  { src: '/Momentos/_MG_0867.jpg', label: 'ANIVERSARIOS', desc: 'Cada año de amor merece ser celebrado con la grandeza que merece.' },
-  { src: '/Momentos/editar(27).jpg', label: 'BAUTIZOS', desc: 'Los primeros momentos de vida merecen el ambiente más acogedor.' },
+const eventosImages = [
+  { src: '/Eventos/DSC_0841-Mejorado-NR-1.jpg', label: 'MATRIMONIOS', desc: 'Celebra el día más especial de tu vida en un entorno histórico único.' },
+  { src: '/Eventos/_MG_0867.jpg', label: 'ANIVERSARIOS', desc: 'Cada año de amor merece ser celebrado con la grandeza que merece.' },
+  { src: '/Eventos/DSCF4585.jpg', label: 'CELEBRACIONES', desc: 'Cualquier ocasión especial merece un escenario excepcional.' },
+  { src: '/Eventos/DSC_0700-Mejorado-NR-34.jpg', label: 'EVENTOS CORPORATIVOS', desc: 'Espacios exclusivos para reuniones, lanzamientos y celebraciones empresariales.' },
+  { src: '/Eventos/_MG_0827.jpg', label: 'INTEGRACIONES', desc: 'Honra el esfuerzo y el logro con una celebración a la altura del momento.' },
 ]
 
 const galeriaImages = [
@@ -217,33 +216,6 @@ const googleReviews = [
     text: 'Zipaquirá tiene una joya escondida. La gastronomía, el patrimonio y la atención hacen de este lugar algo incomparable. 100% recomendado.',
     timeAgo: 'Hace 1 semana',
     avatar: 'M',
-  },
-]
-
-const testimonios = [
-  {
-    initial: 'M',
-    name: 'Mariana G.',
-    role: 'Bogotá, Colombia',
-    title: 'Una experiencia que despierta los sentidos',
-    quote: 'El lugar más mágico para celebrar. La atmósfera es única, la comida increíble y el personal hace que cada detalle sea perfecto.',
-    image: '/Momentos/_MG_0860.jpg',
-  },
-  {
-    initial: 'C',
-    name: 'Carlos R.',
-    role: 'Medellín, Colombia',
-    title: 'Gastronomía auténtica y sin igual',
-    quote: 'Celebramos nuestro aniversario aquí y fue una experiencia que nunca olvidaremos. El horno de sal es simplemente espectacular.',
-    image: '/Momentos/_MG_0774.jpg',
-  },
-  {
-    initial: 'A',
-    name: 'Ana María P.',
-    role: 'Cali, Colombia',
-    title: 'El escenario perfecto para celebrar',
-    quote: 'Organizamos la boda de nuestra hija en Salario y todo fue perfecto. Espacios hermosos, gastronomía excepcional y atención impecable.',
-    image: '/Momentos/_MG_0771.jpg',
   },
 ]
 
@@ -331,7 +303,7 @@ export default function LandingPage() {
   }, [historiaImages.length])
 
   useEffect(() => {
-    const t = setInterval(() => setEventosSlide(p => (p + 1) % momentos.length), 3500)
+    const t = setInterval(() => setEventosSlide(p => (p + 1) % eventosImages.length), 3500)
     return () => clearInterval(t)
   }, [])
 
@@ -339,18 +311,6 @@ export default function LandingPage() {
     const t = setInterval(() => setGaleriaSlide(p => (p + 1) % galeriaImages.length), 3500)
     return () => clearInterval(t)
   }, [])
-
-  // 3D carousel helper
-  const getEventoClass = (i: number): string => {
-    const total = momentos.length
-    let diff = i - eventosSlide
-    if (diff > total / 2) diff -= total
-    if (diff < -total / 2) diff += total
-    if (diff === 0) return 'is-active'
-    if (diff === 1) return 'is-next'
-    if (diff === -1) return 'is-prev'
-    return 'is-hidden'
-  }
 
   // 3D carousel helper for galeria
   const getGaleriaClass = (i: number): string => {
@@ -363,9 +323,6 @@ export default function LandingPage() {
     if (diff === -1) return 'is-prev'
     return 'is-hidden'
   }
-
-  // Track which categories have already been rendered as labels
-  const renderedCategories = new Set<string>()
 
   return (
     <div className="landing-root">
@@ -495,7 +452,7 @@ export default function LandingPage() {
         <div className="landing-menu-header ls-reveal" ref={addRevealRef}>
           <p className="landing-menu-eyebrow">GASTRONOMÍA</p>
           <WordBlur
-            text="Sabores que cuentan nuestra historia"
+            text="Los favoritos de la casa"
             tag="h2"
             className="landing-menu-title"
           />
@@ -713,7 +670,7 @@ export default function LandingPage() {
         </div>
 
         <div className="landing-new-eventos-carousel">
-          {momentos.map((m, i) => (
+          {eventosImages.map((m, i) => (
             <div
               key={i}
               className={`landing-new-eventos-slide${eventosSlide === i ? ' active' : ''}`}
@@ -729,68 +686,15 @@ export default function LandingPage() {
           <div className="landing-new-eventos-nav">
             <button
               className="landing-evento-arrow"
-              onClick={() => setEventosSlide(p => (p - 1 + momentos.length) % momentos.length)}
+              onClick={() => setEventosSlide(p => (p - 1 + eventosImages.length) % eventosImages.length)}
               aria-label="Anterior"
             >←</button>
             <button
               className="landing-evento-arrow"
-              onClick={() => setEventosSlide(p => (p + 1) % momentos.length)}
+              onClick={() => setEventosSlide(p => (p + 1) % eventosImages.length)}
               aria-label="Siguiente"
             >→</button>
           </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          TESTIMONIOS
-          ============================================================ */}
-      <section className="landing-testimonios-section">
-        <div className="landing-testimonios-header ls-reveal" ref={addRevealRef}>
-          <div className="landing-testimonios-header-left">
-            <span className="landing-testimonios-line" />
-            <h2 className="landing-testimonios-heading">Lo que dicen nuestros invitados</h2>
-          </div>
-          <p className="landing-testimonios-subtitle">
-            Cada visita a Salario de Zipa se convierte en un recuerdo imborrable.
-            Experiencias que hablan por sí solas.
-          </p>
-        </div>
-
-        <div className="landing-testimonios-grid">
-          {testimonios.map((t, i) => (
-            <div key={i} className="landing-testimonio-card ls-reveal" ref={addRevealRef}>
-              {/* Author top */}
-              <div className="landing-testimonio-author-top">
-                <div className="landing-testimonio-avatar">{t.initial}</div>
-                <div className="landing-testimonio-info">
-                  <span className="landing-testimonio-name">{t.name}</span>
-                  <span className="landing-testimonio-role">{t.role}</span>
-                </div>
-              </div>
-              {/* Food photo */}
-              <div className="landing-testimonio-img">
-                <Image
-                  src={t.image}
-                  alt={t.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
-              {/* Stars */}
-              <div className="landing-testimonio-stars">
-                {[...Array(5)].map((_, s) => (
-                  <svg key={s} width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
-              </div>
-              {/* Bold title */}
-              <h3 className="landing-testimonio-title">{t.title}</h3>
-              {/* Quote */}
-              <p className="landing-testimonio-quote">{t.quote}</p>
-            </div>
-          ))}
         </div>
       </section>
 
