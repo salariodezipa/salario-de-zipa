@@ -164,7 +164,6 @@ const galeriaImages = [
   { src: '/Galeria/_MG_0573copia.jpg', label: 'SALARIO' },
   { src: '/Galeria/_MG_0828.jpg', label: 'EXPERIENCIA' },
   { src: '/Galeria/_MG_2033 (1).jpg', label: 'TRADICIÓN' },
-  { src: '/Galeria/_MG_2033.jpg', label: 'GASTRONOMÍA' },
   { src: '/Galeria/DSC_0841-Mejorado-NR-1.jpg', label: 'CELEBRACIÓN' },
   { src: '/Galeria/SALARIO-83.jpg', label: 'PATRIMONIO' },
   { src: '/Galeria/WhatsApp Image 2026-06-25 at 11.58.35 (1).jpeg', label: 'MOMENTOS' },
