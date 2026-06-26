@@ -111,23 +111,6 @@ function StatCounter({ target, suffix = '', label }: StatCounterProps) {
 /* ============================================================
    DATA — defined outside component to avoid re-creation
    ============================================================ */
-const tickerText = [
-  'Lomo al Trapo',
-  '✦',
-  'Chicharrón Carnudo',
-  '✦',
-  'Costillitas de Cerdo',
-  '✦',
-  'Bandeja Paisa',
-  '✦',
-  'Ajiaco Bogotano',
-  '✦',
-  'Sancocho Trifásico',
-  '✦',
-  'Mojarra Frita',
-  '✦',
-  'Estofado de Res',
-]
 
 const menuItems = [
   { num: '01', category: 'ENTRADAS', name: 'Cacerola Nativa', desc: 'Selección de ingredientes tradicionales servida en cazuela de barro.', price: '$17.850', image: '/Menu/DSC_0095-Mejorado-NR-4-min.jpg' },
@@ -391,16 +374,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ============================================================
-          MARQUEE TICKER
-          ============================================================ */}
-      <section className="landing-ticker-section">
-        <div className="landing-ticker-track">
-          {[...tickerText, ...tickerText].map((item, i) => (
-            <span key={i} className="landing-ticker-item">{item}</span>
-          ))}
-        </div>
-      </section>
 
       {/* ============================================================
           POEMA — Salario de Zipa

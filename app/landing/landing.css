@@ -302,43 +302,6 @@
   color: var(--ls-accent);
 }
 
-/* ============================================================
-   MARQUEE TICKER
-   ============================================================ */
-.landing-ticker-section {
-  background-color: var(--ls-dark2);
-  overflow: hidden;
-  padding: 20px 0;
-  border-top: 1px solid var(--ls-border);
-  border-bottom: 1px solid var(--ls-border);
-}
-
-.landing-ticker-track {
-  display: flex;
-  width: max-content;
-  animation: landingTicker 14s linear infinite;
-  gap: 0;
-}
-
-.landing-ticker-track:hover {
-  animation-play-state: paused;
-}
-
-.landing-ticker-item {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 1.3rem;
-  font-weight: 400;
-  color: var(--ls-accent);
-  white-space: nowrap;
-  padding: 0 24px;
-}
-
-@keyframes landingTicker {
-  to {
-    transform: translateX(-50%);
-  }
-}
 
 /* ============================================================
    POEM SECTION
@@ -2265,9 +2228,6 @@
     transform: none;
   }
 
-  .landing-ticker-track {
-    animation: none;
-  }
 
   .landing-staff-carousel {
     animation: none;
