@@ -152,12 +152,6 @@ const menuItems = [
   { num: '20', category: 'BEBIDAS', name: 'Cóctel Sal Vigua', desc: 'Tequila, carbón activado, limón, sal vigua y sirope de frutos rojos.', price: '$45.000', image: '/Menu/SALARIO-38.jpg' },
 ]
 
-const staffImages = [
-  '/Personal/DSC_0747-Mejorado-NR-4.jpg',
-  '/Personal/DSC_0755-Mejorado-NR-5.jpg',
-  '/Personal/DSC_0866-Mejorado-NR-10.jpg',
-]
-
 const momentos = [
   { src: '/Momentos/DSC_0841-Mejorado-NR-1.jpg', label: 'MATRIMONIOS', desc: 'Celebra el día más especial de tu vida en un entorno histórico único.' },
   { src: '/Momentos/DSC_0872-Mejorado-NR-5.jpg', label: 'EVENTOS CORPORATIVOS', desc: 'Espacios exclusivos para reuniones, lanzamientos y celebraciones empresariales.' },
@@ -165,6 +159,65 @@ const momentos = [
   { src: '/Momentos/_MG_0860.jpg', label: 'GRADUACIONES', desc: 'Honra el esfuerzo y el logro con una celebración a la altura del momento.' },
   { src: '/Momentos/_MG_0867.jpg', label: 'ANIVERSARIOS', desc: 'Cada año de amor merece ser celebrado con la grandeza que merece.' },
   { src: '/Momentos/editar(27).jpg', label: 'BAUTIZOS', desc: 'Los primeros momentos de vida merecen el ambiente más acogedor.' },
+]
+
+const galeriaImages = [
+  { src: '/Galeria/_MG_0573copia.jpg', label: 'SALARIO' },
+  { src: '/Galeria/_MG_0828.jpg', label: 'EXPERIENCIA' },
+  { src: '/Galeria/_MG_2033 (1).jpg', label: 'TRADICIÓN' },
+  { src: '/Galeria/_MG_2033.jpg', label: 'GASTRONOMÍA' },
+  { src: '/Galeria/DSC_0841-Mejorado-NR-1.jpg', label: 'CELEBRACIÓN' },
+  { src: '/Galeria/SALARIO-83.jpg', label: 'PATRIMONIO' },
+  { src: '/Galeria/WhatsApp Image 2026-06-25 at 11.58.35 (1).jpeg', label: 'MOMENTOS' },
+  { src: '/Galeria/WhatsApp Image 2026-06-25 at 11.58.35.jpeg', label: 'RECUERDOS' },
+  { src: '/Galeria/WhatsApp Image 2026-06-25 at 11.58.36.jpeg', label: 'HISTORIA' },
+]
+
+const turismoImages = [
+  '/Turismo/_MG_2036.jpg',
+  '/Turismo/_MG_2037.jpg',
+  '/Turismo/_MG_2087.jpg',
+  '/Turismo/_MG_2107d.jpg',
+  '/Turismo/_MG_2124.jpg',
+  '/Turismo/_MG_2136.jpg',
+]
+
+const googleReviews = [
+  {
+    name: 'Laura Martínez',
+    rating: 5,
+    text: 'Un lugar increíble, la comida es espectacular y el ambiente es único. El horno de sal le da un toque especial a todo. Definitivamente volveremos.',
+    timeAgo: 'Hace 2 semanas',
+    avatar: 'L',
+  },
+  {
+    name: 'Andrés Rodríguez',
+    rating: 5,
+    text: 'Celebramos nuestro matrimonio aquí y fue perfecto. Capacidad para todos nuestros invitados, parqueadero amplio y la atención fue de primera.',
+    timeAgo: 'Hace 1 mes',
+    avatar: 'A',
+  },
+  {
+    name: 'Patricia Gómez',
+    rating: 5,
+    text: 'La bandeja paisa y el lomo al trapo son de otro nivel. El restaurante tiene una historia fascinante con los hornos de sal desde 1930.',
+    timeAgo: 'Hace 3 semanas',
+    avatar: 'P',
+  },
+  {
+    name: 'Juan Carlos Díaz',
+    rating: 5,
+    text: 'Excelente lugar para eventos corporativos. Organizamos nuestra integración empresarial con 300 personas y todo salió perfecto.',
+    timeAgo: 'Hace 2 meses',
+    avatar: 'J',
+  },
+  {
+    name: 'María Fernanda López',
+    rating: 5,
+    text: 'Zipaquirá tiene una joya escondida. La gastronomía, el patrimonio y la atención hacen de este lugar algo incomparable. 100% recomendado.',
+    timeAgo: 'Hace 1 semana',
+    avatar: 'M',
+  },
 ]
 
 const testimonios = [
@@ -228,6 +281,7 @@ export default function LandingPage() {
   const [heroSlide, setHeroSlide] = useState(0)
   const [historiaSlide, setHistoriaSlide] = useState(0)
   const [eventosSlide, setEventosSlide] = useState(0)
+  const [galeriaSlide, setGaleriaSlide] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -281,10 +335,27 @@ export default function LandingPage() {
     return () => clearInterval(t)
   }, [])
 
+  useEffect(() => {
+    const t = setInterval(() => setGaleriaSlide(p => (p + 1) % galeriaImages.length), 3500)
+    return () => clearInterval(t)
+  }, [])
+
   // 3D carousel helper
   const getEventoClass = (i: number): string => {
     const total = momentos.length
     let diff = i - eventosSlide
+    if (diff > total / 2) diff -= total
+    if (diff < -total / 2) diff += total
+    if (diff === 0) return 'is-active'
+    if (diff === 1) return 'is-next'
+    if (diff === -1) return 'is-prev'
+    return 'is-hidden'
+  }
+
+  // 3D carousel helper for galeria
+  const getGaleriaClass = (i: number): string => {
+    const total = galeriaImages.length
+    let diff = i - galeriaSlide
     if (diff > total / 2) diff -= total
     if (diff < -total / 2) diff += total
     if (diff === 0) return 'is-active'
@@ -340,7 +411,7 @@ export default function LandingPage() {
         <div className="landing-hero-gradient" />
         {/* Static text on left */}
         <div className="landing-hero-content">
-          <span className="landing-hero-eyebrow">ZIPAQUIRÁ · COLOMBIA · DESDE 1939</span>
+          <span className="landing-hero-eyebrow">ZIPAQUIRÁ · COLOMBIA · DESDE 1930</span>
           <WordBlur
             text="Donde el fuego y la tradición crean experiencias"
             tag="h1"
@@ -349,7 +420,7 @@ export default function LandingPage() {
             startDelay={0.4}
           />
           <p className="landing-hero-body">
-            Gastronomía de autor, horno de sal vigente desde 1939, y espacios únicos para los momentos que más importan.
+            Gastronomía de autor, horno de sal vigente desde 1930, y espacios únicos para los momentos que más importan.
           </p>
           <div className="landing-hero-actions">
             <a href="#reservar" className="landing-btn-glass">RESERVAR MESA</a>
@@ -395,7 +466,7 @@ export default function LandingPage() {
             <div className="landing-poem-hline" />
           </div>
           <div className="landing-poem-text">
-            <p>Desde 1939, este lugar ha guardado una parte invaluable de la historia de Zipaquirá. Los antiguos hornos y sus característicos muros de sal permanecen como testigos silenciosos de un legado que aún se respira en cada espacio.
+            <p>Desde 1930, nuestra casa ha guardado una parte invaluable de la historia de Zipaquirá. Los antiguos hornos y sus característicos muros de sal permanecen como testigos silenciosos de un legado que aún se respira en cada espacio.
 
               En Salario, decidimos preservar esa esencia y compartirla alrededor de la mesa, creando una experiencia donde la gastronomía se convierte en una forma de conectar con la memoria y la tradición de la Capital Salinera de Colombia.
             </p>
@@ -443,15 +514,14 @@ export default function LandingPage() {
         <div className="landing-menu-body-layout">
           {/* Left: item list */}
           <div className="landing-menu-list">
+            <div className="landing-menu-cta-wrap landing-menu-cta-top">
+              <a href="/2025%20-%202026%20CARTA%20SALARIO.pdf.pdf" target="_blank" rel="noopener noreferrer" className="landing-btn-glass">VER MENÚ COMPLETO →</a>
+            </div>
+            <div className="landing-menu-category-label">LOS FAVORITOS DE LA CASA</div>
             {[0, 3, 5, 6, 14, 19].map((idx, listPos) => {
               const item = menuItems[idx]
-              const showCategory = !renderedCategories.has(item.category)
-              if (showCategory) renderedCategories.add(item.category)
               return (
                 <div key={idx}>
-                  {showCategory && (
-                    <div className="landing-menu-category-label">{item.category}</div>
-                  )}
                   <div
                     className={`landing-menu-row${hoveredMenu === listPos ? ' active' : ''}`}
                     onMouseEnter={() => setHoveredMenu(listPos)}
@@ -467,9 +537,6 @@ export default function LandingPage() {
                 </div>
               )
             })}
-            <div className="landing-menu-cta-wrap">
-              <a href="/2025%20-%202026%20CARTA%20SALARIO.pdf.pdf" target="_blank" rel="noopener noreferrer" className="landing-btn-glass">VER MENÚ COMPLETO →</a>
-            </div>
           </div>
 
           {/* Right: sticky photo panel */}
@@ -543,14 +610,14 @@ export default function LandingPage() {
         </div>
 
         <div className="landing-historia-right ls-reveal" ref={addRevealRef}>
-          <span className="landing-historia-eyebrow">DESDE 1939</span>
+          <span className="landing-historia-eyebrow">DESDE 1930</span>
           <WordBlur
-            text="Tradición que sigue viva desde 1939"
+            text="Tradición que sigue viva desde 1930"
             tag="h2"
             className="landing-historia-title"
           />
           <p className="landing-historia-body">
-            Salario de Zipa nació alrededor del único horno de sal activo desde 1939 en Zipaquirá. Más de ocho décadas de historia, gastronomía y patrimonio que continúan vivos en cada plato que servimos.
+            Salario de Zipa nació alrededor del único horno de sal activo desde 1930 en Zipaquirá. Más de ocho décadas de historia, gastronomía y patrimonio que continúan vivos en cada plato que servimos.
           </p>
           <div className="landing-stats">
             <StatCounter target={85} suffix="+" label="AÑOS DE TRADICIÓN" />
@@ -562,31 +629,96 @@ export default function LandingPage() {
       </section>
 
       {/* ============================================================
-          EVENTOS / MOMENTOS — 3D carousel
+          GALERÍA — 3D carousel
           ============================================================ */}
-      <section className="landing-eventos-section" id="eventos">
-        {/* Centered header */}
+      <section className="landing-eventos-section" id="galeria">
         <div className="landing-eventos-header ls-reveal" ref={addRevealRef}>
-          <p className="landing-eventos-eyebrow">CELEBRA CON NOSOTROS</p>
+          <p className="landing-eventos-eyebrow">GALERÍA</p>
           <WordBlur
-            text="Tus momentos más especiales"
+            text="Nuestra galería de momentos"
             tag="h2"
             className="landing-eventos-title"
           />
-          <p className="landing-eventos-body">
-            Salario de Zipa es el escenario perfecto para cada celebración. Nuestros espacios únicos, gastronomía excepcional y atención dedicada hacen de cada evento una experiencia memorable.
-          </p>
         </div>
 
-        {/* 3D stage */}
         <div className="landing-eventos-3d-stage">
+          {galeriaImages.map((m, i) => (
+            <div
+              key={i}
+              className={`landing-evento-card-3d ${getGaleriaClass(i)}`}
+              onClick={() => setGaleriaSlide(i)}
+            >
+              <Image src={m.src} alt={m.label} fill sizes="460px" style={{ objectFit: 'cover' }} />
+              <div className="landing-evento-overlay" />
+              <div className="landing-evento-info">
+                <span className="landing-evento-label">{m.label}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="landing-eventos-footer">
+          <div className="landing-eventos-arrows">
+            <button
+              className="landing-evento-arrow"
+              onClick={() => setGaleriaSlide(p => (p - 1 + galeriaImages.length) % galeriaImages.length)}
+              aria-label="Anterior"
+            >←</button>
+            <div className="landing-eventos-dots">
+              {galeriaImages.map((m, i) => (
+                <button
+                  key={i}
+                  className={`landing-evento-dot${galeriaSlide === i ? ' active' : ''}`}
+                  onClick={() => setGaleriaSlide(i)}
+                  aria-label={m.label}
+                />
+              ))}
+            </div>
+            <button
+              className="landing-evento-arrow"
+              onClick={() => setGaleriaSlide(p => (p + 1) % galeriaImages.length)}
+              aria-label="Siguiente"
+            >→</button>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          EVENTOS — Text left + carousel right + WhatsApp CTA
+          ============================================================ */}
+      <section className="landing-new-eventos-section" id="eventos">
+        <div className="landing-new-eventos-content ls-reveal" ref={addRevealRef}>
+          <span className="landing-new-eventos-eyebrow">EVENTOS</span>
+          <h2 className="landing-new-eventos-title">Celebramos tus mejores momentos</h2>
+          <p className="landing-new-eventos-body">
+            Reserva un espacio con amplia capacidad de hasta <strong>800 invitados</strong> y <strong>200 parqueaderos</strong>, haz de este espacio tu recuerdo memorable.
+          </p>
+          <p className="landing-new-eventos-body">
+            Matrimonios, cumpleaños, aniversarios e integraciones ejecutivas en un solo lugar.
+          </p>
+          <p className="landing-new-eventos-body landing-new-eventos-highlight">
+            Banda en vivo, luces y gastronomía de autor para despertar tus mejores recuerdos en nuestra casa.
+          </p>
+          <a
+            href="https://wa.me/573158927463?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20evento%20en%20Salario%20de%20Zipa"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="landing-btn-whatsapp landing-btn-whatsapp-evento"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+            COTIZA TU EVENTO
+          </a>
+        </div>
+
+        <div className="landing-new-eventos-carousel">
           {momentos.map((m, i) => (
             <div
               key={i}
-              className={`landing-evento-card-3d ${getEventoClass(i)}`}
-              onClick={() => setEventosSlide(i)}
+              className={`landing-new-eventos-slide${eventosSlide === i ? ' active' : ''}`}
             >
-              <Image src={m.src} alt={m.label} fill sizes="460px" style={{ objectFit: 'cover' }} />
+              <Image src={m.src} alt={m.label} fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
               <div className="landing-evento-overlay" />
               <div className="landing-evento-info">
                 <span className="landing-evento-label">{m.label}</span>
@@ -594,33 +726,18 @@ export default function LandingPage() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Footer: dots + arrows + CTA */}
-        <div className="landing-eventos-footer">
-          <div className="landing-eventos-arrows">
+          <div className="landing-new-eventos-nav">
             <button
               className="landing-evento-arrow"
               onClick={() => setEventosSlide(p => (p - 1 + momentos.length) % momentos.length)}
               aria-label="Anterior"
             >←</button>
-            <div className="landing-eventos-dots">
-              {momentos.map((m, i) => (
-                <button
-                  key={i}
-                  className={`landing-evento-dot${eventosSlide === i ? ' active' : ''}`}
-                  onClick={() => setEventosSlide(i)}
-                  aria-label={m.label}
-                />
-              ))}
-            </div>
             <button
               className="landing-evento-arrow"
               onClick={() => setEventosSlide(p => (p + 1) % momentos.length)}
               aria-label="Siguiente"
             >→</button>
           </div>
-          <a href="#reservar" className="landing-btn-glass">PLANEAR UN EVENTO →</a>
         </div>
       </section>
 
@@ -678,33 +795,52 @@ export default function LandingPage() {
       </section>
 
       {/* ============================================================
-          STAFF GALLERY
+          GOOGLE REVIEWS
           ============================================================ */}
-      <section className="landing-staff-section">
-        <div className="landing-staff-header ls-reveal" ref={addRevealRef}>
-          <p className="landing-staff-eyebrow">NUESTRO EQUIPO</p>
+      <section className="landing-reviews-section">
+        <div className="landing-reviews-header ls-reveal" ref={addRevealRef}>
+          <div className="landing-reviews-google-badge">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+            </svg>
+            <span className="landing-reviews-google-text">Reviews desde Google</span>
+          </div>
           <WordBlur
-            text="Las personas detrás de cada experiencia"
+            text="Lo que dicen nuestros visitantes"
             tag="h2"
-            className="landing-staff-title"
+            className="landing-reviews-title"
           />
         </div>
 
-        <div className="landing-staff-carousel-wrap">
-          <div className="landing-staff-carousel">
-            {[...staffImages, ...staffImages].map((src, i) => (
-              <div key={i} className="landing-staff-carousel-card">
-                <Image
-                  src={src}
-                  alt={`Miembro del equipo Salario ${(i % staffImages.length) + 1}`}
-                  fill
-                  sizes="240px"
-                  style={{ objectFit: 'cover' }}
-                />
-                <div className="landing-staff-card-overlay" />
+        <div className="landing-reviews-grid">
+          {googleReviews.map((r, i) => (
+            <div key={i} className="landing-review-card ls-reveal" ref={addRevealRef}>
+              <div className="landing-review-top">
+                <div className="landing-review-avatar">{r.avatar}</div>
+                <div className="landing-review-author">
+                  <span className="landing-review-name">{r.name}</span>
+                  <span className="landing-review-time">{r.timeAgo}</span>
+                </div>
+                <svg className="landing-review-google-icon" width="18" height="18" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                </svg>
               </div>
-            ))}
-          </div>
+              <div className="landing-review-stars">
+                {[...Array(r.rating)].map((_, s) => (
+                  <svg key={s} width="16" height="16" viewBox="0 0 24 24" fill="#FBBC05">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="landing-review-text">{r.text}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -786,6 +922,37 @@ export default function LandingPage() {
             </svg>
             OBTENER DIRECCIONES EN WAZE
           </a>
+        </div>
+      </section>
+
+      {/* ============================================================
+          TURISMO ZIPAQUIRÁ — Carousel
+          ============================================================ */}
+      <section className="landing-turismo-section">
+        <div className="landing-turismo-header ls-reveal" ref={addRevealRef}>
+          <span className="landing-turismo-eyebrow">ZIPAQUIRÁ DISTRITO TURÍSTICO</span>
+          <WordBlur
+            text="Descubre la Capital Salinera de Colombia"
+            tag="h2"
+            className="landing-turismo-title"
+          />
+        </div>
+
+        <div className="landing-staff-carousel-wrap">
+          <div className="landing-staff-carousel">
+            {[...turismoImages, ...turismoImages].map((src, i) => (
+              <div key={i} className="landing-turismo-card">
+                <Image
+                  src={src}
+                  alt={`Zipaquirá turismo ${(i % turismoImages.length) + 1}`}
+                  fill
+                  sizes="340px"
+                  style={{ objectFit: 'cover' }}
+                />
+                <div className="landing-staff-card-overlay" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
