@@ -32,7 +32,7 @@ const translations = {
     videoCaption: 'Entre hornos y muros cargados de memoria se grabaron escenas de El Milagro de Sal (1958), considerada una de las obras pioneras del cine colombiano y parte del patrimonio fílmico nacional. Un lugar donde la historia de Zipaquirá no solo se cuenta, sino que aún puede recorrerse.\n\nUna experiencia que conecta sabores, tradición y patrimonio en uno de los escenarios más auténticos de la Capital Salinera de Colombia.',
     historiaEyebrow: 'DESDE 1930',
     historiaTitle: 'Tradición que sigue viva desde 1930',
-    historiaBody: 'Salario de Zipa nació alrededor del único horno de sal activo desde 1930 en Zipaquirá. Más de ocho décadas de historia, gastronomía y patrimonio que continúan vivos en cada plato que servimos.',
+    historiaBody: 'Salario de Zipa nació alrededor del único horno de sal activo desde 1930 en Zipaquirá. En un local con más de 90 años de historia, llevamos más de 20 años compartiendo gastronomía y patrimonio que continúan vivos en cada plato que servimos.',
     historiaAnos: 'AÑOS DE TRADICIÓN',
     historiaPersonas: 'PERSONAS CAPACITY',
     historiaParq: 'PARQUEADEROS',
@@ -95,7 +95,7 @@ const translations = {
     videoCaption: 'Among kilns and walls laden with memory, scenes from El Milagro de Sal (1958) were filmed — considered one of the pioneering works of Colombian cinema and part of the national film heritage. A place where the history of Zipaquirá is not just told, but can still be lived.\n\nAn experience that connects flavors, tradition, and heritage in one of the most authentic settings in Colombia\'s Salt Capital.',
     historiaEyebrow: 'SINCE 1930',
     historiaTitle: 'A tradition alive since 1930',
-    historiaBody: 'Salario de Zipa was born around the only active salt kiln since 1930 in Zipaquirá. Over eight decades of history, gastronomy and heritage that live on in every dish we serve.',
+    historiaBody: 'Salario de Zipa was born around the only active salt kiln since 1930 in Zipaquirá. In a venue with over 90 years of history, we have spent more than 20 years sharing gastronomy and heritage that live on in every dish we serve.',
     historiaAnos: 'YEARS OF TRADITION',
     historiaPersonas: 'PERSON CAPACITY',
     historiaParq: 'PARKING SPACES',
@@ -287,12 +287,12 @@ const galeriaImages = [
 ]
 
 const turismoImages = [
-  '/Turismo/_MG_2036.jpg',
-  '/Turismo/_MG_2037.jpg',
-  '/Turismo/_MG_2087.jpg',
-  '/Turismo/_MG_2107d.jpg',
-  '/Turismo/_MG_2124.jpg',
-  '/Turismo/_MG_2136.jpg',
+  '/Turismo/WhatsApp Image 2026-07-22 at 14.53.39.jpeg',
+  '/Turismo/WhatsApp Image 2026-07-22 at 14.53.39 (1).jpeg',
+  '/Turismo/WhatsApp Image 2026-07-22 at 14.53.38.jpeg',
+  '/Turismo/WhatsApp Image 2026-07-22 at 14.53.38 (1).jpeg',
+  '/Turismo/WhatsApp Image 2026-07-22 at 14.53.38 (2).jpeg',
+  '/Turismo/WhatsApp Image 2026-07-22 at 14.53.38 (3).jpeg',
 ]
 
 const googleReviews = [
@@ -344,6 +344,7 @@ const WA_PATH = "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.
 export default function LandingPage() {
   const navRef = useRef<HTMLElement>(null)
   const [lang, setLang] = useState<'es' | 'en'>('es')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const t = translations[lang]
 
@@ -362,7 +363,7 @@ export default function LandingPage() {
   const historiaImages = [
     { src: '/Instalaciones/SALARIO-51.jpg', alt: 'Historia Salario de Zipa' },
     { src: '/Instalaciones/_MG_0733.jpg', alt: 'Fachada Salario de Zipa' },
-    { src: '/Menu/_MG_1421.jpg', alt: 'Comida Salario de Zipa' },
+    { src: '/Menu/DSC_0095-Mejorado-NR-4-min.jpg', alt: 'Comida Salario de Zipa' },
   ]
 
   // State
@@ -464,8 +465,44 @@ export default function LandingPage() {
             {lang === 'es' ? 'EN' : 'ES'}
           </button>
           <a href="#reservar" className="landing-btn-nav-cta">{t.navReservar}</a>
+          {/* Hamburger button — only visible on mobile */}
+          <button
+            className="landing-nav-hamburger"
+            onClick={() => setMobileMenuOpen(o => !o)}
+            aria-label="Abrir menú"
+            aria-expanded={mobileMenuOpen}
+          >
+            <span className={`hamburger-line${mobileMenuOpen ? ' open' : ''}`} />
+            <span className={`hamburger-line${mobileMenuOpen ? ' open' : ''}`} />
+            <span className={`hamburger-line${mobileMenuOpen ? ' open' : ''}`} />
+          </button>
         </div>
       </nav>
+
+      {/* Mobile drawer */}
+      <div className={`landing-mobile-drawer${mobileMenuOpen ? ' open' : ''}`} aria-hidden={!mobileMenuOpen}>
+        <div className="landing-mobile-drawer-inner">
+          <ul className="landing-mobile-nav-links">
+            <li><a href="#inicio" onClick={() => setMobileMenuOpen(false)}>{t.navInicio}</a></li>
+            <li><a href="#historia" onClick={() => setMobileMenuOpen(false)}>{t.navHistoria}</a></li>
+            <li><a href="#galeria" onClick={() => setMobileMenuOpen(false)}>{t.navGaleria}</a></li>
+            <li><a href="#gastronomia" onClick={() => setMobileMenuOpen(false)}>{t.navGastronomia}</a></li>
+            <li><a href="#eventos" onClick={() => setMobileMenuOpen(false)}>{t.navEventos}</a></li>
+            <li><a href="#contacto" onClick={() => setMobileMenuOpen(false)}>{t.navContacto}</a></li>
+          </ul>
+          <div className="landing-mobile-drawer-ctas">
+            <a href="#reservar" className="landing-mobile-cta-primary" onClick={() => setMobileMenuOpen(false)}>{t.navReservar}</a>
+            <button
+              className="landing-mobile-cta-lang"
+              onClick={() => { setLang(l => l === 'es' ? 'en' : 'es'); setMobileMenuOpen(false) }}
+            >
+              {lang === 'es' ? 'Ver en inglés (EN)' : 'Ver en español (ES)'}
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* Overlay backdrop */}
+      {mobileMenuOpen && <div className="landing-mobile-overlay" onClick={() => setMobileMenuOpen(false)} />}
 
       {/* ============================================================
           HERO — Video background
@@ -682,7 +719,7 @@ export default function LandingPage() {
             {t.historiaBody}
           </p>
           <div className="landing-stats">
-            <StatCounter target={85} suffix="+" label={t.historiaAnos} />
+            <StatCounter target={20} suffix="+" label={t.historiaAnos} />
             <StatCounter target={800} suffix="+" label={t.historiaPersonas} />
             <StatCounter target={200} suffix="+" label={t.historiaParq} />
           </div>
@@ -827,36 +864,54 @@ export default function LandingPage() {
 
         {/* Bottom info + CTA */}
         <div className="ls-eventos-cta-bar">
-          <div className="ls-eventos-cta-info">
-            <div className="ls-eventos-cta-features">
-              <span>🎶 Banda en Vivo</span>
-              <span>💡 Luces Profesionales</span>
-              <span>🍽️ Gastronomía de Autor</span>
+          <div className="ls-eventos-ticker-wrap">
+            <div className="ls-eventos-ticker-track">
+              {[1, 2].map(copy => (
+                <span key={copy} className="ls-eventos-ticker-set" aria-hidden={copy === 2 ? true : undefined}>
+                  {(lang === 'es'
+                    ? ['Matrimonios', 'Cumpleaños', 'Aniversarios', 'Eventos Corporativos', 'Integraciones', 'Grados', 'Lanzamientos']
+                    : ['Weddings', 'Birthdays', 'Anniversaries', 'Corporate Events', 'Team Building', 'Graduations', 'Launches']
+                  ).map(item => (
+                    <span key={item} className="ls-eventos-ticker-item">
+                      {item}<span className="ls-eventos-ticker-sep">✦</span>
+                    </span>
+                  ))}
+                </span>
+              ))}
             </div>
-            <div className="ls-eventos-cta-capacity">
-              <span className="ls-eventos-cap-num">800</span>
-              <span className="ls-eventos-cap-label">{lang === 'es' ? 'Invitados' : 'Guests'}</span>
-              <span className="ls-eventos-cap-sep">·</span>
-              <span className="ls-eventos-cap-num">200</span>
-              <span className="ls-eventos-cap-label">{lang === 'es' ? 'Parqueaderos' : 'Parking spots'}</span>
-            </div>
-            <p className="ls-eventos-cta-desc">
-              {lang === 'es'
-                ? 'Matrimonios, cumpleaños, aniversarios e integraciones ejecutivas. Haz de Salario de Zipa el escenario de tu recuerdo más memorable.'
-                : 'Weddings, birthdays, anniversaries and corporate events. Make Salario de Zipa the stage for your most memorable moments.'}
-            </p>
           </div>
-          <a
-            href="https://wa.me/573226048752?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20evento%20en%20Salario%20de%20Zipa"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ls-eventos-cta-btn"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-              <path d={WA_PATH} />
-            </svg>
-            {lang === 'es' ? 'COTIZA TU EVENTO' : 'QUOTE YOUR EVENT'}
-          </a>
+
+          <div className="ls-eventos-cta-mid">
+            <div className="ls-eventos-cta-capacity">
+              <div className="ls-eventos-cap-block">
+                <span className="ls-eventos-cap-num">800</span>
+                <span className="ls-eventos-cap-label">{lang === 'es' ? 'Invitados' : 'Guests'}</span>
+              </div>
+              <div className="ls-eventos-cap-divider" />
+              <div className="ls-eventos-cap-block">
+                <span className="ls-eventos-cap-num">200</span>
+                <span className="ls-eventos-cap-label">{lang === 'es' ? 'Parqueaderos' : 'Parking'}</span>
+              </div>
+            </div>
+
+            <a
+              href="https://wa.me/573226048752?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20evento%20en%20Salario%20de%20Zipa"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ls-eventos-cta-btn"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d={WA_PATH} />
+              </svg>
+              {lang === 'es' ? 'COTIZA TU EVENTO' : 'QUOTE YOUR EVENT'}
+            </a>
+          </div>
+
+          <div className="ls-eventos-cta-strip">
+            {lang === 'es'
+              ? 'Banda en Vivo  ·  Luces Profesionales  ·  Gastronomía de Autor'
+              : 'Live Band  ·  Professional Lighting  ·  Signature Gastronomy'}
+          </div>
         </div>
 
       </section>
