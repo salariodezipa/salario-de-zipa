@@ -769,79 +769,119 @@ export default function LandingPage() {
       </section>
 
       {/* ============================================================
-          EVENTOS — Andres Carne de Res inspired
-          Text/cards left + photo carousel right + WhatsApp CTA
+          EVENTOS — Andres Carne de Res style
           ============================================================ */}
-      <section className="landing-new-eventos-section" id="eventos">
-        <div className="landing-new-eventos-content ls-reveal" ref={addRevealRef}>
-          <span className="landing-new-eventos-eyebrow">{t.eventosEyebrow}</span>
-          <h2 className="landing-new-eventos-title">{t.eventosTitle}</h2>
+      <section className="ls-eventos-section" id="eventos">
 
-          {/* Event type cards */}
-          <div className="landing-eventos-cards-grid">
-            {eventoTipos.map((tipo, i) => (
-              <div key={i} className="landing-evento-tipo-card">
-                <span className="landing-evento-tipo-icon">{tipo.icon}</span>
-                <span className="landing-evento-tipo-name">{tipo.name}</span>
-              </div>
-            ))}
+        {/* Header ornamental */}
+        <div className="ls-eventos-header">
+          <div className="ls-eventos-ornament">
+            <div className="ls-eventos-ornament-line" />
+            <svg className="ls-eventos-ornament-svg" viewBox="0 0 60 20" fill="none">
+              <path d="M0 10 Q15 0 30 10 Q45 20 60 10" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+            </svg>
+            <div className="ls-eventos-ornament-line" />
+          </div>
+          <h2 className="ls-eventos-title">EVENTOS</h2>
+          <div className="ls-eventos-ornament">
+            <div className="ls-eventos-ornament-line" />
+            <svg className="ls-eventos-ornament-svg" viewBox="0 0 60 20" fill="none">
+              <path d="M0 10 Q15 20 30 10 Q45 0 60 10" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+            </svg>
+            <div className="ls-eventos-ornament-line" />
+          </div>
+        </div>
+
+        {/* Poster carousel — shows 3 cards, center active */}
+        <div className="ls-eventos-stage">
+          <button
+            className="ls-eventos-arrow"
+            onClick={() => setEventosSlide(p => (p - 1 + eventosImages.length) % eventosImages.length)}
+            aria-label="Anterior"
+          >&#8592;</button>
+
+          <div className="ls-eventos-track">
+            {eventosImages.map((m, i) => {
+              const total = eventosImages.length
+              let diff = i - eventosSlide
+              if (diff > total / 2) diff -= total
+              if (diff < -total / 2) diff += total
+              let posClass = 'ls-ep-hidden'
+              if (diff === 0) posClass = 'ls-ep-center'
+              else if (diff === -1) posClass = 'ls-ep-left'
+              else if (diff === 1) posClass = 'ls-ep-right'
+              else if (diff === -2) posClass = 'ls-ep-far-left'
+              else if (diff === 2) posClass = 'ls-ep-far-right'
+              return (
+                <div
+                  key={i}
+                  className={`ls-evento-poster ${posClass}`}
+                  onClick={() => setEventosSlide(i)}
+                >
+                  <div className="ls-evento-poster-img">
+                    <Image src={m.src} alt={m.label} fill sizes="280px" style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div className="ls-evento-poster-badge">
+                    <span>{m.label}</span>
+                  </div>
+                </div>
+              )
+            })}
           </div>
 
-          <p className="landing-new-eventos-body">
-            {t.eventosBody1.replace('800', '<strong>800</strong>').replace('200', '<strong>200</strong>')}
-          </p>
-          <p className="landing-new-eventos-body">
-            {t.eventosBody2}
-          </p>
-          <p className="landing-new-eventos-body landing-new-eventos-highlight">
-            {t.eventosHighlight}
-          </p>
-          <p className="landing-new-eventos-features">
-            {t.eventosFeatures}
-          </p>
-          <p className="landing-new-eventos-body" style={{ fontFamily: 'Cinzel, serif', fontSize: '0.6rem', letterSpacing: '2px', color: 'rgba(240,230,216,0.75)', marginTop: '-8px' }}>
-            HASTA 800 INVITADOS · 200 PARQUEADEROS
-          </p>
+          <button
+            className="ls-eventos-arrow"
+            onClick={() => setEventosSlide(p => (p + 1) % eventosImages.length)}
+            aria-label="Siguiente"
+          >&#8594;</button>
+        </div>
+
+        {/* Dots */}
+        <div className="ls-eventos-dots">
+          {eventosImages.map((_, i) => (
+            <button
+              key={i}
+              className={`ls-evento-dot${eventosSlide === i ? ' active' : ''}`}
+              onClick={() => setEventosSlide(i)}
+              aria-label={`Evento ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Bottom info + CTA */}
+        <div className="ls-eventos-cta-bar">
+          <div className="ls-eventos-cta-info">
+            <div className="ls-eventos-cta-features">
+              <span>🎶 Banda en Vivo</span>
+              <span>💡 Luces Profesionales</span>
+              <span>🍽️ Gastronomía de Autor</span>
+            </div>
+            <div className="ls-eventos-cta-capacity">
+              <span className="ls-eventos-cap-num">800</span>
+              <span className="ls-eventos-cap-label">{lang === 'es' ? 'Invitados' : 'Guests'}</span>
+              <span className="ls-eventos-cap-sep">·</span>
+              <span className="ls-eventos-cap-num">200</span>
+              <span className="ls-eventos-cap-label">{lang === 'es' ? 'Parqueaderos' : 'Parking spots'}</span>
+            </div>
+            <p className="ls-eventos-cta-desc">
+              {lang === 'es'
+                ? 'Matrimonios, cumpleaños, aniversarios e integraciones ejecutivas. Haz de Salario de Zipa el escenario de tu recuerdo más memorable.'
+                : 'Weddings, birthdays, anniversaries and corporate events. Make Salario de Zipa the stage for your most memorable moments.'}
+            </p>
+          </div>
           <a
             href="https://wa.me/573226048752?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20evento%20en%20Salario%20de%20Zipa"
             target="_blank"
             rel="noopener noreferrer"
-            className="landing-btn-whatsapp landing-btn-whatsapp-evento"
+            className="ls-eventos-cta-btn"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
               <path d={WA_PATH} />
             </svg>
-            {t.eventosCotiza}
+            {lang === 'es' ? 'COTIZA TU EVENTO' : 'QUOTE YOUR EVENT'}
           </a>
         </div>
 
-        <div className="landing-new-eventos-carousel">
-          {eventosImages.map((m, i) => (
-            <div
-              key={i}
-              className={`landing-new-eventos-slide${eventosSlide === i ? ' active' : ''}`}
-            >
-              <Image src={m.src} alt={m.label} fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover' }} />
-              <div className="landing-evento-overlay" />
-              <div className="landing-evento-info">
-                <span className="landing-evento-label">{m.label}</span>
-                <p className="landing-evento-desc">{m.desc}</p>
-              </div>
-            </div>
-          ))}
-          <div className="landing-new-eventos-nav">
-            <button
-              className="landing-evento-arrow"
-              onClick={() => setEventosSlide(p => (p - 1 + eventosImages.length) % eventosImages.length)}
-              aria-label="Anterior"
-            >←</button>
-            <button
-              className="landing-evento-arrow"
-              onClick={() => setEventosSlide(p => (p + 1) % eventosImages.length)}
-              aria-label="Siguiente"
-            >→</button>
-          </div>
-        </div>
       </section>
 
       {/* ============================================================
