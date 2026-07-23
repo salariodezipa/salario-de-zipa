@@ -90,11 +90,14 @@
   flex-shrink: 0;
 }
 
-/* When scrolled, give logo a slight warm bg so white logo is visible */
-.landing-nav.scrolled .landing-nav-logo {
-  background: var(--ls-brick);
-  border-radius: 4px;
-  padding: 4px 8px;
+/* Logo image: white at top, turns dark on cream background when scrolled */
+.landing-nav-logo img {
+  transition: filter 0.4s var(--ease-elegant);
+  filter: brightness(0) invert(1); /* white logo */
+}
+
+.landing-nav.scrolled .landing-nav-logo img {
+  filter: brightness(0); /* black logo on cream background — no box needed */
 }
 
 .landing-nav-links {
