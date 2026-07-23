@@ -368,12 +368,6 @@ export default function LandingPage() {
   // Hovered menu item for menu section photo
   const [hoveredMenu, setHoveredMenu] = useState(0)
 
-  // Hero images
-  const heroImages = [
-    { src: '/Instalaciones/DSC_0635-Mejorado-NR-8.jpg', alt: 'Interior Salario de Zipa', position: '30% center' },
-    { src: '/Menu/SALARIO-68.jpg', alt: 'Salón Salario de Zipa', position: 'center center' },
-    { src: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg', alt: 'Ambiente del restaurante', position: 'center center' },
-  ]
   const historiaImages = [
     { src: '/Instalaciones/SALARIO-51.jpg', alt: 'Historia Salario de Zipa' },
     { src: '/Instalaciones/_MG_0733.jpg', alt: 'Fachada Salario de Zipa' },
@@ -381,7 +375,6 @@ export default function LandingPage() {
   ]
 
   // State
-  const [heroSlide, setHeroSlide] = useState(0)
   const [historiaSlide, setHistoriaSlide] = useState(0)
   const [eventosSlide, setEventosSlide] = useState(0)
   const [galeriaSlide, setGaleriaSlide] = useState(0)
@@ -418,11 +411,6 @@ export default function LandingPage() {
   }, [])
 
   // Auto-advance effects
-  useEffect(() => {
-    const t = setInterval(() => setHeroSlide(p => (p + 1) % heroImages.length), 5000)
-    return () => clearInterval(t)
-  }, [heroImages.length])
-
   useEffect(() => {
     const t = setInterval(() => setHistoriaSlide(p => (p + 1) % historiaImages.length), 4000)
     return () => clearInterval(t)
@@ -489,20 +477,24 @@ export default function LandingPage() {
       </nav>
 
       {/* ============================================================
-          HERO
+          HERO — Video background
           ============================================================ */}
       <section className="landing-hero" id="inicio">
-        {/* Background carousel */}
-        <div className="landing-hero-slides">
-          {heroImages.map((img, i) => (
-            <div key={i} className={`landing-hero-slide${heroSlide === i ? ' active' : ''}`}>
-              <Image src={img.src} alt={img.alt} fill sizes="100vw" style={{ objectFit: 'cover', objectPosition: img.position }} priority={i === 0} />
-            </div>
-          ))}
+        {/* Video background */}
+        <div className="landing-hero-video-wrap">
+          <video
+            className="landing-hero-video"
+            src="/hero.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
         </div>
-        {/* Gradient: dark left → transparent right */}
+        {/* Gradient overlay */}
         <div className="landing-hero-gradient" />
-        {/* Static text on left */}
+        {/* Text content */}
         <div className="landing-hero-content">
           <span className="landing-hero-eyebrow">{t.heroEyebrow}</span>
           <WordBlur
@@ -518,12 +510,6 @@ export default function LandingPage() {
           <div className="landing-hero-actions">
             <a href="#reservar" className="landing-btn-glass">{t.heroReservar}</a>
             <a href="#gastronomia" className="landing-btn-outline">{t.heroMenu}</a>
-          </div>
-          {/* Slide dots */}
-          <div className="landing-hero-dots">
-            {heroImages.map((_, i) => (
-              <button key={i} className={`landing-hero-dot${heroSlide === i ? ' active' : ''}`} onClick={() => setHeroSlide(i)} aria-label={`Slide ${i + 1}`} />
-            ))}
           </div>
         </div>
       </section>
