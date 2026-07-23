@@ -1,16 +1,27 @@
 /* Fonts: Cormorant Garamond, Cinzel, Inter — loaded via app/layout.tsx */
 
 /* ============================================================
-   DESIGN TOKENS
+   DESIGN TOKENS — Warm Natural Palette
    ============================================================ */
 :root {
-  --ls-dark: rgb(20, 20, 20);
-  --ls-dark2: rgb(18, 18, 18);
-  --ls-accent: rgb(230, 194, 161);
-  --ls-muted: rgb(214, 209, 206);
-  --ls-dim: rgba(212, 212, 212, 0.7);
-  --ls-border: rgba(255, 249, 243, 0.2);
-  --ls-glass-border: rgba(188, 188, 188, 0.16);
+  --ls-cream: #F0E6D8;
+  --ls-cream2: #EDE0CF;
+  --ls-salt: #FAF6F0;
+  --ls-brick: #813C1F;
+  --ls-brick-dark: #5C2910;
+  --ls-brick-light: #C4714A;
+  --ls-wood: #7B5432;
+  --ls-green: #4A6741;
+  --ls-text: #2C1810;
+  --ls-text-muted: #7A5A4A;
+  --ls-border: rgba(129, 60, 31, 0.2);
+  --ls-accent: #813C1F;
+  /* Legacy aliases for backward compat */
+  --ls-dark: #F0E6D8;
+  --ls-dark2: #EDE0CF;
+  --ls-muted: #7A5A4A;
+  --ls-dim: rgba(44, 24, 16, 0.7);
+  --ls-glass-border: rgba(129, 60, 31, 0.25);
   --ease-elegant: cubic-bezier(0.12, 0.23, 0.5, 1);
   --ease-snappy: cubic-bezier(0.44, 0, 0.56, 1);
 }
@@ -20,8 +31,8 @@
    ============================================================ */
 .landing-root {
   font-family: 'Inter', sans-serif;
-  background-color: var(--ls-dark);
-  color: var(--ls-muted);
+  background-color: var(--ls-cream);
+  color: var(--ls-text);
   overflow-x: hidden;
 }
 
@@ -63,12 +74,13 @@
   justify-content: space-between;
   padding: 18px 120px;
   backdrop-filter: blur(4px);
-  background: rgba(0, 0, 0, 0.2);
-  transition: background 0.4s var(--ease-elegant);
+  background: rgba(240, 230, 216, 0.15);
+  transition: background 0.4s var(--ease-elegant), box-shadow 0.4s;
 }
 
 .landing-nav.scrolled {
-  background: rgba(20, 20, 20, 0.9);
+  background: rgba(240, 230, 216, 0.96);
+  box-shadow: 0 2px 20px rgba(129, 60, 31, 0.12);
 }
 
 .landing-nav-logo {
@@ -76,6 +88,13 @@
   width: 200px;
   height: 72px;
   flex-shrink: 0;
+}
+
+/* When scrolled, give logo a slight warm bg so white logo is visible */
+.landing-nav.scrolled .landing-nav-logo {
+  background: var(--ls-brick);
+  border-radius: 4px;
+  padding: 4px 8px;
 }
 
 .landing-nav-links {
@@ -89,13 +108,50 @@
   font-family: 'Cinzel', serif;
   font-size: 0.8rem;
   letter-spacing: 2.5px;
-  color: var(--ls-muted);
+  color: #fff;
   text-decoration: none;
   transition: color 0.3s;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+.landing-nav.scrolled .landing-nav-links a {
+  color: var(--ls-text);
+  text-shadow: none;
 }
 
 .landing-nav-links a:hover {
-  color: var(--ls-accent);
+  color: var(--ls-brick);
+}
+
+.landing-nav.scrolled .landing-nav-links a:hover {
+  color: var(--ls-brick);
+}
+
+/* ============================================================
+   LANGUAGE TOGGLE BUTTON
+   ============================================================ */
+.landing-btn-lang {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  padding: 8px 16px;
+  border: 1px solid rgba(255,255,255,0.6);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.landing-nav.scrolled .landing-btn-lang {
+  border-color: var(--ls-brick);
+  color: var(--ls-brick);
+}
+
+.landing-btn-lang:hover {
+  background: var(--ls-brick);
+  color: #fff;
+  border-color: var(--ls-brick);
 }
 
 /* ============================================================
@@ -106,10 +162,10 @@
   font-size: 0.65rem;
   letter-spacing: 2px;
   padding: 12px 24px;
-  border: 1px solid var(--ls-glass-border);
+  border: 1px solid rgba(255,255,255,0.5);
   backdrop-filter: blur(4px);
-  background: transparent;
-  color: var(--ls-accent);
+  background: rgba(255,255,255,0.12);
+  color: #fff;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
@@ -120,8 +176,8 @@
 }
 
 .landing-btn-glass:hover {
-  border-color: rgb(230, 194, 161);
-  background: rgba(230, 194, 161, 0.08);
+  border-color: #fff;
+  background: rgba(255,255,255,0.22);
 }
 
 .landing-btn-outline {
@@ -129,9 +185,9 @@
   font-size: 0.65rem;
   letter-spacing: 2px;
   padding: 12px 24px;
-  border: 1px solid var(--ls-border);
+  border: 1px solid rgba(255,255,255,0.4);
   background: transparent;
-  color: var(--ls-muted);
+  color: rgba(255,255,255,0.85);
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
@@ -141,19 +197,19 @@
 }
 
 .landing-btn-outline:hover {
-  border-color: var(--ls-accent);
-  color: var(--ls-accent);
+  border-color: #fff;
+  color: #fff;
 }
 
-/* Navbar CTA — bright contrasting button */
+/* Navbar CTA — filled brick red, white text */
 .landing-btn-nav-cta {
   font-family: 'Cinzel', serif;
   font-size: 0.65rem;
   letter-spacing: 2px;
   padding: 12px 24px;
-  background: var(--ls-accent);
-  border: 1px solid var(--ls-accent);
-  color: rgb(20, 20, 20);
+  background: var(--ls-brick);
+  border: 1px solid var(--ls-brick);
+  color: #fff;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
@@ -165,9 +221,9 @@
 }
 
 .landing-btn-nav-cta:hover {
-  background: #fff;
-  border-color: #fff;
-  color: rgb(20, 20, 20);
+  background: var(--ls-brick-dark);
+  border-color: var(--ls-brick-dark);
+  color: #fff;
 }
 
 /* ============================================================
@@ -225,7 +281,7 @@
   font-family: 'Cinzel', serif;
   font-size: 0.65rem;
   letter-spacing: 3px;
-  color: var(--ls-accent);
+  color: var(--ls-cream);
   opacity: 0;
   animation: fadeInUp 0.8s var(--ease-elegant) 0.1s forwards;
 }
@@ -244,7 +300,7 @@
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.7;
-  color: var(--ls-dim);
+  color: rgba(240, 230, 216, 0.85);
   max-width: 480px;
   opacity: 0;
   animation: fadeInUp 0.8s var(--ease-elegant) 0.7s forwards;
@@ -277,7 +333,7 @@
 }
 
 .landing-hero-dot.active {
-  background: var(--ls-accent);
+  background: var(--ls-cream);
   width: 48px;
 }
 
@@ -299,7 +355,7 @@
 }
 
 .landing-word-gold {
-  color: var(--ls-accent);
+  color: var(--ls-brick);
 }
 
 
@@ -307,7 +363,7 @@
    POEM SECTION
    ============================================================ */
 .landing-poem-section {
-  background-color: #fff;
+  background-color: var(--ls-salt);
   padding: 120px 0;
   border-top: 1px solid var(--ls-border);
   border-bottom: 1px solid var(--ls-border);
@@ -330,13 +386,13 @@
 .landing-poem-vline {
   flex: 1;
   width: 1px;
-  background: linear-gradient(to bottom, transparent, rgba(160, 120, 80, 0.6), transparent);
+  background: linear-gradient(to bottom, transparent, rgba(129, 60, 31, 0.4), transparent);
   min-height: 60px;
 }
 
 .landing-poem-diamond {
   font-size: 0.7rem;
-  color: rgb(160, 120, 80);
+  color: var(--ls-brick);
   opacity: 0.7;
   padding: 16px 0;
   flex-shrink: 0;
@@ -358,7 +414,7 @@
   font-family: 'Cinzel', serif;
   font-size: 0.6rem;
   letter-spacing: 4px;
-  color: rgb(160, 120, 80);
+  color: var(--ls-brick);
   margin-bottom: 40px;
 }
 
@@ -378,13 +434,13 @@
 .landing-poem-hline {
   flex: 1;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(160, 120, 80, 0.5), transparent);
+  background: linear-gradient(to right, transparent, rgba(129, 60, 31, 0.4), transparent);
   opacity: 0.8;
 }
 
 .landing-poem-star {
   font-size: 0.65rem;
-  color: rgb(160, 120, 80);
+  color: var(--ls-brick);
   opacity: 0.8;
   flex-shrink: 0;
 }
@@ -395,7 +451,7 @@
   font-size: clamp(17px, 1.8vw, 24px);
   font-weight: 300;
   line-height: 2;
-  color: #000;
+  color: var(--ls-text);
   margin-bottom: 40px;
 }
 
@@ -407,9 +463,9 @@
    MENU / GASTRONOMIA SECTION — Savoria-style list
    ============================================================ */
 .landing-menu-section {
-  background-color: var(--ls-dark);
+  background-color: var(--ls-cream2);
   padding: 120px 0 0;
-  overflow-x: clip; /* keeps horizontal containment without breaking sticky */
+  overflow-x: clip;
 }
 
 .landing-menu-header {
@@ -421,7 +477,7 @@
   font-family: 'Cinzel', serif;
   font-size: 0.6rem;
   letter-spacing: 3px;
-  color: var(--ls-accent);
+  color: var(--ls-brick);
   margin-bottom: 20px;
 }
 
@@ -431,7 +487,7 @@
   font-size: clamp(36px, 4vw, 64px);
   font-weight: 400;
   line-height: 1.1;
-  color: #fff;
+  color: var(--ls-text);
   max-width: 700px;
 }
 
@@ -453,7 +509,7 @@
   font-family: 'Cinzel', serif;
   font-size: 0.55rem;
   letter-spacing: 4px;
-  color: var(--ls-accent);
+  color: var(--ls-brick);
   padding: 32px 0 16px;
   border-top: 1px solid var(--ls-border);
   margin-top: 8px;
@@ -484,7 +540,7 @@
   font-family: 'Cinzel', serif;
   font-size: 0.55rem;
   letter-spacing: 2px;
-  color: var(--ls-accent);
+  color: var(--ls-brick);
   flex-shrink: 0;
   width: 28px;
 }
@@ -501,20 +557,20 @@
   font-style: italic;
   font-size: 1.5rem;
   font-weight: 400;
-  color: #fff;
+  color: var(--ls-text);
   line-height: 1.2;
   transition: color 0.3s;
 }
 
 .landing-menu-row:hover .landing-menu-row-name {
-  color: var(--ls-accent);
+  color: var(--ls-brick);
 }
 
 .landing-menu-row-desc {
   font-family: 'Inter', sans-serif;
   font-size: 0.8rem;
   font-weight: 300;
-  color: var(--ls-dim);
+  color: var(--ls-text-muted);
   line-height: 1.5;
 }
 
@@ -522,13 +578,13 @@
   font-family: 'Cinzel', serif;
   font-size: 0.7rem;
   letter-spacing: 1px;
-  color: var(--ls-muted);
+  color: var(--ls-text-muted);
   flex-shrink: 0;
 }
 
 .landing-menu-row-arrow {
   font-size: 1rem;
-  color: var(--ls-accent);
+  color: var(--ls-brick);
   opacity: 0;
   transform: translateX(-8px);
   transition: opacity 0.3s var(--ease-elegant), transform 0.3s var(--ease-elegant);
@@ -546,6 +602,18 @@
   padding: 40px 0 60px;
   border-top: 1px solid var(--ls-border);
   margin-top: 8px;
+}
+
+/* CTA button inside menu (on cream background) */
+.landing-menu-cta-wrap .landing-btn-glass {
+  background: var(--ls-brick);
+  border-color: var(--ls-brick);
+  color: #fff;
+}
+
+.landing-menu-cta-wrap .landing-btn-glass:hover {
+  background: var(--ls-brick-dark);
+  border-color: var(--ls-brick-dark);
 }
 
 /* Mobile photo panel for menu */
@@ -588,7 +656,7 @@
    VIDEO SECTION
    ============================================================ */
 .landing-video-section {
-  background-color: var(--ls-dark);
+  background-color: var(--ls-cream);
   padding: 60px 0 60px;
   border-top: 1px solid var(--ls-border);
   overflow: hidden;
@@ -604,7 +672,7 @@
   font-family: 'Cinzel', serif;
   font-size: 0.6rem;
   letter-spacing: 3px;
-  color: var(--ls-accent);
+  color: var(--ls-brick);
   margin-bottom: 16px;
   display: block;
 }
@@ -614,7 +682,7 @@
   font-style: italic;
   font-size: clamp(28px, 3vw, 48px);
   font-weight: 400;
-  color: #fff;
+  color: var(--ls-text);
 }
 
 .landing-video-wrap {
@@ -624,7 +692,7 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background: var(--ls-dark);
+  background: var(--ls-cream2);
 }
 
 .landing-video-shadow-left,
@@ -640,16 +708,15 @@
 
 .landing-video-shadow-left {
   left: 0;
-  background: linear-gradient(to right, #111111 0%, #111111 30%, rgba(17,17,17,0.7) 65%, transparent 100%);
+  background: linear-gradient(to right, var(--ls-cream) 0%, var(--ls-cream) 30%, rgba(240,230,216,0.7) 65%, transparent 100%);
 }
 
 .landing-video-shadow-right {
   right: 0;
-  background: linear-gradient(to left, #111111 0%, #111111 30%, rgba(17,17,17,0.7) 65%, transparent 100%);
+  background: linear-gradient(to left, var(--ls-cream) 0%, var(--ls-cream) 30%, rgba(240,230,216,0.7) 65%, transparent 100%);
 }
 
 .landing-video-iframe {
-  /* altura controlada, ancho se calcula automático manteniendo 16:9 */
   height: calc(100vh - 260px);
   max-height: 640px;
   min-height: 300px;
@@ -670,7 +737,7 @@
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(1rem, 1.4vw, 1.2rem);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--ls-text-muted);
   line-height: 1.8;
   letter-spacing: 0.02em;
 }
@@ -679,7 +746,7 @@
    HISTORIA SECTION
    ============================================================ */
 .landing-historia-section {
-  background-color: var(--ls-dark);
+  background-color: var(--ls-cream2);
   padding: 120px 0;
   display: flex;
   align-items: stretch;
@@ -732,7 +799,7 @@
 }
 
 .landing-historia-dot.active {
-  background: var(--ls-accent);
+  background: var(--ls-cream);
   width: 40px;
 }
 
@@ -749,7 +816,7 @@
   font-family: 'Cinzel', serif;
   font-size: 0.6rem;
   letter-spacing: 3px;
-  color: var(--ls-accent);
+  color: var(--ls-brick);
 }
 
 .landing-historia-title {
@@ -758,7 +825,7 @@
   font-size: clamp(28px, 2.8vw, 44px);
   font-weight: 400;
   line-height: 1.15;
-  color: #fff;
+  color: var(--ls-text);
 }
 
 .landing-historia-body {
@@ -766,7 +833,7 @@
   font-size: 0.95rem;
   font-weight: 300;
   line-height: 1.8;
-  color: var(--ls-dim);
+  color: var(--ls-text-muted);
 }
 
 .landing-stats {
@@ -786,7 +853,7 @@
   font-style: italic;
   font-size: 2.8rem;
   font-weight: 600;
-  color: var(--ls-accent);
+  color: var(--ls-brick);
   line-height: 1;
 }
 
@@ -794,14 +861,27 @@
   font-family: 'Cinzel', serif;
   font-size: 0.55rem;
   letter-spacing: 2px;
-  color: var(--ls-muted);
+  color: var(--ls-text-muted);
+}
+
+/* historia section button on cream bg */
+.landing-historia-right .landing-btn-glass {
+  background: var(--ls-brick);
+  border-color: var(--ls-brick);
+  color: #fff;
+  backdrop-filter: none;
+}
+
+.landing-historia-right .landing-btn-glass:hover {
+  background: var(--ls-brick-dark);
+  border-color: var(--ls-brick-dark);
 }
 
 /* ============================================================
-   EVENTOS SECTION — Centered header + 3D carousel
+   GALERÍA SECTION — 3D carousel (kept as-is)
    ============================================================ */
 .landing-eventos-section {
-  background-color: var(--ls-dark);
+  background-color: var(--ls-cream);
   padding: 120px 0 100px;
   border-top: 1px solid var(--ls-border);
   overflow: hidden;
@@ -821,7 +901,7 @@
   font-family: 'Cinzel', serif;
   font-size: 0.6rem;
   letter-spacing: 3px;
-  color: var(--ls-accent);
+  color: var(--ls-brick);
 }
 
 .landing-eventos-title {
@@ -829,7 +909,7 @@
   font-style: italic;
   font-size: clamp(28px, 3.5vw, 56px);
   font-weight: 500;
-  color: #fff;
+  color: var(--ls-text);
   line-height: 1.1;
 }
 
@@ -838,7 +918,7 @@
   font-size: 0.95rem;
   font-weight: 300;
   line-height: 1.8;
-  color: var(--ls-dim);
+  color: var(--ls-text-muted);
   max-width: 520px;
 }
 
@@ -852,7 +932,6 @@
   perspective-origin: 50% 50%;
 }
 
-/* Individual card — fixed dimensions, centered by default */
 .landing-evento-card-3d {
   position: absolute;
   width: 460px;
@@ -871,7 +950,6 @@
     filter 0.6s ease;
 }
 
-/* Active/center card */
 .landing-evento-card-3d.is-active {
   transform: translateX(0) scale(1) rotateY(0deg);
   opacity: 1;
@@ -879,7 +957,6 @@
   filter: brightness(1);
 }
 
-/* Next card — peeking from right */
 .landing-evento-card-3d.is-next {
   transform: translateX(420px) scale(0.84) rotateY(-20deg);
   opacity: 1;
@@ -887,7 +964,6 @@
   filter: brightness(0.38);
 }
 
-/* Previous card — peeking from left */
 .landing-evento-card-3d.is-prev {
   transform: translateX(-420px) scale(0.84) rotateY(20deg);
   opacity: 1;
@@ -895,7 +971,6 @@
   filter: brightness(0.38);
 }
 
-/* Hidden cards */
 .landing-evento-card-3d.is-hidden {
   transform: translateX(0) scale(0.65);
   opacity: 0;
@@ -923,7 +998,7 @@
   font-family: 'Cinzel', serif;
   font-size: 0.65rem;
   letter-spacing: 4px;
-  color: var(--ls-accent);
+  color: var(--ls-cream);
   margin-bottom: 10px;
 }
 
@@ -955,7 +1030,7 @@
 .landing-evento-dot {
   width: 28px;
   height: 2px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(129, 60, 31, 0.25);
   border: none;
   cursor: pointer;
   padding: 0;
@@ -963,11 +1038,10 @@
 }
 
 .landing-evento-dot.active {
-  background: var(--ls-accent);
+  background: var(--ls-brick);
   width: 48px;
 }
 
-/* Prev/Next arrow buttons */
 .landing-eventos-arrows {
   display: flex;
   gap: 16px;
@@ -978,7 +1052,7 @@
   height: 44px;
   border: 1px solid var(--ls-border);
   background: transparent;
-  color: var(--ls-muted);
+  color: var(--ls-text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -988,183 +1062,15 @@
 }
 
 .landing-evento-arrow:hover {
-  border-color: var(--ls-accent);
-  color: var(--ls-accent);
+  border-color: var(--ls-brick);
+  color: var(--ls-brick);
 }
 
 /* ============================================================
-   TESTIMONIOS SECTION — Savoria card style
-   ============================================================ */
-.landing-testimonios-section {
-  background-color: var(--ls-dark);
-  padding: 100px 120px;
-  border-top: 1px solid var(--ls-border);
-}
-
-.landing-testimonios-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 60px;
-  margin-bottom: 60px;
-}
-
-.landing-testimonios-header-left {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  flex-shrink: 0;
-}
-
-.landing-testimonios-line {
-  display: block;
-  width: 40px;
-  height: 2px;
-  background: var(--ls-accent);
-  margin-top: 14px;
-  flex-shrink: 0;
-}
-
-.landing-testimonios-heading {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(22px, 2.5vw, 36px);
-  font-weight: 400;
-  color: #fff;
-  line-height: 1.2;
-  max-width: 340px;
-}
-
-.landing-testimonios-subtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 300;
-  line-height: 1.8;
-  color: var(--ls-dim);
-  max-width: 380px;
-  padding-top: 4px;
-}
-
-.landing-testimonios-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-/* Card */
-.landing-testimonio-card {
-  background: rgb(26, 24, 22);
-  border: 1px solid var(--ls-border);
-  border-radius: 6px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  transition: border-color 0.3s;
-}
-
-.landing-testimonio-card:hover {
-  border-color: rgba(230, 194, 161, 0.35);
-}
-
-/* Author row at top */
-.landing-testimonio-author-top {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 20px 24px;
-}
-
-.landing-testimonio-avatar {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: var(--ls-accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 1.1rem;
-  color: var(--ls-dark);
-  font-weight: 600;
-  flex-shrink: 0;
-}
-
-.landing-testimonio-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.landing-testimonio-name {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: #fff;
-}
-
-.landing-testimonio-role {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 300;
-  color: var(--ls-dim);
-}
-
-/* Food photo */
-.landing-testimonio-img {
-  position: relative;
-  width: 100%;
-  height: 220px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.landing-testimonio-img img {
-  transition: transform 0.5s var(--ease-elegant);
-  will-change: transform;
-}
-
-.landing-testimonio-card:hover .landing-testimonio-img img {
-  transform: scale(1.05);
-}
-
-/* Stars */
-.landing-testimonio-stars {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  color: var(--ls-accent);
-  padding: 20px 24px 10px;
-}
-
-/* Bold title */
-.landing-testimonio-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(18px, 1.5vw, 24px);
-  font-weight: 400;
-  color: #fff;
-  line-height: 1.25;
-  padding: 0 24px 14px;
-}
-
-/* Quote */
-.landing-testimonio-quote {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 300;
-  line-height: 1.7;
-  color: var(--ls-dim);
-  padding: 0 24px 24px;
-  flex: 1;
-}
-
-/* ============================================================
-   NEW EVENTOS SECTION — Text left + carousel right
+   NEW EVENTOS SECTION — Andres Carne de Res inspired
    ============================================================ */
 .landing-new-eventos-section {
-  background-color: var(--ls-dark);
+  background-color: var(--ls-brick);
   padding: 120px 120px;
   border-top: 1px solid var(--ls-border);
   display: flex;
@@ -1186,15 +1092,16 @@
   font-family: 'Cinzel', serif;
   font-size: 0.6rem;
   letter-spacing: 3px;
-  color: var(--ls-accent);
+  color: var(--ls-cream);
+  opacity: 0.8;
 }
 
 .landing-new-eventos-title {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: clamp(28px, 3vw, 48px);
+  font-size: clamp(28px, 3vw, 52px);
   font-weight: 400;
-  line-height: 1.15;
+  line-height: 1.1;
   color: #fff;
 }
 
@@ -1203,32 +1110,90 @@
   font-size: 0.95rem;
   font-weight: 300;
   line-height: 1.8;
-  color: var(--ls-dim);
+  color: rgba(240, 230, 216, 0.85);
 }
 
 .landing-new-eventos-body strong {
-  color: var(--ls-accent);
-  font-weight: 500;
+  color: #fff;
+  font-weight: 600;
 }
 
 .landing-new-eventos-highlight {
   font-style: italic;
-  color: var(--ls-muted);
+  color: rgba(240, 230, 216, 0.9);
+  font-size: 0.92rem;
+}
+
+.landing-new-eventos-features {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  color: rgba(240, 230, 216, 0.75);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 16px;
+  margin-top: 4px;
+}
+
+/* Event type cards grid */
+.landing-eventos-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.landing-evento-tipo-card {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 8px;
+  padding: 18px 12px;
+  text-align: center;
+  transition: background 0.3s, transform 0.2s;
+  cursor: default;
+}
+
+.landing-evento-tipo-card:hover {
+  background: rgba(255,255,255,0.18);
+  transform: translateY(-2px);
+}
+
+.landing-evento-tipo-icon {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.landing-evento-tipo-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  letter-spacing: 2px;
+  color: #F0E6D8;
+  font-weight: 600;
+  display: block;
 }
 
 .landing-btn-whatsapp-evento {
   padding: 16px 32px;
   font-size: 0.7rem;
-  margin-top: 8px;
+  margin-top: 4px;
   align-self: flex-start;
+  background: var(--ls-green) !important;
+  border-color: var(--ls-green) !important;
+  color: #fff !important;
+}
+
+.landing-btn-whatsapp-evento:hover {
+  background: #3a5533 !important;
+  border-color: #3a5533 !important;
 }
 
 .landing-new-eventos-carousel {
   width: 55%;
   position: relative;
   min-height: 500px;
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
 
 .landing-new-eventos-slide {
@@ -1255,7 +1220,7 @@
    GOOGLE REVIEWS SECTION
    ============================================================ */
 .landing-reviews-section {
-  background-color: #141210;
+  background-color: var(--ls-salt);
   padding: 100px 120px;
   border-top: 1px solid var(--ls-border);
 }
@@ -1276,14 +1241,14 @@
   padding: 8px 20px;
   border: 1px solid var(--ls-border);
   border-radius: 100px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(129, 60, 31, 0.04);
 }
 
 .landing-reviews-google-text {
   font-family: 'Cinzel', serif;
   font-size: 0.6rem;
   letter-spacing: 2px;
-  color: var(--ls-muted);
+  color: var(--ls-text-muted);
   text-transform: uppercase;
 }
 
@@ -1292,7 +1257,7 @@
   font-style: italic;
   font-size: clamp(28px, 3vw, 48px);
   font-weight: 400;
-  color: #fff;
+  color: var(--ls-text);
 }
 
 .landing-reviews-grid {
@@ -1302,18 +1267,19 @@
 }
 
 .landing-review-card {
-  background: rgb(26, 24, 22);
+  background: #fff;
   border: 1px solid var(--ls-border);
   border-radius: 8px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .landing-review-card:hover {
-  border-color: rgba(230, 194, 161, 0.35);
+  border-color: var(--ls-brick-light);
+  box-shadow: 0 4px 20px rgba(129, 60, 31, 0.1);
 }
 
 .landing-review-top {
@@ -1326,13 +1292,13 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--ls-accent);
+  background: var(--ls-brick);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Cormorant Garamond', serif;
   font-size: 1rem;
-  color: var(--ls-dark);
+  color: #fff;
   font-weight: 600;
   flex-shrink: 0;
 }
@@ -1348,14 +1314,14 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #fff;
+  color: var(--ls-text);
 }
 
 .landing-review-time {
   font-family: 'Inter', sans-serif;
   font-size: 0.72rem;
   font-weight: 300;
-  color: var(--ls-dim);
+  color: var(--ls-text-muted);
 }
 
 .landing-review-google-icon {
@@ -1373,14 +1339,434 @@
   font-size: 0.88rem;
   font-weight: 300;
   line-height: 1.7;
-  color: var(--ls-dim);
+  color: var(--ls-text-muted);
+}
+
+/* ============================================================
+   TESTIMONIOS SECTION — kept for compatibility
+   ============================================================ */
+.landing-testimonios-section {
+  background-color: var(--ls-cream2);
+  padding: 100px 120px;
+  border-top: 1px solid var(--ls-border);
+}
+
+.landing-testimonios-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.landing-testimonios-header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.landing-testimonios-line {
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--ls-brick);
+  margin-top: 14px;
+  flex-shrink: 0;
+}
+
+.landing-testimonios-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(22px, 2.5vw, 36px);
+  font-weight: 400;
+  color: var(--ls-text);
+  line-height: 1.2;
+  max-width: 340px;
+}
+
+.landing-testimonios-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--ls-text-muted);
+  max-width: 380px;
+  padding-top: 4px;
+}
+
+.landing-testimonios-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.landing-testimonio-card {
+  background: #fff;
+  border: 1px solid var(--ls-border);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: border-color 0.3s;
+}
+
+.landing-testimonio-card:hover {
+  border-color: var(--ls-brick-light);
+}
+
+.landing-testimonio-author-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+}
+
+.landing-testimonio-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--ls-brick);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #fff;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.landing-testimonio-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.landing-testimonio-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ls-text);
+}
+
+.landing-testimonio-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: var(--ls-text-muted);
+}
+
+.landing-testimonio-img {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.landing-testimonio-img img {
+  transition: transform 0.5s var(--ease-elegant);
+  will-change: transform;
+}
+
+.landing-testimonio-card:hover .landing-testimonio-img img {
+  transform: scale(1.05);
+}
+
+.landing-testimonio-stars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--ls-brick);
+  padding: 20px 24px 10px;
+}
+
+.landing-testimonio-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(18px, 1.5vw, 24px);
+  font-weight: 400;
+  color: var(--ls-text);
+  line-height: 1.25;
+  padding: 0 24px 14px;
+}
+
+.landing-testimonio-quote {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--ls-text-muted);
+  padding: 0 24px 24px;
+  flex: 1;
+}
+
+/* ============================================================
+   CTA RESERVA SECTION
+   ============================================================ */
+.landing-cta-section {
+  position: relative;
+  padding: 160px 120px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.landing-cta-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.landing-cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(10, 8, 6, 0.5) 0%, rgba(10, 8, 6, 0.9) 100%);
+  z-index: 1;
+}
+
+.landing-cta-frame {
+  position: absolute;
+  inset: 40px;
+  border: 1px solid rgba(240, 230, 216, 0.25);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.landing-cta-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.landing-cta-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  color: var(--ls-cream);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cta-line {
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: var(--ls-cream);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.landing-cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(56px, 8vw, 120px);
+  font-weight: 400;
+  line-height: 1.0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.cta-title-line1 {
+  display: block;
+}
+
+.cta-title-line2 {
+  display: block;
+  font-size: 0.65em;
+  opacity: 0.85;
+}
+
+.landing-cta-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(240, 230, 216, 0.85);
+  max-width: 480px;
+}
+
+.landing-cta-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--ls-cream);
+  margin: 4px 0;
+}
+
+.landing-cta-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.landing-btn-glass-cta {
+  padding: 16px 40px;
+  background: var(--ls-brick) !important;
+  border-color: var(--ls-brick) !important;
+  color: #fff !important;
+  backdrop-filter: none !important;
+}
+
+.landing-btn-glass-cta:hover {
+  background: var(--ls-brick-dark) !important;
+  border-color: var(--ls-brick-dark) !important;
+}
+
+.landing-btn-whatsapp {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  padding: 12px 24px;
+  border: 1px solid rgba(37, 211, 102, 0.5);
+  background: rgba(37, 211, 102, 0.12);
+  color: rgb(37, 211, 102);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.landing-btn-whatsapp:hover {
+  border-color: rgb(37, 211, 102);
+  background: rgba(37, 211, 102, 0.2);
+}
+
+.landing-btn-whatsapp-cta {
+  padding: 16px 40px;
+}
+
+/* ============================================================
+   FLOATING WHATSAPP FAB — bigger
+   ============================================================ */
+.landing-whatsapp-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 200;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(37, 211, 102, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s var(--ease-elegant), box-shadow 0.25s;
+}
+
+.landing-whatsapp-fab:hover {
+  transform: scale(1.12);
+  box-shadow: 0 6px 32px rgba(37, 211, 102, 0.65), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================================
+   MAPA SECTION
+   ============================================================ */
+.landing-map-section {
+  background-color: var(--ls-cream2);
+  border-top: 1px solid var(--ls-border);
+  padding: 100px 120px;
+}
+
+.landing-map-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.landing-map-eyebrow {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: var(--ls-brick);
+  margin-bottom: 16px;
+}
+
+.landing-map-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(26px, 2.8vw, 44px);
+  font-weight: 400;
+  color: var(--ls-text);
+}
+
+.landing-map-address {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--ls-text-muted);
+  margin-top: 12px;
+}
+
+.landing-map-wrap {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--ls-border);
+}
+
+.landing-map-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.landing-map-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+.landing-btn-waze {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  padding: 14px 36px;
+  border: 1px solid var(--ls-border);
+  background: transparent;
+  color: var(--ls-brick);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.landing-btn-waze:hover {
+  border-color: var(--ls-brick);
+  background: rgba(129, 60, 31, 0.06);
+}
+
+.landing-btn-waze svg {
+  flex-shrink: 0;
 }
 
 /* ============================================================
    TURISMO ZIPAQUIRÁ SECTION
    ============================================================ */
 .landing-turismo-section {
-  background-color: var(--ls-dark2);
+  background-color: var(--ls-cream);
   padding: 100px 120px;
   border-top: 1px solid var(--ls-border);
 }
@@ -1395,7 +1781,7 @@
   font-family: 'Cinzel', serif;
   font-size: 0.6rem;
   letter-spacing: 3px;
-  color: var(--ls-accent);
+  color: var(--ls-brick);
   margin-bottom: 16px;
 }
 
@@ -1404,7 +1790,7 @@
   font-style: italic;
   font-size: clamp(28px, 3vw, 48px);
   font-weight: 400;
-  color: #fff;
+  color: var(--ls-text);
 }
 
 .landing-turismo-card {
@@ -1442,7 +1828,6 @@
   position: relative;
 }
 
-/* Side shadow vignettes */
 .landing-staff-carousel-wrap::before,
 .landing-staff-carousel-wrap::after {
   content: '';
@@ -1456,12 +1841,12 @@
 
 .landing-staff-carousel-wrap::before {
   left: 0;
-  background: linear-gradient(to right, rgb(20, 16, 12) 0%, transparent 100%);
+  background: linear-gradient(to right, var(--ls-cream) 0%, transparent 100%);
 }
 
 .landing-staff-carousel-wrap::after {
   right: 0;
-  background: linear-gradient(to left, rgb(20, 16, 12) 0%, transparent 100%);
+  background: linear-gradient(to left, var(--ls-cream) 0%, transparent 100%);
 }
 
 .landing-staff-carousel {
@@ -1503,263 +1888,11 @@
 }
 
 /* ============================================================
-   CTA RESERVA SECTION
-   ============================================================ */
-.landing-cta-section {
-  position: relative;
-  padding: 160px 120px;
-  text-align: center;
-  overflow: hidden;
-}
-
-.landing-cta-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.landing-cta-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(10, 8, 6, 0.5) 0%, rgba(10, 8, 6, 0.9) 100%);
-  z-index: 1;
-}
-
-/* Decorative gold border frame */
-.landing-cta-frame {
-  position: absolute;
-  inset: 40px;
-  border: 1px solid rgba(230, 194, 161, 0.2);
-  z-index: 2;
-  pointer-events: none;
-}
-
-.landing-cta-content {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
-
-.landing-cta-eyebrow {
-  font-family: 'Cinzel', serif;
-  font-size: 0.65rem;
-  letter-spacing: 4px;
-  color: var(--ls-accent);
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.cta-line {
-  display: inline-block;
-  width: 40px;
-  height: 1px;
-  background: var(--ls-accent);
-  opacity: 0.6;
-  flex-shrink: 0;
-}
-
-.landing-cta-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(56px, 8vw, 120px);
-  font-weight: 400;
-  line-height: 1.0;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-
-.cta-title-line1 {
-  display: block;
-}
-
-.cta-title-line2 {
-  display: block;
-  font-size: 0.65em;
-  opacity: 0.85;
-}
-
-.landing-cta-body {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.8;
-  color: var(--ls-dim);
-  max-width: 480px;
-}
-
-/* Decorative golden divider bar */
-.landing-cta-divider {
-  width: 60px;
-  height: 1px;
-  background: var(--ls-accent);
-  margin: 4px 0;
-}
-
-.landing-cta-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 8px;
-}
-
-/* Larger CTA buttons */
-.landing-btn-glass-cta {
-  padding: 16px 40px;
-}
-
-.landing-btn-whatsapp {
-  font-family: 'Cinzel', serif;
-  font-size: 0.65rem;
-  letter-spacing: 2px;
-  padding: 12px 24px;
-  border: 1px solid rgba(37, 211, 102, 0.4);
-  background: rgba(37, 211, 102, 0.08);
-  color: rgb(37, 211, 102);
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: border-color 0.3s, background 0.3s;
-}
-
-.landing-btn-whatsapp:hover {
-  border-color: rgb(37, 211, 102);
-  background: rgba(37, 211, 102, 0.15);
-}
-
-.landing-btn-whatsapp-cta {
-  padding: 16px 40px;
-}
-
-/* ============================================================
-   FLOATING WHATSAPP FAB
-   ============================================================ */
-.landing-whatsapp-fab {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  z-index: 200;
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: #25D366;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.25s var(--ease-elegant), box-shadow 0.25s;
-}
-
-.landing-whatsapp-fab:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* ============================================================
-   MAPA SECTION
-   ============================================================ */
-.landing-map-section {
-  background-color: var(--ls-dark2);
-  border-top: 1px solid var(--ls-border);
-  padding: 100px 120px;
-}
-
-.landing-map-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.landing-map-eyebrow {
-  display: block;
-  font-family: 'Cinzel', serif;
-  font-size: 0.6rem;
-  letter-spacing: 3px;
-  color: var(--ls-accent);
-  margin-bottom: 16px;
-}
-
-.landing-map-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(26px, 2.8vw, 44px);
-  font-weight: 400;
-  color: #fff;
-}
-
-.landing-map-address {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 300;
-  color: var(--ls-dim);
-  margin-top: 12px;
-}
-
-.landing-map-wrap {
-  position: relative;
-  width: 100%;
-  height: 420px;
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid var(--ls-border);
-}
-
-.landing-map-wrap iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
-
-.landing-map-cta {
-  display: flex;
-  justify-content: center;
-  margin-top: 36px;
-}
-
-.landing-btn-waze {
-  font-family: 'Cinzel', serif;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  padding: 14px 36px;
-  border: 1px solid var(--ls-glass-border);
-  background: transparent;
-  color: var(--ls-accent);
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  transition: border-color 0.3s, background 0.3s;
-}
-
-.landing-btn-waze:hover {
-  border-color: var(--ls-accent);
-  background: rgba(230, 194, 161, 0.08);
-}
-
-.landing-btn-waze svg {
-  flex-shrink: 0;
-}
-
-/* ============================================================
-   FOOTER
+   FOOTER — keep dark for contrast
    ============================================================ */
 .landing-footer {
-  background-color: var(--ls-dark2);
-  border-top: 1px solid var(--ls-border);
+  background-color: var(--ls-brick);
+  border-top: none;
   padding: 60px 120px 40px;
   display: flex;
   flex-direction: column;
@@ -1768,16 +1901,125 @@
 
 .landing-footer-top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
 .landing-footer-logo {
   position: relative;
-  width: 100px;
-  height: 40px;
+  width: 140px;
+  height: 56px;
+  flex-shrink: 0;
 }
 
+/* SÍGUENOS heading */
+.landing-footer-socials-heading {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  color: rgba(240, 230, 216, 0.6);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* Large social buttons */
+.landing-footer-socials-large {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.landing-footer-social-large {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.landing-footer-social-large:hover {
+  transform: translateY(-3px);
+}
+
+.landing-footer-social-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-footer-social-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+.landing-footer-social-icon.ig {
+  background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+.landing-footer-social-icon.fb {
+  background: #1877F2;
+}
+
+.landing-footer-social-icon.wa {
+  background: #25D366;
+}
+
+.landing-footer-social-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.45rem;
+  letter-spacing: 2px;
+  color: rgba(240, 230, 216, 0.65);
+}
+
+/* CONTÁCTANOS section in footer */
+.landing-footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.landing-footer-contact-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  color: rgba(240, 230, 216, 0.6);
+  margin-bottom: 6px;
+}
+
+.landing-footer-contact-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: rgba(240, 230, 216, 0.85);
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.landing-footer-contact-item:hover {
+  color: #fff;
+}
+
+.landing-footer-contact-phone {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+/* old socials kept for compatibility */
 .landing-footer-socials {
   display: flex;
   align-items: center;
@@ -1790,16 +2032,16 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border: 1px solid var(--ls-border);
+  border: 1px solid rgba(240, 230, 216, 0.2);
   border-radius: 50%;
-  color: var(--ls-muted);
+  color: rgba(240, 230, 216, 0.6);
   text-decoration: none;
   transition: border-color 0.3s, color 0.3s;
 }
 
 .landing-footer-social-link:hover {
-  border-color: var(--ls-accent);
-  color: var(--ls-accent);
+  border-color: rgba(240, 230, 216, 0.6);
+  color: rgba(240, 230, 216, 0.9);
 }
 
 .landing-footer-social-link svg {
@@ -1813,14 +2055,14 @@
   align-items: center;
   justify-content: space-between;
   padding-top: 24px;
-  border-top: 1px solid var(--ls-border);
+  border-top: 1px solid rgba(240, 230, 216, 0.15);
 }
 
 .landing-footer-copy {
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   font-weight: 300;
-  color: rgba(214, 209, 206, 0.4);
+  color: rgba(240, 230, 216, 0.4);
 }
 
 .landing-footer-links {
@@ -1833,13 +2075,13 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   font-weight: 300;
-  color: rgba(214, 209, 206, 0.4);
+  color: rgba(240, 230, 216, 0.4);
   text-decoration: none;
   transition: color 0.3s;
 }
 
 .landing-footer-links a:hover {
-  color: var(--ls-muted);
+  color: rgba(240, 230, 216, 0.8);
 }
 
 /* ============================================================
@@ -1868,14 +2110,14 @@
 }
 
 .landing-gold {
-  color: var(--ls-accent);
+  color: var(--ls-brick);
 }
 
 .landing-section-eyebrow {
   font-family: 'Cinzel', serif;
   font-size: 0.6rem;
   letter-spacing: 3px;
-  color: var(--ls-accent);
+  color: var(--ls-brick);
   margin-bottom: 16px;
 }
 
@@ -2010,7 +2252,6 @@
     margin: 0;
   }
 
-  /* En mobile el video usa ancho como referencia, no altura */
   .landing-video-iframe {
     width: 100%;
     height: auto;
@@ -2064,6 +2305,19 @@
   .landing-new-eventos-carousel {
     width: 100%;
     min-height: 350px;
+  }
+
+  .landing-eventos-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .landing-evento-tipo-card {
+    padding: 12px 8px;
+  }
+
+  .landing-evento-tipo-icon {
+    font-size: 1.4rem;
   }
 
   .landing-reviews-section {
@@ -2135,6 +2389,12 @@
     padding: 40px 24px;
   }
 
+  .landing-footer-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
   .landing-footer-bottom {
     flex-direction: column;
     gap: 16px;
@@ -2166,14 +2426,22 @@
   .landing-whatsapp-fab {
     bottom: 20px;
     right: 20px;
-    width: 52px;
-    height: 52px;
+    width: 62px;
+    height: 62px;
+  }
+
+  .landing-footer-socials-large {
+    gap: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .landing-testimonios-grid {
     grid-template-columns: 1fr;
+  }
+
+  .landing-eventos-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -2227,7 +2495,6 @@
     opacity: 1;
     transform: none;
   }
-
 
   .landing-staff-carousel {
     animation: none;
