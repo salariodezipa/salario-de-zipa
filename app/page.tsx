@@ -58,7 +58,7 @@ const translations = {
     ctaWhatsapp: 'WHATSAPP',
     mapEyebrow: 'CÓMO LLEGARNOS',
     mapTitle: 'Nos encontramos en Zipaquirá',
-    mapAddress: 'Cra. 7 #2-83, Zipaquirá, Cundinamarca, Colombia',
+    mapAddress: 'Cl. 1 #9-79, Zipaquirá, Cundinamarca, Colombia',
     mapWaze: 'OBTENER DIRECCIONES EN WAZE',
     turismoEyebrow: 'ZIPAQUIRÁ DISTRITO TURÍSTICO',
     turismoTitle: 'Descubre la Capital Salinera de Colombia',
@@ -121,7 +121,7 @@ const translations = {
     ctaWhatsapp: 'WHATSAPP',
     mapEyebrow: 'HOW TO FIND US',
     mapTitle: 'We are located in Zipaquirá',
-    mapAddress: 'Cra. 7 #2-83, Zipaquirá, Cundinamarca, Colombia',
+    mapAddress: 'Cl. 1 #9-79, Zipaquirá, Cundinamarca, Colombia',
     mapWaze: 'GET DIRECTIONS IN WAZE',
     turismoEyebrow: 'ZIPAQUIRÁ TOURIST DISTRICT',
     turismoTitle: 'Discover the Salt Capital of Colombia',
@@ -245,25 +245,25 @@ function StatCounter({ target, suffix = '', label }: StatCounterProps) {
    ============================================================ */
 
 const menuItems = [
-  { num: '01', category: 'ENTRADAS', name: 'Cacerola Nativa', desc: 'Selección de ingredientes tradicionales servida en cazuela de barro.', price: '$17.850', image: '/Menu/DSC_0095-Mejorado-NR-4-min.jpg' },
-  { num: '02', category: 'ENTRADAS', name: 'Arepa de Choclo', desc: 'Arepa dulce de choclo tierno con queso y mantequilla.', price: '$23.100', image: '/Menu/_MG_1355.jpg' },
-  { num: '03', category: 'ENTRADAS', name: 'Patacones x4', desc: 'Plátano verde frito con hogao y ají.', price: '$24.100', image: '/Menu/DSC_0065-Mejorado-NR-2-min.jpg' },
-  { num: '04', category: 'ENTRADAS', name: 'Chicharrones Salario', desc: 'Crujientes chicharrones con nuestro toque especial de sal vigua.', price: '$34.500', image: '/Menu/DSC_0786-Mejorado-NR-2-min.jpg' },
-  { num: '05', category: 'ENTRADAS', name: 'Plátano Maduro', desc: 'Plátano maduro frito con queso y salsa de tomate.', price: '$23.100', image: '/Menu/DSC_0015-Mejorado-NR-23-min.jpg' },
-  { num: '06', category: 'PLATOS PRINCIPALES', name: 'Lomo al Trapo 300g', desc: 'Jugoso lomo de res envuelto en tela y cocido a la brasa.', price: '$89.250', image: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg' },
-  { num: '07', category: 'PLATOS PRINCIPALES', name: 'Costillitas de Cerdo 500g', desc: 'Costillas de cerdo a la BBQ con guarnición.', price: '$59.850', image: '/Menu/_MG_1420.jpg' },
-  { num: '08', category: 'PLATOS PRINCIPALES', name: 'Chicharrón Carnudo 400g', desc: 'Chicharrón premium con carne, acompañamientos tradicionales.', price: '$51.450', image: '/Menu/_MG_1421.jpg' },
-  { num: '09', category: 'PLATOS PRINCIPALES', name: 'Estofado de Res', desc: 'Tiras de res en salsa de vino tinto con vegetales.', price: '$66.200', image: '/Menu/DSC_0936-Mejorado-NR-16-min.jpg' },
-  { num: '10', category: 'PLATOS PRINCIPALES', name: 'Bandeja Paisa', desc: 'La auténtica bandeja paisa con todos sus acompañamientos.', price: '$57.750', image: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg' },
-  { num: '11', category: 'PLATOS PRINCIPALES', name: 'Piquete de Pollo', desc: 'Pollo a la brasa con papa criolla y chicharrón.', price: '$54.600', image: '/Menu/SALARIO-16.jpg' },
-  { num: '12', category: 'PLATOS PRINCIPALES', name: 'Mojarra Frita 500g', desc: 'Pescado fresco frito con patacones y ensalada.', price: '$55.650', image: '/Menu/_MG_5192.jpg' },
-  { num: '13', category: 'PLATOS PRINCIPALES', name: 'Guiso de Arveja con Pata de Res', desc: 'Arveja verde con trozo de res, plato tradicional.', price: '$54.600', image: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg' },
-  { num: '14', category: 'PLATOS PRINCIPALES', name: 'Sartenada', desc: 'Mezcla de carnes a la plancha con vegetales.', price: '$33.100', image: '/Menu/_MG_1458.jpg' },
-  { num: '15', category: 'SOPAS', name: 'Ajiaco Típico', desc: 'Ajiaco bogotano con tres tipos de papa, pollo y alcaparra.', price: '$43.100', image: '/Menu/_MG_5110.jpg' },
-  { num: '16', category: 'SOPAS', name: 'Sancocho Trifásico', desc: 'Sancocho con tres carnes, mazorca y plátano.', price: '$55.650', image: '/Menu/DSC_0811-Mejorado-NR-4-min.jpg' },
-  { num: '17', category: 'POSTRES', name: 'Torta de Almojábana', desc: 'Tradicional torta de queso y maíz.', price: '$22.050', image: '/Menu/SALARIO-68.jpg' },
-  { num: '18', category: 'POSTRES', name: 'Cuajada con Melao', desc: 'Cuajada fresca con melao de panela.', price: '$18.900', image: '/Menu/SALARIO-83.jpg' },
-  { num: '19', category: 'BEBIDAS', name: 'Soda Frutal Frutos Rojos', desc: 'Refrescante soda con frutos del bosque.', price: '$22.000', image: '/Menu/_MG_5254.jpg' },
+  { num: '01', category: 'PARRILLA', name: 'Hamburguesa Salario', desc: 'Hecha en casa con carne de res y cerdo, BBQ de uchuva, fondue de queso, vegetales y acompañamiento.', price: '$43.100', image: '/Menu/DSC_0095-Mejorado-NR-4-min.jpg' },
+  { num: '02', category: 'PARRILLA', name: 'Lomo de Res x 330 grs.', desc: 'Con ensalada fresca y un acompañamiento. (Pídelo al vino o a la pimienta)', price: '$84.000', image: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg' },
+  { num: '03', category: 'PARRILLA', name: 'Bisteck de Lomo "A Caballo"', desc: 'Acompañado de arroz blanco, huevo frito, salsa criolla y acompañamiento.', price: '$84.000', image: '/Menu/DSC_0936-Mejorado-NR-16-min.jpg' },
+  { num: '04', category: 'PARRILLA', name: 'T-Bone x 400 grs.', desc: 'Con ensalada fresca y un acompañamiento.', price: '$84.000', image: '/Menu/_MG_1420.jpg' },
+  { num: '05', category: 'PARRILLA', name: 'Filet Mignon x 330 grs.', desc: 'Bañado en salsa de champiñón con ensalada fresca y un acompañamiento.', price: '$89.000', image: '/Menu/DSC_0786-Mejorado-NR-2-min.jpg' },
+  { num: '06', category: 'PARRILLA', name: 'Churrasco x 330 grs.', desc: 'Con ensalada fresca y un acompañamiento.', price: '$83.000', image: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg' },
+  { num: '07', category: 'PARRILLA', name: 'Picada Sal de Noche', desc: 'Costillas de cerdo bañadas en BBQ de uchuva, chata de res, pechuga de pollo, morcilla, chorizo, papas criollas, salsas de la casa.', price: '$204.750', image: '/Menu/DSC_0811-Mejorado-NR-4-min.jpg' },
+  { num: '08', category: 'PARRILLA', name: 'Asado de Tira en Chimichurri x 500 grs.', desc: 'Con ensalada fresca y un acompañamiento.', price: '$72.450', image: '/Menu/_MG_1421.jpg' },
+  { num: '09', category: 'PARRILLA', name: 'Bife de Paleta x 330 grs.', desc: 'Con ensalada fresca y papas a la francesa.', price: '$58.800', image: '/Menu/_MG_1458.jpg' },
+  { num: '10', category: 'PARRILLA', name: 'Punta de Anca x 330 grs.', desc: 'Con ensalada fresca y un acompañamiento.', price: '$84.000', image: '/Menu/DSC_0065-Mejorado-NR-2-min.jpg' },
+  { num: '11', category: 'PLATOS FUERTES', name: 'Estofado de Res', desc: 'Cola de res y murillo acompañado de arroz blanco y patacón.', price: '$66.200', image: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg' },
+  { num: '12', category: 'PLATOS FUERTES', name: 'Sobrebarriga Criolla', desc: 'Acompañada de papas chalequeadas, arroz blanco, yuca, hogao y aguacate.', price: '$56.700', image: '/Menu/_MG_5192.jpg' },
+  { num: '13', category: 'PLATOS FUERTES', name: 'Piquete de Pollo', desc: 'Pierna pernil servida en hoja de plátano con papa, yuca, mazorca y platanitos en tentación, bañado en hogao y arroz pajarito.', price: '$54.600', image: '/Menu/SALARIO-16.jpg' },
+  { num: '14', category: 'PLATOS FUERTES', name: 'Costillas de Cerdo x 400 grs.', desc: 'En cocción lenta, con BBQ de uchuva, acompañamiento y ensalada.', price: '$59.850', image: '/Menu/_MG_1355.jpg' },
+  { num: '15', category: 'PLATOS FUERTES', name: 'Riel de Costillas x 750 grs.', desc: 'Costilla de res laqueada en barbacoa de lulo, cocción lenta 12 horas, acompañada de papas explotadas en mantequilla de finas hierbas y ensalada.', price: '$81.900', image: '/Menu/DSC_0015-Mejorado-NR-23-min.jpg' },
+  { num: '16', category: 'PLATOS FUERTES', name: 'Bandeja Paisa', desc: 'Arroz blanco, frijol, aguacate, plátano maduro, carne molida, chicharrón, chorizo, morcilla, huevo frito.', price: '$57.750', image: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg' },
+  { num: '17', category: 'PLATOS FUERTES', name: 'Huesos de Marrano x 700 gr.', desc: 'Codo de cerdo en salsa criolla con arvejas, acompañado de yuca, mazorca, papa y arroz.', price: '$65.100', image: '/Menu/_MG_5110.jpg' },
+  { num: '18', category: 'PLATOS FUERTES', name: 'Lengua en Salsa x 400 grs.', desc: 'Acompañada de yuca, papa en salsa criolla y arroz blanco.', price: '$57.750', image: '/Menu/SALARIO-83.jpg' },
+  { num: '19', category: 'SOPAS', name: 'Ajiaco Típico', desc: 'Ajiaco bogotano con tres tipos de papa, pollo y alcaparra.', price: '$43.100', image: '/Menu/_MG_5254.jpg' },
   { num: '20', category: 'BEBIDAS', name: 'Cóctel Sal Vigua', desc: 'Tequila, carbón activado, limón, sal vigua y sirope de frutos rojos.', price: '$45.000', image: '/Menu/SALARIO-38.jpg' },
 ]
 
@@ -331,15 +331,6 @@ const googleReviews = [
     timeAgo: 'Hace 1 semana',
     avatar: 'M',
   },
-]
-
-const eventoTipos = [
-  { icon: '💍', name: 'MATRIMONIOS' },
-  { icon: '🎂', name: 'CUMPLEAÑOS' },
-  { icon: '💑', name: 'ANIVERSARIOS' },
-  { icon: '🤝', name: 'INTEGRACIONES' },
-  { icon: '🎓', name: 'GRADUACIONES' },
-  { icon: '🎉', name: 'FIESTAS TEMÁTICAS' },
 ]
 
 /* ============================================================
@@ -583,10 +574,10 @@ export default function LandingPage() {
           {/* Left: item list */}
           <div className="landing-menu-list">
             <div className="landing-menu-cta-wrap landing-menu-cta-top">
-              <a href="/2025%20-%202026%20CARTA%20SALARIO.pdf.pdf" target="_blank" rel="noopener noreferrer" className="landing-btn-glass">{t.menuVerCompleto}</a>
+              <a href="/2026%20CARTA%20SALARIO%20ABRIL%202026.pdf" target="_blank" rel="noopener noreferrer" className="landing-btn-glass">{t.menuVerCompleto}</a>
             </div>
             <div className="landing-menu-category-label">{t.menuFavoritos}</div>
-            {[0, 3, 5, 6, 14, 19].map((idx, listPos) => {
+            {[0, 4, 6, 14, 15, 12].map((idx, listPos) => {
               const item = menuItems[idx]
               return (
                 <div key={idx}>
@@ -609,7 +600,7 @@ export default function LandingPage() {
 
           {/* Right: sticky photo panel */}
           <div className="landing-menu-photo-panel">
-            {[0, 3, 5, 6, 14, 19].map((idx, listPos) => (
+            {[0, 4, 6, 14, 15, 12].map((idx, listPos) => (
               <div
                 key={idx}
                 className={`landing-menu-photo${hoveredMenu === listPos ? ' visible' : ''}`}
@@ -980,15 +971,17 @@ export default function LandingPage() {
         </div>
         <div className="landing-map-wrap">
           <iframe
-            src="https://maps.google.com/maps?q=Cra+7+%232-83+Zipaquirá+Cundinamarca+Colombia&output=embed&hl=es&z=16"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3974.5213671633906!2d-74.0076169901283!3d5.0188289387979355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4071b91a4a14d9%3A0x859d753e42baeaee!2sSalario%20Restaurante%20Bar!5e0!3m2!1sen!2sco!4v1784844061608!5m2!1sen!2sco"
             title="Ubicación Salario de Zipa"
             loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            style={{ border: 0 }}
           />
         </div>
         <div className="landing-map-cta">
           <a
-            href="https://waze.com/ul?q=Cra+7+%232-83+Zipaquirá+Cundinamarca+Colombia&navigate=yes"
+            href="https://waze.com/ul?q=Cl.+1+%239-79+Zipaquirá+Cundinamarca+Colombia&navigate=yes"
             target="_blank"
             rel="noopener noreferrer"
             className="landing-btn-waze"
