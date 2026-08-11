@@ -449,6 +449,26 @@ export default function LandingPage() {
     return () => observer.disconnect()
   }, [])
 
+  // Mobile menu scroll observer — update hoveredMenu as user scrolls through dishes
+  useEffect(() => {
+    const isMobile = () => window.innerWidth <= 1024
+    if (!isMobile()) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const pos = parseInt((entry.target as HTMLElement).dataset.menupos ?? '0', 10)
+            setHoveredMenu(pos)
+          }
+        })
+      },
+      { threshold: 0.5, rootMargin: '-20% 0px -20% 0px' }
+    )
+    const rows = document.querySelectorAll('[data-menupos]')
+    rows.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
   // Auto-advance effects
   useEffect(() => {
     const t = setInterval(() => setHistoriaSlide(p => (p + 1) % historiaImages.length), 4000)
@@ -458,7 +478,7 @@ export default function LandingPage() {
   useEffect(() => {
     const t = setInterval(() => setEventosSlide(p => (p + 1) % eventosImages.length), 3500)
     return () => clearInterval(t)
-  }, [])
+  }, [eventosImages.length])
 
   useEffect(() => {
     const t = setInterval(() => setGaleriaSlide(p => (p + 1) % activeGaleria.length), 3500)
@@ -679,17 +699,12 @@ export default function LandingPage() {
               const item = activeMenu[idx]
               if (!item) return null
               return (
-                <div key={idx}>
+                <div key={idx} data-menupos={listPos}>
                   <div
                     className={`landing-menu-row${hoveredMenu === listPos ? ' active' : ''}`}
                     onMouseEnter={() => setHoveredMenu(listPos)}
                     onClick={() => setHoveredMenu(listPos)}
                   >
-                    {item.image_url && (
-                      <div className="landing-menu-row-thumb">
-                        <Image src={item.image_url} alt={item.name} fill sizes="80px" style={{ objectFit: 'cover' }} />
-                      </div>
-                    )}
                     <span className="landing-menu-row-num">{item.num}</span>
                     <div className="landing-menu-row-info">
                       <span className="landing-menu-row-name">{item.name}</span>
@@ -878,13 +893,13 @@ export default function LandingPage() {
         <div className="ls-eventos-stage">
           <button
             className="ls-eventos-arrow"
-            onClick={() => setEventosSlide(p => (p - 1 + eventosImages.length) % eventosImages.length)}
+            onClick={() => setEventosSlide(p => (p - 1 + activeEventos.length) % activeEventos.length)}
             aria-label="Anterior"
           >&#8592;</button>
 
           <div className="ls-eventos-track">
-            {eventosImages.map((m, i) => {
-              const total = eventosImages.length
+            {activeEventos.map((m, i) => {
+              const total = activeEventos.length
               let diff = i - eventosSlide
               if (diff > total / 2) diff -= total
               if (diff < -total / 2) diff += total
@@ -913,14 +928,14 @@ export default function LandingPage() {
 
           <button
             className="ls-eventos-arrow"
-            onClick={() => setEventosSlide(p => (p + 1) % eventosImages.length)}
+            onClick={() => setEventosSlide(p => (p + 1) % activeEventos.length)}
             aria-label="Siguiente"
           >&#8594;</button>
         </div>
 
         {/* Dots */}
         <div className="ls-eventos-dots">
-          {eventosImages.map((_, i) => (
+          {activeEventos.map((_, i) => (
             <button
               key={i}
               className={`ls-evento-dot${eventosSlide === i ? ' active' : ''}`}

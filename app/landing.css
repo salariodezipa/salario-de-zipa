@@ -619,12 +619,17 @@
   border-color: var(--ls-brick-dark);
 }
 
-/* Mobile photo panel for menu — hidden, replaced by inline thumbnails */
+/* Mobile photo panel for menu — hidden on desktop, shown on mobile */
 .landing-menu-mobile-photo-wrap {
   display: none;
+  position: relative;
+  width: 100%;
+  height: 380px;
+  overflow: hidden;
+  background: #111;
 }
 
-/* Inline thumbnail — hidden on desktop, visible on mobile */
+/* Inline thumbnail — not used */
 .landing-menu-row-thumb {
   display: none;
 }
@@ -2496,15 +2501,9 @@
     padding: 0 24px 40px;
   }
 
-  /* Show inline photo thumbnail on mobile */
-  .landing-menu-row-thumb {
+  /* Show mobile photo panel */
+  .landing-menu-mobile-photo-wrap {
     display: block;
-    position: relative;
-    width: 72px;
-    height: 72px;
-    border-radius: 6px;
-    overflow: hidden;
-    flex-shrink: 0;
   }
 
   .landing-menu-row {
