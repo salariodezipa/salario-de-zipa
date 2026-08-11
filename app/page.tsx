@@ -245,7 +245,13 @@ function StatCounter({ target, suffix = '', label }: StatCounterProps) {
    ============================================================ */
 
 const menuItems = [
-  { num: '01', category: 'PARRILLA', name: 'Hamburguesa Salario', desc: 'Hecha en casa con carne de res y cerdo, BBQ de uchuva, fondue de queso, vegetales y acompañamiento.', price: '$43.100', image: '/Menu/DSC_0095-Mejorado-NR-4-min.jpg' },
+  { num: '01', category: 'HORNOS DE SAL', name: 'Lomo al Trapo', desc: 'Preparado en nuestros hornos de sal, acompañado de mantequilla con especias y ensalada fresca de la casa, adicional podrás escoger una guarnición.', price: '$89.000', image: '/Carta/Lomo Al Trapo.jpeg' },
+  { num: '02', category: 'PLATOS FUERTES', name: 'Costillas de Cerdo x 400 grs.', desc: 'En cocción lenta, con BBQ de uchuva, acompañamiento y ensalada.', price: '$59.850', image: '/Carta/COSTILLAS DE CERDO X 400 GRS.jpeg' },
+  { num: '03', category: 'ENTRADAS', name: 'Chicharrones Salario', desc: 'En cama de guacamole rústico, con arepa plana, pico de gallo y limón.', price: '$38.500', image: '/Carta/CHICHARRONES SALARIO.jpeg' },
+  { num: '04', category: 'ENTRADAS', name: 'Arepa de Chóclo', desc: 'Yellow Corn Arepa. Con queso y suero costeño.', price: '$18.900', image: '/Carta/AREPA DE CHÓCLO.jpeg' },
+  { num: '05', category: 'SOPAS', name: 'Ajiaco Típico', desc: 'Acompañado de arroz blanco, aguacate, crema de leche y alcaparras.', price: '$43.100', image: '/Carta/AJIACO TÍPICO.jpeg' },
+  { num: '06', category: 'PARRILLA', name: 'Carnes Maduradas', desc: 'Nuestros cortes son cuidadosamente madurados, una experiencia única en Zipaquirá.', price: '', image: '/Carta/Carnes Maduradas.jpeg' },
+  { num: '07', category: 'PARRILLA', name: 'Hamburguesa Salario', desc: 'Hecha en casa con carne de res y cerdo, BBQ de uchuva, fondue de queso, vegetales y acompañamiento.', price: '$43.100', image: '/Menu/DSC_0095-Mejorado-NR-4-min.jpg' },
   { num: '02', category: 'PARRILLA', name: 'Lomo de Res x 330 grs.', desc: 'Con ensalada fresca y un acompañamiento. (Pídelo al vino o a la pimienta)', price: '$84.000', image: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg' },
   { num: '03', category: 'PARRILLA', name: 'Bisteck de Lomo "A Caballo"', desc: 'Acompañado de arroz blanco, huevo frito, salsa criolla y acompañamiento.', price: '$84.000', image: '/Menu/DSC_0936-Mejorado-NR-16-min.jpg' },
   { num: '04', category: 'PARRILLA', name: 'T-Bone x 400 grs.', desc: 'Con ensalada fresca y un acompañamiento.', price: '$84.000', image: '/Menu/_MG_1420.jpg' },
@@ -268,11 +274,11 @@ const menuItems = [
 ]
 
 const eventosImages = [
-  { src: '/Eventos/DSC_0841-Mejorado-NR-1.jpg', label: 'MATRIMONIOS', desc: 'Celebra el día más especial de tu vida en un entorno histórico único.' },
-  { src: '/Eventos/_MG_0867.jpg', label: 'ANIVERSARIOS', desc: 'Cada año de amor merece ser celebrado con la grandeza que merece.' },
-  { src: '/Eventos/DSCF4585.jpg', label: 'CELEBRACIONES', desc: 'Cualquier ocasión especial merece un escenario excepcional.' },
-  { src: '/Eventos/DSC_0700-Mejorado-NR-34.jpg', label: 'EVENTOS CORPORATIVOS', desc: 'Espacios exclusivos para reuniones, lanzamientos y celebraciones empresariales.' },
-  { src: '/Eventos/_MG_0827.jpg', label: 'INTEGRACIONES', desc: 'Honra el esfuerzo y el logro con una celebración a la altura del momento.' },
+  { src: '/Eventos/Show de magia.jpeg', label: 'SHOW DE MAGIA', desc: 'Una noche de asombro e ilusión en el escenario más mágico de Zipaquirá.' },
+  { src: '/Eventos/Fin de semana de cometas.jpeg', label: 'FIN DE SEMANA DE COMETAS', desc: 'Un fin de semana lleno de color, viento y tradición para toda la familia.' },
+  { src: '/Eventos/Parranda vallenata.jpeg', label: 'PARRANDA VALLENATA', desc: 'La música del alma colombiana en vivo, entre acordeones y memorias.' },
+  { src: '/Eventos/Los hispanos en concierto.jpeg', label: 'LOS HISPANOS EN CONCIERTO', desc: 'Una noche de grandes clásicos de la música tropical colombiana.' },
+  { src: '/Eventos/Sinatra Tributo.jpeg', label: 'SINATRA TRIBUTO', desc: 'Las canciones inmortales del Chairman of the Board en un homenaje de lujo.' },
 ]
 
 const galeriaImages = [
@@ -614,7 +620,7 @@ export default function LandingPage() {
               <a href="/2026%20CARTA%20SALARIO%20ABRIL%202026.pdf" target="_blank" rel="noopener noreferrer" className="landing-btn-glass">{t.menuVerCompleto}</a>
             </div>
             <div className="landing-menu-category-label">{t.menuFavoritos}</div>
-            {[0, 4, 6, 14, 15, 12].map((idx, listPos) => {
+            {[0, 1, 2, 3, 4, 5].map((idx, listPos) => {
               const item = menuItems[idx]
               return (
                 <div key={idx}>
@@ -637,7 +643,7 @@ export default function LandingPage() {
 
           {/* Right: sticky photo panel */}
           <div className="landing-menu-photo-panel">
-            {[0, 4, 6, 14, 15, 12].map((idx, listPos) => (
+            {[0, 1, 2, 3, 4, 5].map((idx, listPos) => (
               <div
                 key={idx}
                 className={`landing-menu-photo${hoveredMenu === listPos ? ' visible' : ''}`}
