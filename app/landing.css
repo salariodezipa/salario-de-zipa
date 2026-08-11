@@ -3283,8 +3283,8 @@
 
 .ls-popup-close:hover { background: rgba(0,0,0,0.7); }
 
-.ls-popup-img-wrap { width: 100%; height: 220px; overflow: hidden; }
-.ls-popup-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ls-popup-img-wrap { width: 100%; }
+.ls-popup-img { width: 100%; height: auto; max-height: 70vh; object-fit: contain; display: block; }
 
 .ls-popup-body {
   padding: 28px 32px 32px;

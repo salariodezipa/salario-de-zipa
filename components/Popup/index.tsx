@@ -32,8 +32,9 @@ export default function Popup({ lang }: { lang: 'es' | 'en' }) {
       <div className="ls-popup-card" onClick={e => e.stopPropagation()}>
         <button className="ls-popup-close" onClick={() => setVisible(false)} aria-label="Cerrar">✕</button>
         {config.image_url && (
+          // eslint-disable-next-line @next/next/no-img-element
           <div className="ls-popup-img-wrap">
-            <img src={config.image_url} alt={title} className="ls-popup-img" />
+            <img src={config.image_url} alt={title ?? ''} className="ls-popup-img" />
           </div>
         )}
         <div className="ls-popup-body">
