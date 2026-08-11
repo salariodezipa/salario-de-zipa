@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import { useEffect, useRef, useState, useCallback } from 'react'
 import './landing.css'
+import { supabase, type MenuItem, type Evento, type GaleriaItem } from '@/lib/supabase'
+import Popup from '@/components/Popup'
 
 /* ============================================================
    TRANSLATIONS
@@ -267,32 +269,32 @@ function StatCounter({ target, suffix = '', label }: StatCounterProps) {
    ============================================================ */
 
 const menuItems = [
-  { num: '01', category: 'HORNOS DE SAL', name: 'Lomo al Trapo', desc: 'Preparado en nuestros hornos de sal, acompañado de mantequilla con especias y ensalada fresca de la casa, adicional podrás escoger una guarnición.', price: '$89.000', image: '/Carta/Lomo Al Trapo.jpeg' },
-  { num: '02', category: 'PLATOS FUERTES', name: 'Costillas de Cerdo x 400 grs.', desc: 'En cocción lenta, con BBQ de uchuva, acompañamiento y ensalada.', price: '$59.850', image: '/Carta/COSTILLAS DE CERDO X 400 GRS.jpeg' },
-  { num: '03', category: 'ENTRADAS', name: 'Chicharrones Salario', desc: 'En cama de guacamole rústico, con arepa plana, pico de gallo y limón.', price: '$38.500', image: '/Carta/CHICHARRONES SALARIO.jpeg' },
-  { num: '04', category: 'ENTRADAS', name: 'Arepa de Chóclo', desc: 'Yellow Corn Arepa. Con queso y suero costeño.', price: '$18.900', image: '/Carta/AREPA DE CHÓCLO.jpeg' },
-  { num: '05', category: 'SOPAS', name: 'Ajiaco Típico', desc: 'Acompañado de arroz blanco, aguacate, crema de leche y alcaparras.', price: '$43.100', image: '/Carta/AJIACO TÍPICO.jpeg' },
-  { num: '06', category: 'PARRILLA', name: 'Carnes Maduradas', desc: 'Nuestros cortes son cuidadosamente madurados, una experiencia única en Zipaquirá.', price: '', image: '/Carta/Carnes Maduradas.jpeg' },
-  { num: '07', category: 'PARRILLA', name: 'Hamburguesa Salario', desc: 'Hecha en casa con carne de res y cerdo, BBQ de uchuva, fondue de queso, vegetales y acompañamiento.', price: '$43.100', image: '/Menu/DSC_0095-Mejorado-NR-4-min.jpg' },
-  { num: '02', category: 'PARRILLA', name: 'Lomo de Res x 330 grs.', desc: 'Con ensalada fresca y un acompañamiento. (Pídelo al vino o a la pimienta)', price: '$84.000', image: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg' },
-  { num: '03', category: 'PARRILLA', name: 'Bisteck de Lomo "A Caballo"', desc: 'Acompañado de arroz blanco, huevo frito, salsa criolla y acompañamiento.', price: '$84.000', image: '/Menu/DSC_0936-Mejorado-NR-16-min.jpg' },
-  { num: '04', category: 'PARRILLA', name: 'T-Bone x 400 grs.', desc: 'Con ensalada fresca y un acompañamiento.', price: '$84.000', image: '/Menu/_MG_1420.jpg' },
-  { num: '05', category: 'PARRILLA', name: 'Filet Mignon x 330 grs.', desc: 'Bañado en salsa de champiñón con ensalada fresca y un acompañamiento.', price: '$89.000', image: '/Menu/DSC_0786-Mejorado-NR-2-min.jpg' },
-  { num: '06', category: 'PARRILLA', name: 'Churrasco x 330 grs.', desc: 'Con ensalada fresca y un acompañamiento.', price: '$83.000', image: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg' },
-  { num: '07', category: 'PARRILLA', name: 'Picada Sal de Noche', desc: 'Costillas de cerdo bañadas en BBQ de uchuva, chata de res, pechuga de pollo, morcilla, chorizo, papas criollas, salsas de la casa.', price: '$204.750', image: '/Menu/DSC_0811-Mejorado-NR-4-min.jpg' },
-  { num: '08', category: 'PARRILLA', name: 'Asado de Tira en Chimichurri x 500 grs.', desc: 'Con ensalada fresca y un acompañamiento.', price: '$72.450', image: '/Menu/_MG_1421.jpg' },
-  { num: '09', category: 'PARRILLA', name: 'Bife de Paleta x 330 grs.', desc: 'Con ensalada fresca y papas a la francesa.', price: '$58.800', image: '/Menu/_MG_1458.jpg' },
-  { num: '10', category: 'PARRILLA', name: 'Punta de Anca x 330 grs.', desc: 'Con ensalada fresca y un acompañamiento.', price: '$84.000', image: '/Menu/DSC_0065-Mejorado-NR-2-min.jpg' },
-  { num: '11', category: 'PLATOS FUERTES', name: 'Estofado de Res', desc: 'Cola de res y murillo acompañado de arroz blanco y patacón.', price: '$66.200', image: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg' },
-  { num: '12', category: 'PLATOS FUERTES', name: 'Sobrebarriga Criolla', desc: 'Acompañada de papas chalequeadas, arroz blanco, yuca, hogao y aguacate.', price: '$56.700', image: '/Menu/_MG_5192.jpg' },
-  { num: '13', category: 'PLATOS FUERTES', name: 'Piquete de Pollo', desc: 'Pierna pernil servida en hoja de plátano con papa, yuca, mazorca y platanitos en tentación, bañado en hogao y arroz pajarito.', price: '$54.600', image: '/Menu/SALARIO-16.jpg' },
-  { num: '14', category: 'PLATOS FUERTES', name: 'Costillas de Cerdo x 400 grs.', desc: 'En cocción lenta, con BBQ de uchuva, acompañamiento y ensalada.', price: '$59.850', image: '/Menu/_MG_1355.jpg' },
-  { num: '15', category: 'PLATOS FUERTES', name: 'Riel de Costillas x 750 grs.', desc: 'Costilla de res laqueada en barbacoa de lulo, cocción lenta 12 horas, acompañada de papas explotadas en mantequilla de finas hierbas y ensalada.', price: '$81.900', image: '/Menu/DSC_0015-Mejorado-NR-23-min.jpg' },
-  { num: '16', category: 'PLATOS FUERTES', name: 'Bandeja Paisa', desc: 'Arroz blanco, frijol, aguacate, plátano maduro, carne molida, chicharrón, chorizo, morcilla, huevo frito.', price: '$57.750', image: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg' },
-  { num: '17', category: 'PLATOS FUERTES', name: 'Huesos de Marrano x 700 gr.', desc: 'Codo de cerdo en salsa criolla con arvejas, acompañado de yuca, mazorca, papa y arroz.', price: '$65.100', image: '/Menu/_MG_5110.jpg' },
-  { num: '18', category: 'PLATOS FUERTES', name: 'Lengua en Salsa x 400 grs.', desc: 'Acompañada de yuca, papa en salsa criolla y arroz blanco.', price: '$57.750', image: '/Menu/SALARIO-83.jpg' },
-  { num: '19', category: 'SOPAS', name: 'Ajiaco Típico', desc: 'Ajiaco bogotano con tres tipos de papa, pollo y alcaparra.', price: '$43.100', image: '/Menu/_MG_5254.jpg' },
-  { num: '20', category: 'BEBIDAS', name: 'Cóctel Sal Vigua', desc: 'Tequila, carbón activado, limón, sal vigua y sirope de frutos rojos.', price: '$45.000', image: '/Menu/SALARIO-38.jpg' },
+  { num: '01', category: 'HORNOS DE SAL', name: 'Lomo al Trapo', desc: 'Preparado en nuestros hornos de sal, acompañado de mantequilla con especias y ensalada fresca de la casa, adicional podrás escoger una guarnición.', desc_es: 'Preparado en nuestros hornos de sal, acompañado de mantequilla con especias y ensalada fresca de la casa, adicional podrás escoger una guarnición.', desc_en: 'Preparado en nuestros hornos de sal, acompañado de mantequilla con especias y ensalada fresca de la casa, adicional podrás escoger una guarnición.', price: '$89.000', image_url: '/Carta/Lomo Al Trapo.jpeg' },
+  { num: '02', category: 'PLATOS FUERTES', name: 'Costillas de Cerdo x 400 grs.', desc: 'En cocción lenta, con BBQ de uchuva, acompañamiento y ensalada.', desc_es: 'En cocción lenta, con BBQ de uchuva, acompañamiento y ensalada.', desc_en: 'En cocción lenta, con BBQ de uchuva, acompañamiento y ensalada.', price: '$59.850', image_url: '/Carta/COSTILLAS DE CERDO X 400 GRS.jpeg' },
+  { num: '03', category: 'ENTRADAS', name: 'Chicharrones Salario', desc: 'En cama de guacamole rústico, con arepa plana, pico de gallo y limón.', desc_es: 'En cama de guacamole rústico, con arepa plana, pico de gallo y limón.', desc_en: 'En cama de guacamole rústico, con arepa plana, pico de gallo y limón.', price: '$38.500', image_url: '/Carta/CHICHARRONES SALARIO.jpeg' },
+  { num: '04', category: 'ENTRADAS', name: 'Arepa de Chóclo', desc: 'Yellow Corn Arepa. Con queso y suero costeño.', desc_es: 'Yellow Corn Arepa. Con queso y suero costeño.', desc_en: 'Yellow Corn Arepa. Con queso y suero costeño.', price: '$18.900', image_url: '/Carta/AREPA DE CHÓCLO.jpeg' },
+  { num: '05', category: 'SOPAS', name: 'Ajiaco Típico', desc: 'Acompañado de arroz blanco, aguacate, crema de leche y alcaparras.', desc_es: 'Acompañado de arroz blanco, aguacate, crema de leche y alcaparras.', desc_en: 'Acompañado de arroz blanco, aguacate, crema de leche y alcaparras.', price: '$43.100', image_url: '/Carta/AJIACO TÍPICO.jpeg' },
+  { num: '06', category: 'PARRILLA', name: 'Carnes Maduradas', desc: 'Nuestros cortes son cuidadosamente madurados, una experiencia única en Zipaquirá.', desc_es: 'Nuestros cortes son cuidadosamente madurados, una experiencia única en Zipaquirá.', desc_en: 'Nuestros cortes son cuidadosamente madurados, una experiencia única en Zipaquirá.', price: '', image_url: '/Carta/Carnes Maduradas.jpeg' },
+  { num: '07', category: 'PARRILLA', name: 'Hamburguesa Salario', desc: 'Hecha en casa con carne de res y cerdo, BBQ de uchuva, fondue de queso, vegetales y acompañamiento.', desc_es: 'Hecha en casa con carne de res y cerdo, BBQ de uchuva, fondue de queso, vegetales y acompañamiento.', desc_en: 'Hecha en casa con carne de res y cerdo, BBQ de uchuva, fondue de queso, vegetales y acompañamiento.', price: '$43.100', image_url: '/Menu/DSC_0095-Mejorado-NR-4-min.jpg' },
+  { num: '02', category: 'PARRILLA', name: 'Lomo de Res x 330 grs.', desc: 'Con ensalada fresca y un acompañamiento. (Pídelo al vino o a la pimienta)', desc_es: 'Con ensalada fresca y un acompañamiento. (Pídelo al vino o a la pimienta)', desc_en: 'Con ensalada fresca y un acompañamiento. (Pídelo al vino o a la pimienta)', price: '$84.000', image_url: '/Menu/DSC_0823-Mejorado-NR-5-min.jpg' },
+  { num: '03', category: 'PARRILLA', name: 'Bisteck de Lomo "A Caballo"', desc: 'Acompañado de arroz blanco, huevo frito, salsa criolla y acompañamiento.', desc_es: 'Acompañado de arroz blanco, huevo frito, salsa criolla y acompañamiento.', desc_en: 'Acompañado de arroz blanco, huevo frito, salsa criolla y acompañamiento.', price: '$84.000', image_url: '/Menu/DSC_0936-Mejorado-NR-16-min.jpg' },
+  { num: '04', category: 'PARRILLA', name: 'T-Bone x 400 grs.', desc: 'Con ensalada fresca y un acompañamiento.', desc_es: 'Con ensalada fresca y un acompañamiento.', desc_en: 'Con ensalada fresca y un acompañamiento.', price: '$84.000', image_url: '/Menu/_MG_1420.jpg' },
+  { num: '05', category: 'PARRILLA', name: 'Filet Mignon x 330 grs.', desc: 'Bañado en salsa de champiñón con ensalada fresca y un acompañamiento.', desc_es: 'Bañado en salsa de champiñón con ensalada fresca y un acompañamiento.', desc_en: 'Bañado en salsa de champiñón con ensalada fresca y un acompañamiento.', price: '$89.000', image_url: '/Menu/DSC_0786-Mejorado-NR-2-min.jpg' },
+  { num: '06', category: 'PARRILLA', name: 'Churrasco x 330 grs.', desc: 'Con ensalada fresca y un acompañamiento.', desc_es: 'Con ensalada fresca y un acompañamiento.', desc_en: 'Con ensalada fresca y un acompañamiento.', price: '$83.000', image_url: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg' },
+  { num: '07', category: 'PARRILLA', name: 'Picada Sal de Noche', desc: 'Costillas de cerdo bañadas en BBQ de uchuva, chata de res, pechuga de pollo, morcilla, chorizo, papas criollas, salsas de la casa.', desc_es: 'Costillas de cerdo bañadas en BBQ de uchuva, chata de res, pechuga de pollo, morcilla, chorizo, papas criollas, salsas de la casa.', desc_en: 'Costillas de cerdo bañadas en BBQ de uchuva, chata de res, pechuga de pollo, morcilla, chorizo, papas criollas, salsas de la casa.', price: '$204.750', image_url: '/Menu/DSC_0811-Mejorado-NR-4-min.jpg' },
+  { num: '08', category: 'PARRILLA', name: 'Asado de Tira en Chimichurri x 500 grs.', desc: 'Con ensalada fresca y un acompañamiento.', desc_es: 'Con ensalada fresca y un acompañamiento.', desc_en: 'Con ensalada fresca y un acompañamiento.', price: '$72.450', image_url: '/Menu/_MG_1421.jpg' },
+  { num: '09', category: 'PARRILLA', name: 'Bife de Paleta x 330 grs.', desc: 'Con ensalada fresca y papas a la francesa.', desc_es: 'Con ensalada fresca y papas a la francesa.', desc_en: 'Con ensalada fresca y papas a la francesa.', price: '$58.800', image_url: '/Menu/_MG_1458.jpg' },
+  { num: '10', category: 'PARRILLA', name: 'Punta de Anca x 330 grs.', desc: 'Con ensalada fresca y un acompañamiento.', desc_es: 'Con ensalada fresca y un acompañamiento.', desc_en: 'Con ensalada fresca y un acompañamiento.', price: '$84.000', image_url: '/Menu/DSC_0065-Mejorado-NR-2-min.jpg' },
+  { num: '11', category: 'PLATOS FUERTES', name: 'Estofado de Res', desc: 'Cola de res y murillo acompañado de arroz blanco y patacón.', desc_es: 'Cola de res y murillo acompañado de arroz blanco y patacón.', desc_en: 'Cola de res y murillo acompañado de arroz blanco y patacón.', price: '$66.200', image_url: '/Menu/DSC_0155-Mejorado-NR-10-min.jpg' },
+  { num: '12', category: 'PLATOS FUERTES', name: 'Sobrebarriga Criolla', desc: 'Acompañada de papas chalequeadas, arroz blanco, yuca, hogao y aguacate.', desc_es: 'Acompañada de papas chalequeadas, arroz blanco, yuca, hogao y aguacate.', desc_en: 'Acompañada de papas chalequeadas, arroz blanco, yuca, hogao y aguacate.', price: '$56.700', image_url: '/Menu/_MG_5192.jpg' },
+  { num: '13', category: 'PLATOS FUERTES', name: 'Piquete de Pollo', desc: 'Pierna pernil servida en hoja de plátano con papa, yuca, mazorca y platanitos en tentación, bañado en hogao y arroz pajarito.', desc_es: 'Pierna pernil servida en hoja de plátano con papa, yuca, mazorca y platanitos en tentación, bañado en hogao y arroz pajarito.', desc_en: 'Pierna pernil servida en hoja de plátano con papa, yuca, mazorca y platanitos en tentación, bañado en hogao y arroz pajarito.', price: '$54.600', image_url: '/Menu/SALARIO-16.jpg' },
+  { num: '14', category: 'PLATOS FUERTES', name: 'Costillas de Cerdo x 400 grs.', desc: 'En cocción lenta, con BBQ de uchuva, acompañamiento y ensalada.', desc_es: 'En cocción lenta, con BBQ de uchuva, acompañamiento y ensalada.', desc_en: 'En cocción lenta, con BBQ de uchuva, acompañamiento y ensalada.', price: '$59.850', image_url: '/Menu/_MG_1355.jpg' },
+  { num: '15', category: 'PLATOS FUERTES', name: 'Riel de Costillas x 750 grs.', desc: 'Costilla de res laqueada en barbacoa de lulo, cocción lenta 12 horas, acompañada de papas explotadas en mantequilla de finas hierbas y ensalada.', desc_es: 'Costilla de res laqueada en barbacoa de lulo, cocción lenta 12 horas, acompañada de papas explotadas en mantequilla de finas hierbas y ensalada.', desc_en: 'Costilla de res laqueada en barbacoa de lulo, cocción lenta 12 horas, acompañada de papas explotadas en mantequilla de finas hierbas y ensalada.', price: '$81.900', image_url: '/Menu/DSC_0015-Mejorado-NR-23-min.jpg' },
+  { num: '16', category: 'PLATOS FUERTES', name: 'Bandeja Paisa', desc: 'Arroz blanco, frijol, aguacate, plátano maduro, carne molida, chicharrón, chorizo, morcilla, huevo frito.', desc_es: 'Arroz blanco, frijol, aguacate, plátano maduro, carne molida, chicharrón, chorizo, morcilla, huevo frito.', desc_en: 'Arroz blanco, frijol, aguacate, plátano maduro, carne molida, chicharrón, chorizo, morcilla, huevo frito.', price: '$57.750', image_url: '/Menu/DSC_0930-Mejorado-NR-15-min.jpg' },
+  { num: '17', category: 'PLATOS FUERTES', name: 'Huesos de Marrano x 700 gr.', desc: 'Codo de cerdo en salsa criolla con arvejas, acompañado de yuca, mazorca, papa y arroz.', desc_es: 'Codo de cerdo en salsa criolla con arvejas, acompañado de yuca, mazorca, papa y arroz.', desc_en: 'Codo de cerdo en salsa criolla con arvejas, acompañado de yuca, mazorca, papa y arroz.', price: '$65.100', image_url: '/Menu/_MG_5110.jpg' },
+  { num: '18', category: 'PLATOS FUERTES', name: 'Lengua en Salsa x 400 grs.', desc: 'Acompañada de yuca, papa en salsa criolla y arroz blanco.', desc_es: 'Acompañada de yuca, papa en salsa criolla y arroz blanco.', desc_en: 'Acompañada de yuca, papa en salsa criolla y arroz blanco.', price: '$57.750', image_url: '/Menu/SALARIO-83.jpg' },
+  { num: '19', category: 'SOPAS', name: 'Ajiaco Típico', desc: 'Ajiaco bogotano con tres tipos de papa, pollo y alcaparra.', desc_es: 'Ajiaco bogotano con tres tipos de papa, pollo y alcaparra.', desc_en: 'Ajiaco bogotano con tres tipos de papa, pollo y alcaparra.', price: '$43.100', image_url: '/Menu/_MG_5254.jpg' },
+  { num: '20', category: 'BEBIDAS', name: 'Cóctel Sal Vigua', desc: 'Tequila, carbón activado, limón, sal vigua y sirope de frutos rojos.', desc_es: 'Tequila, carbón activado, limón, sal vigua y sirope de frutos rojos.', desc_en: 'Tequila, carbón activado, limón, sal vigua y sirope de frutos rojos.', price: '$45.000', image_url: '/Menu/SALARIO-38.jpg' },
 ]
 
 const eventosImages = [
@@ -394,6 +396,23 @@ export default function LandingPage() {
     { src: '/Menu/DSC_0095-Mejorado-NR-4-min.jpg', alt: 'Comida Salario de Zipa' },
   ]
 
+  // Dynamic content from Supabase (falls back to static data)
+  const [dbMenuItems, setDbMenuItems] = useState<MenuItem[] | null>(null)
+  const [dbEventos, setDbEventos] = useState<Evento[] | null>(null)
+  const [dbGaleria, setDbGaleria] = useState<GaleriaItem[] | null>(null)
+
+  useEffect(() => {
+    supabase.from('menu_items').select('*').order('display_order').then(({ data }) => {
+      if (data && data.length > 0) setDbMenuItems(data)
+    })
+    supabase.from('eventos').select('*').order('display_order').then(({ data }) => {
+      if (data && data.length > 0) setDbEventos(data)
+    })
+    supabase.from('galeria').select('*').order('display_order').then(({ data }) => {
+      if (data && data.length > 0) setDbGaleria(data)
+    })
+  }, [])
+
   // State
   const [historiaSlide, setHistoriaSlide] = useState(0)
   const [eventosSlide, setEventosSlide] = useState(0)
@@ -442,13 +461,13 @@ export default function LandingPage() {
   }, [])
 
   useEffect(() => {
-    const t = setInterval(() => setGaleriaSlide(p => (p + 1) % galeriaImages.length), 3500)
+    const t = setInterval(() => setGaleriaSlide(p => (p + 1) % activeGaleria.length), 3500)
     return () => clearInterval(t)
   }, [])
 
   // 3D carousel helper for galeria
   const getGaleriaClass = (i: number): string => {
-    const total = galeriaImages.length
+    const total = activeGaleria.length
     let diff = i - galeriaSlide
     if (diff > total / 2) diff -= total
     if (diff < -total / 2) diff += total
@@ -457,6 +476,18 @@ export default function LandingPage() {
     if (diff === -1) return 'is-prev'
     return 'is-hidden'
   }
+
+  // Merge Supabase data with static fallbacks
+  const activeMenu = dbMenuItems ?? menuItems
+  const featuredMenuIndices = dbMenuItems
+    ? dbMenuItems.map((_, i) => i).filter(i => dbMenuItems[i].is_featured)
+    : [0, 1, 2, 3, 4, 5]
+  const activeEventos = dbEventos
+    ? dbEventos.map(e => ({ src: e.image_url, label: lang === 'es' ? e.label_es : e.label_en, desc: lang === 'es' ? e.desc_es : e.desc_en }))
+    : eventosImages
+  const activeGaleria = dbGaleria
+    ? dbGaleria.map(g => ({ src: g.image_url, label: lang === 'es' ? g.label_es : g.label_en }))
+    : galeriaImages
 
   return (
     <div className="landing-root">
@@ -629,9 +660,9 @@ export default function LandingPage() {
 
         {/* Mobile photo panel */}
         <div className="landing-menu-mobile-photo-wrap">
-          {[0, 3, 5, 6, 14, 19].map((idx, listPos) => (
+          {featuredMenuIndices.map((idx, listPos) => (
             <div key={idx} className={`landing-menu-photo${hoveredMenu === listPos ? ' visible' : ''}`}>
-              <Image src={menuItems[idx].image} alt={menuItems[idx].name} fill sizes="100vw" style={{ objectFit: 'cover' }} />
+              <Image src={activeMenu[idx]?.image_url || ''} alt={activeMenu[idx]?.name || ''} fill sizes="100vw" style={{ objectFit: 'cover' }} />
             </div>
           ))}
         </div>
@@ -644,8 +675,9 @@ export default function LandingPage() {
               <a href="/2026%20CARTA%20SALARIO%20ABRIL%202026.pdf" target="_blank" rel="noopener noreferrer" className="landing-btn-glass">{t.menuVerCompleto}</a>
             </div>
             <div className="landing-menu-category-label">{t.menuFavoritos}</div>
-            {[0, 1, 2, 3, 4, 5].map((idx, listPos) => {
-              const item = menuItems[idx]
+            {featuredMenuIndices.map((idx, listPos) => {
+              const item = activeMenu[idx]
+              if (!item) return null
               return (
                 <div key={idx}>
                   <div
@@ -655,7 +687,7 @@ export default function LandingPage() {
                     <span className="landing-menu-row-num">{item.num}</span>
                     <div className="landing-menu-row-info">
                       <span className="landing-menu-row-name">{item.name}</span>
-                      <span className="landing-menu-row-desc">{item.desc}</span>
+                      <span className="landing-menu-row-desc">{lang === 'es' ? (item.desc_es || (item as any).desc) : (item.desc_en || (item as any).desc)}</span>
                     </div>
                     <span className="landing-menu-row-price">{item.price}</span>
                     <span className="landing-menu-row-arrow">→</span>
@@ -667,14 +699,14 @@ export default function LandingPage() {
 
           {/* Right: sticky photo panel */}
           <div className="landing-menu-photo-panel">
-            {[0, 1, 2, 3, 4, 5].map((idx, listPos) => (
+            {featuredMenuIndices.map((idx, listPos) => (
               <div
                 key={idx}
                 className={`landing-menu-photo${hoveredMenu === listPos ? ' visible' : ''}`}
               >
                 <Image
-                  src={menuItems[idx].image}
-                  alt={menuItems[idx].name}
+                  src={activeMenu[idx]?.image_url || ''}
+                  alt={activeMenu[idx]?.name || ''}
                   fill
                   sizes="(max-width: 768px) 100vw, 45vw"
                   style={{ objectFit: 'cover' }}
@@ -771,7 +803,7 @@ export default function LandingPage() {
         </div>
 
         <div className="landing-eventos-3d-stage">
-          {galeriaImages.map((m, i) => (
+          {activeGaleria.map((m, i) => (
             <div
               key={i}
               className={`landing-evento-card-3d ${getGaleriaClass(i)}`}
@@ -790,11 +822,11 @@ export default function LandingPage() {
           <div className="landing-eventos-arrows">
             <button
               className="landing-evento-arrow"
-              onClick={() => setGaleriaSlide(p => (p - 1 + galeriaImages.length) % galeriaImages.length)}
+              onClick={() => setGaleriaSlide(p => (p - 1 + activeGaleria.length) % activeGaleria.length)}
               aria-label="Anterior"
             >←</button>
             <div className="landing-eventos-dots">
-              {galeriaImages.map((m, i) => (
+              {activeGaleria.map((m, i) => (
                 <button
                   key={i}
                   className={`landing-evento-dot${galeriaSlide === i ? ' active' : ''}`}
@@ -805,7 +837,7 @@ export default function LandingPage() {
             </div>
             <button
               className="landing-evento-arrow"
-              onClick={() => setGaleriaSlide(p => (p + 1) % galeriaImages.length)}
+              onClick={() => setGaleriaSlide(p => (p + 1) % activeGaleria.length)}
               aria-label="Siguiente"
             >→</button>
           </div>
@@ -1285,6 +1317,9 @@ export default function LandingPage() {
           <path d={WA_PATH} />
         </svg>
       </a>
+
+      {/* Popup dinámico */}
+      <Popup lang={lang} />
 
     </div>
   )

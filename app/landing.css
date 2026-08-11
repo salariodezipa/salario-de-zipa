@@ -3208,3 +3208,96 @@
     padding: 20px 24px;
   }
 }
+
+/* ============================================================
+   POPUP
+   ============================================================ */
+.ls-popup-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.ls-popup-card {
+  background: var(--ls-salt);
+  border-radius: 8px;
+  max-width: 480px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+  animation: slideUp 0.35s var(--ease-elegant);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ls-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.85rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.ls-popup-close:hover { background: rgba(0,0,0,0.7); }
+
+.ls-popup-img-wrap { width: 100%; height: 220px; overflow: hidden; }
+.ls-popup-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.ls-popup-body {
+  padding: 28px 32px 32px;
+  text-align: center;
+}
+
+.ls-popup-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--ls-text);
+  margin-bottom: 12px;
+}
+
+.ls-popup-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--ls-text-muted);
+  margin-bottom: 24px;
+}
+
+.ls-popup-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 36px;
+  background: var(--ls-brick);
+  color: #fff;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.ls-popup-cta:hover { background: var(--ls-brick-dark); }
