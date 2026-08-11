@@ -1265,7 +1265,7 @@ export default function LandingPage() {
             <div className="landing-footer-socials-large">
               {/* Instagram */}
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/salario_de_zipa/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="landing-footer-social-large"
@@ -1280,7 +1280,7 @@ export default function LandingPage() {
               </a>
               {/* Facebook */}
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/profile.php?id=61554488138683"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="landing-footer-social-large"
