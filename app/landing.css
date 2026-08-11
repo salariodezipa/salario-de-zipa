@@ -3038,3 +3038,173 @@
     transition: none;
   }
 }
+
+/* ============================================================
+   NAVBAR — Agencias highlight
+   ============================================================ */
+.landing-nav-agencias {
+  color: var(--ls-brick) !important;
+  font-weight: 700 !important;
+}
+
+.landing-nav.scrolled .landing-nav-agencias {
+  color: var(--ls-brick) !important;
+}
+
+/* ============================================================
+   AGENCIAS DE VIAJE SECTION
+   ============================================================ */
+.ls-agencias-section {
+  background: var(--ls-cream);
+  border-top: 1px solid var(--ls-border);
+  padding: 100px 120px;
+}
+
+.ls-agencias-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+}
+
+.ls-agencias-header {
+  text-align: center;
+  max-width: 680px;
+}
+
+.ls-agencias-eyebrow {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  color: var(--ls-brick);
+  margin-bottom: 16px;
+}
+
+.ls-agencias-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  color: var(--ls-text);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.ls-agencias-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--ls-text-muted);
+}
+
+/* Three-column benefits */
+.ls-agencias-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  width: 100%;
+}
+
+.ls-agencias-benefit {
+  background: var(--ls-salt);
+  border: 1px solid var(--ls-border);
+  border-radius: 4px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.ls-agencias-benefit:hover {
+  border-color: var(--ls-brick-light);
+  box-shadow: 0 4px 24px rgba(129, 60, 31, 0.08);
+}
+
+.ls-agencias-benefit-icon {
+  width: 44px;
+  height: 44px;
+  color: var(--ls-brick);
+  flex-shrink: 0;
+}
+
+.ls-agencias-benefit-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ls-agencias-benefit-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  color: var(--ls-text);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ls-agencias-benefit-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ls-text-muted);
+}
+
+/* CTA */
+.ls-agencias-cta {
+  display: flex;
+  justify-content: center;
+}
+
+.ls-agencias-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #25D366;
+  color: #fff;
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 20px 48px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.3);
+}
+
+.ls-agencias-cta-btn:hover {
+  background: #1da851;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(37, 211, 102, 0.45);
+}
+
+/* Mobile */
+@media (max-width: 1024px) {
+  .ls-agencias-section {
+    padding: 80px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ls-agencias-section {
+    padding: 60px 24px;
+  }
+
+  .ls-agencias-benefits {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .ls-agencias-benefit {
+    padding: 28px 24px;
+  }
+
+  .ls-agencias-cta-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 20px 24px;
+  }
+}

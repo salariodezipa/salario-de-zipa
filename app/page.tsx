@@ -14,6 +14,7 @@ const translations = {
     navGaleria: 'GALERÍA',
     navGastronomia: 'GASTRONOMÍA',
     navEventos: 'EVENTOS',
+    navAgencias: 'AGENCIAS',
     navContacto: 'CONTACTO',
     navReservar: 'RESERVAR MESA',
     heroEyebrow: 'ZIPAQUIRÁ · COLOMBIA · DESDE 1930',
@@ -62,6 +63,16 @@ const translations = {
     mapWaze: 'OBTENER DIRECCIONES EN WAZE',
     turismoEyebrow: 'ZIPAQUIRÁ DISTRITO TURÍSTICO',
     turismoTitle: 'Descubre la Capital Salinera de Colombia',
+    agenciasEyebrow: 'ALIANZAS TURÍSTICAS',
+    agenciasTitle: 'Programa de Agencias de Viaje',
+    agenciasBody: 'Si tu plan incluye Zipaquirá, Salario de Zipa puede ser la parada gastronómica que marque la diferencia. Ofrecemos tarifas preferenciales para agencias de viaje que incorporen la alimentación en nuestro restaurante dentro de sus paquetes turísticos.',
+    agenciasBenefit1Title: 'Tarifas Preferenciales',
+    agenciasBenefit1Desc: 'Precios especiales para grupos que incluyan alimentación dentro de su paquete turístico.',
+    agenciasBenefit2Title: 'Capacidad para Grupos',
+    agenciasBenefit2Desc: 'Espacios para hasta 800 personas con menú ejecutivo y atención dedicada para agencias.',
+    agenciasBenefit3Title: 'Experiencia Única',
+    agenciasBenefit3Desc: 'Gastronomía de autor en el único horno de sal activo desde 1930 en Zipaquirá.',
+    agenciasCtaLabel: 'CONTACTAR PARA ALIANZA',
     footerSiguenos: 'SÍGUENOS',
     footerContacto: 'CONTÁCTANOS',
     footerHorario: 'Mar – Dom: 12:00 pm – 10:00 pm',
@@ -77,6 +88,7 @@ const translations = {
     navGaleria: 'GALLERY',
     navGastronomia: 'GASTRONOMY',
     navEventos: 'EVENTS',
+    navAgencias: 'AGENCIES',
     navContacto: 'CONTACT',
     navReservar: 'RESERVE TABLE',
     heroEyebrow: 'ZIPAQUIRÁ · COLOMBIA · SINCE 1930',
@@ -125,6 +137,16 @@ const translations = {
     mapWaze: 'GET DIRECTIONS IN WAZE',
     turismoEyebrow: 'ZIPAQUIRÁ TOURIST DISTRICT',
     turismoTitle: 'Discover the Salt Capital of Colombia',
+    agenciasEyebrow: 'TOURISM PARTNERSHIPS',
+    agenciasTitle: 'Travel Agency Program',
+    agenciasBody: 'If your tour includes Zipaquirá, Salario de Zipa can be the gastronomic highlight that sets your package apart. We offer preferential rates for travel agencies that include dining at our restaurant within their tourism packages.',
+    agenciasBenefit1Title: 'Preferential Rates',
+    agenciasBenefit1Desc: 'Special pricing for groups that include meals as part of their tourism package.',
+    agenciasBenefit2Title: 'Group Capacity',
+    agenciasBenefit2Desc: 'Space for up to 800 guests with executive menus and dedicated service for agencies.',
+    agenciasBenefit3Title: 'Unique Experience',
+    agenciasBenefit3Desc: 'Signature gastronomy in the only active salt kiln since 1930 in Zipaquirá.',
+    agenciasCtaLabel: 'CONTACT FOR PARTNERSHIP',
     footerSiguenos: 'FOLLOW US',
     footerContacto: 'CONTACT US',
     footerHorario: 'Tue – Sun: 12:00 pm – 10:00 pm',
@@ -459,6 +481,7 @@ export default function LandingPage() {
           <li><a href="#galeria">{t.navGaleria}</a></li>
           <li><a href="#gastronomia">{t.navGastronomia}</a></li>
           <li><a href="#eventos">{t.navEventos}</a></li>
+          <li><a href="#agencias" className="landing-nav-agencias">{t.navAgencias}</a></li>
           <li><a href="#contacto">{t.navContacto}</a></li>
         </ul>
 
@@ -494,6 +517,7 @@ export default function LandingPage() {
             <li><a href="#galeria" onClick={() => setMobileMenuOpen(false)}>{t.navGaleria}</a></li>
             <li><a href="#gastronomia" onClick={() => setMobileMenuOpen(false)}>{t.navGastronomia}</a></li>
             <li><a href="#eventos" onClick={() => setMobileMenuOpen(false)}>{t.navEventos}</a></li>
+            <li><a href="#agencias" onClick={() => setMobileMenuOpen(false)}>{t.navAgencias}</a></li>
             <li><a href="#contacto" onClick={() => setMobileMenuOpen(false)}>{t.navContacto}</a></li>
           </ul>
           <div className="landing-mobile-drawer-ctas">
@@ -1082,6 +1106,63 @@ export default function LandingPage() {
                 <div className="landing-staff-card-overlay" />
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          AGENCIAS DE VIAJE
+          ============================================================ */}
+      <section className="ls-agencias-section" id="agencias">
+        <div className="ls-agencias-inner">
+          <div className="ls-agencias-header ls-reveal" ref={addRevealRef}>
+            <span className="ls-agencias-eyebrow">{t.agenciasEyebrow}</span>
+            <h2 className="ls-agencias-title">{t.agenciasTitle}</h2>
+            <p className="ls-agencias-body">{t.agenciasBody}</p>
+          </div>
+
+          <div className="ls-agencias-benefits ls-reveal" ref={addRevealRef}>
+            <div className="ls-agencias-benefit">
+              <div className="ls-agencias-benefit-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 14.25l-2.25-2.25M9 14.25l6-6M9 14.25V18m6-6l2.25-2.25M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="ls-agencias-benefit-title">{t.agenciasBenefit1Title}</h3>
+              <p className="ls-agencias-benefit-desc">{t.agenciasBenefit1Desc}</p>
+            </div>
+            <div className="ls-agencias-benefit">
+              <div className="ls-agencias-benefit-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                </svg>
+              </div>
+              <h3 className="ls-agencias-benefit-title">{t.agenciasBenefit2Title}</h3>
+              <p className="ls-agencias-benefit-desc">{t.agenciasBenefit2Desc}</p>
+            </div>
+            <div className="ls-agencias-benefit">
+              <div className="ls-agencias-benefit-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                </svg>
+              </div>
+              <h3 className="ls-agencias-benefit-title">{t.agenciasBenefit3Title}</h3>
+              <p className="ls-agencias-benefit-desc">{t.agenciasBenefit3Desc}</p>
+            </div>
+          </div>
+
+          <div className="ls-agencias-cta ls-reveal" ref={addRevealRef}>
+            <a
+              href="https://wa.me/573226048752?text=Hola%2C%20soy%20representante%20de%20una%20agencia%20de%20viajes%20y%20me%20gustar%C3%ADa%20conocer%20sus%20tarifas%20preferenciales%20para%20grupos."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ls-agencias-cta-btn"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d={WA_PATH} />
+              </svg>
+              {t.agenciasCtaLabel}
+            </a>
           </div>
         </div>
       </section>
