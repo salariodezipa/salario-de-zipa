@@ -683,7 +683,13 @@ export default function LandingPage() {
                   <div
                     className={`landing-menu-row${hoveredMenu === listPos ? ' active' : ''}`}
                     onMouseEnter={() => setHoveredMenu(listPos)}
+                    onClick={() => setHoveredMenu(listPos)}
                   >
+                    {item.image_url && (
+                      <div className="landing-menu-row-thumb">
+                        <Image src={item.image_url} alt={item.name} fill sizes="80px" style={{ objectFit: 'cover' }} />
+                      </div>
+                    )}
                     <span className="landing-menu-row-num">{item.num}</span>
                     <div className="landing-menu-row-info">
                       <span className="landing-menu-row-name">{item.name}</span>
