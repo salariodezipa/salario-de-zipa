@@ -15,10 +15,6 @@ function storageUrl(bucket: string, path: string) {
   return `${SUPABASE_URL}/storage/v1/object/public/${bucket}/${path}`
 }
 
-function isExternalUrl(url: string) {
-  return url.startsWith('http') || url.startsWith('//')
-}
-
 function resolveImg(url: string) {
   return url || ''
 }
@@ -40,18 +36,22 @@ function ImgUploader({
   const [progress, setProgress] = useState(0)
   const [uploading, setUploading] = useState(false)
   const [preview, setPreview] = useState(current)
+  const [uploadError, setUploadError] = useState<string | null>(null)
 
   useEffect(() => { setPreview(current) }, [current])
 
   async function handleFile(file: File) {
     setUploading(true)
+    setUploadError(null)
     setProgress(20)
     const ext = file.name.split('.').pop()
     const filename = `${Date.now()}.${ext}`
     setProgress(50)
     const { error } = await supabase.storage.from(bucket).upload(filename, file, { upsert: true })
     setProgress(90)
-    if (!error) {
+    if (error) {
+      setUploadError(`Error al subir: ${error.message}`)
+    } else {
       const url = storageUrl(bucket, filename)
       setPreview(url)
       onUploaded(url)
@@ -64,7 +64,7 @@ function ImgUploader({
     <div>
       <div className="adm-img-uploader" onClick={() => inputRef.current?.click()}>
         {preview
-          ? <img src={isExternalUrl(preview) ? preview : preview} alt="preview" className="adm-img-preview" />
+          ? <img src={preview} alt="preview" className="adm-img-preview" />
           : <div className="adm-img-uploader-hint">Sin imagen</div>}
         <p className="adm-img-uploader-hint">
           <strong>Haz clic para cambiar</strong> · JPG, PNG, WEBP
@@ -75,6 +75,11 @@ function ImgUploader({
           </div>
         )}
       </div>
+      {uploadError && (
+        <p style={{ color: '#c0392b', fontSize: '0.8rem', marginTop: 6, padding: '6px 10px', background: '#fdf2f2', borderRadius: 4 }}>
+          {uploadError}
+        </p>
+      )}
       <input
         ref={inputRef}
         type="file"
