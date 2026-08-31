@@ -10,7 +10,6 @@ export default function Popup({ lang }: { lang: 'es' | 'en' }) {
   useEffect(() => {
     supabase.from('popup_config').select('*').single().then(({ data }) => {
       if (data?.enabled) {
-        // Only show once per session
         const key = 'salario_popup_seen'
         if (!sessionStorage.getItem(key)) {
           setConfig(data)
@@ -26,6 +25,22 @@ export default function Popup({ lang }: { lang: 'es' | 'en' }) {
   const title = lang === 'es' ? config.title_es : config.title_en
   const body  = lang === 'es' ? config.body_es  : config.body_en
   const cta   = lang === 'es' ? config.cta_label_es : config.cta_label_en
+
+  const hasText = !!(title || body || (cta && config.cta_url))
+  const imageOnly = config.image_url && !hasText
+
+  if (imageOnly) {
+    // Solo imagen: sin card, sin bordes, foto a tamaño natural centrada
+    return (
+      <div className="ls-popup-backdrop" onClick={() => setVisible(false)}>
+        <div className="ls-popup-img-only" onClick={e => e.stopPropagation()}>
+          <button className="ls-popup-close ls-popup-close-img" onClick={() => setVisible(false)} aria-label="Cerrar">✕</button>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={config.image_url} alt="" className="ls-popup-img-natural" />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="ls-popup-backdrop" onClick={() => setVisible(false)}>

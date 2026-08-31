@@ -3286,6 +3286,38 @@
 .ls-popup-img-wrap { width: 100%; }
 .ls-popup-img { width: 100%; height: auto; max-height: 70vh; object-fit: contain; display: block; }
 
+/* Modo solo-imagen: sin card, sin bordes */
+.ls-popup-img-only {
+  position: relative;
+  display: inline-block;
+  max-width: min(90vw, 600px);
+  max-height: 90vh;
+  line-height: 0;
+}
+
+.ls-popup-img-natural {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.ls-popup-close-img {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  z-index: 10;
+  background: rgba(0,0,0,0.6);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .ls-popup-body {
   padding: 28px 32px 32px;
   text-align: center;

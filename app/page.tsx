@@ -1055,7 +1055,7 @@ export default function LandingPage() {
       <section className="landing-cta-section" id="reservar">
         <div className="landing-cta-bg">
           <Image
-            src="/Instalaciones/_MG_2087.jpg"
+            src="/Instalaciones/WhatsApp Image 2026-08-31 at 12.18.28.jpeg"
             alt="Reserva en Salario de Zipa"
             fill
             sizes="100vw"
