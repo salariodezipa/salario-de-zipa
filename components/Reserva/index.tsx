@@ -65,7 +65,7 @@ export default function Reserva() {
                   <circle cx="12" cy="12" r="10"/>
                   <polyline points="12 6 12 12 16 14"/>
                 </svg>
-                <span>Lun - Dom: 11:00 a.m. - 10:00 p.m.</span>
+                <span>Dom – Dom: 12:00 pm – 10:00 pm</span>
               </div>
             </div>
 
